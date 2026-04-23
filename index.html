@@ -1,67 +1,275 @@
-EveryVoteMatters
-Live
-Delhi 12:03 pm
-⚡ BJP wins Mustafabad     AAP retains Okhla     Voter turnout in New Delhi reaches 71.2%     INC leads in Ballimaran     70 Assembly seats · 272 MCD wards     Data auto-refreshes every 30 minutes
-Overview
-Candidates
-Affidavits
-Voter Turnout
-Results
-70
-Assembly Seats
-272
-MCD Wards
-1,47,86,382
-Total Voters
-62.4%
-Avg Turnout
-2,847
-Candidates
-Assembly — 70 seats
-48
-BJP
-15
-AAP
-4
-INC
-3
-Others
-MCD — 272 wards
-134
-BJP
-95
-AAP
-28
-INC
-15
-Others
-Top turnout constituencies
-New Delhi
-71.2%
-Chandni Chowk
-68.9%
-Rohini
-65.4%
-Okhla
-63.1%
-Mustafabad
-58.7%
-Live result feed
-BJP
-Parvesh Verma
-New Delhi
-Won +8,232
-AAP
-Amanatullah Khan
-Okhla
-Won +5,617
-BJP
-Mohan Singh Bisht
-Mustafabad
-Won +3,904
-INC
-Haroon Yusuf
-Ballimaran
-Leading
-Built for everyvotematter.com  ·  Data: ECI Delhi  ·  Auto-refresh every 30 min
-Last updated: 23/4/2026, 12:03:43 pm
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every Vote Matters — Delhi Elections</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Georgia,serif;background:#FAF7F2;color:#0D0D0D;min-height:100vh}
+header{background:#0D0D0D;color:white;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:60px;border-bottom:3px solid #FF6B00;position:sticky;top:0;z-index:100}
+.logo{font-size:1.3rem;font-weight:bold;letter-spacing:-0.5px}
+.logo span{color:#FF6B00}
+.live{display:flex;align-items:center;gap:6px;font-size:12px;color:#4ade80;border:1px solid #4ade8044;padding:4px 10px;border-radius:20px}
+.dot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.ticker-wrap{background:#FF6B00;color:white;font-size:12px;font-weight:bold;padding:7px 0;overflow:hidden;white-space:nowrap}
+.ticker{display:inline-block;animation:tick 40s linear infinite;padding-left:100%}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+nav{background:white;border-bottom:1px solid #ddd;display:flex;overflow-x:auto;padding:0 1rem}
+nav button{font-size:13px;font-weight:600;padding:13px 18px;border:none;background:none;cursor:pointer;color:#888;border-bottom:2px solid transparent;white-space:nowrap}
+nav button.on{color:#FF6B00;border-bottom-color:#FF6B00}
+.statsbar{display:grid;grid-template-columns:repeat(5,1fr);background:white;border-bottom:1px solid #ddd}
+@media(max-width:600px){.statsbar{grid-template-columns:repeat(3,1fr)}}
+.sc{padding:1rem;border-right:1px solid #ddd;text-align:center}
+.sc:last-child{border-right:none}
+.sn{font-size:1.5rem;font-weight:bold;color:#0D0D0D}
+.sn.o{color:#FF6B00}
+.sl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-top:2px}
+main{padding:1.5rem;max-width:1100px;margin:0 auto}
+.sh{font-size:1.2rem;font-weight:bold;margin-bottom:1rem;padding-bottom:6px;border-bottom:2px solid #FF6B00;display:inline-block}
+.panel{display:none}.panel.on{display:block}
+.seatbar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:1.5rem}
+.sp{padding:10px;text-align:center;font-size:12px;font-weight:600}
+.sp .n{font-size:1.3rem;font-weight:bold;display:block}
+.bjp{background:#FFF0E6;color:#FF6B00}
+.aap{background:#E6F0FF;color:#1A3FAA}
+.inc{background:#E8F5EE;color:#1B6B3A}
+.oth{background:#F5F5F5;color:#888}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+@media(max-width:600px){.g3{grid-template-columns:1fr}}
+.card{background:white;border:1px solid #ddd;border-radius:8px;padding:1.2rem}
+.ct{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:.75rem}
+.bw{margin:5px 0}
+.bl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+.bt{background:#eee;border-radius:3px;height:7px;overflow:hidden}
+.bf{height:100%;border-radius:3px}
+.bbjp{background:#FF6B00}
+.baap{background:#1A3FAA}
+.binc{background:#1B6B3A}
+.rr{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #eee;font-size:13px}
+.rr:last-child{border-bottom:none}
+.rp{width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.wb{background:#FFF8E6;color:#B45309;font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;margin-left:auto}
+.cr{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #eee}
+.cr:last-child{border-bottom:none}
+.av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.cn{font-size:14px;font-weight:600}
+.cp{font-size:11px;color:#888}
+.ac{border-left:3px solid #FF6B00;padding:9px 12px;background:white;border-radius:0 6px 6px 0;margin-bottom:8px;border-top:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee}
+.an{font-size:14px;font-weight:600}
+.am{font-size:11px;color:#888;margin-top:3px}
+.aa{font-size:13px;font-weight:600;margin-top:4px}
+.bg{font-size:9px;font-weight:600;padding:2px 7px;border-radius:3px;text-transform:uppercase;margin-left:6px}
+.wg{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px;margin-bottom:1rem}
+.wc{background:white;border:1px solid #ddd;border-radius:5px;padding:7px 5px;text-align:center;cursor:pointer;font-size:11px}
+.wc:hover{background:#FFF0E6;border-color:#FF6B00}
+.wn{font-weight:700;font-size:13px}
+.wl{color:#888;font-size:10px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.big{font-size:2.5rem;font-weight:bold}
+footer{background:#0D0D0D;color:rgba(255,255,255,.4);font-size:12px;text-align:center;padding:1.2rem;margin-top:2.5rem}
+footer a{color:#FF6B00;text-decoration:none}
+select,input{font-size:13px;padding:7px 10px;border:1px solid #ddd;border-radius:5px;background:white;font-family:inherit}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Every<span>Vote</span>Matters</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="live"><div class="dot"></div>Live</div>
+    <span style="font-size:11px;color:rgba(255,255,255,.4)" id="htime"></span>
+  </div>
+</header>
+
+<div class="ticker-wrap">
+  <span class="ticker">⚡ BJP wins Mustafabad &nbsp;&nbsp;&nbsp; AAP retains Okhla &nbsp;&nbsp;&nbsp; Voter turnout in New Delhi reaches 71.2% &nbsp;&nbsp;&nbsp; INC leads in Ballimaran &nbsp;&nbsp;&nbsp; 70 Assembly seats · 272 MCD wards &nbsp;&nbsp;&nbsp; Data auto-refreshes every 30 minutes</span>
+</div>
+
+<nav>
+  <button class="on" onclick="tab('overview',this)">Overview</button>
+  <button onclick="tab('candidates',this)">Candidates</button>
+  <button onclick="tab('affidavits',this)">Affidavits</button>
+  <button onclick="tab('turnout',this)">Voter Turnout</button>
+  <button onclick="tab('results',this)">Results</button>
+</nav>
+
+<div class="statsbar">
+  <div class="sc"><div class="sn o">70</div><div class="sl">Assembly Seats</div></div>
+  <div class="sc"><div class="sn">272</div><div class="sl">MCD Wards</div></div>
+  <div class="sc"><div class="sn" id="sv">1,47,86,382</div><div class="sl">Total Voters</div></div>
+  <div class="sc"><div class="sn o" id="st">62.4%</div><div class="sl">Avg Turnout</div></div>
+  <div class="sc"><div class="sn" id="sc2">2,847</div><div class="sl">Candidates</div></div>
+</div>
+
+<main>
+
+<!-- OVERVIEW -->
+<div id="p-overview" class="panel on">
+  <div class="sh">Assembly — 70 seats</div>
+  <div class="seatbar">
+    <div class="sp bjp"><span class="n" id="ab">48</span>BJP</div>
+    <div class="sp aap"><span class="n" id="aa">15</span>AAP</div>
+    <div class="sp inc"><span class="n" id="ai">4</span>INC</div>
+    <div class="sp oth"><span class="n" id="ao">3</span>Others</div>
+  </div>
+  <div class="bw" style="margin-bottom:1.5rem">
+    <div class="bt" style="height:12px;border-radius:6px;display:flex;overflow:hidden">
+      <div class="bf bbjp" style="width:68.6%"></div>
+      <div class="bf baap" style="width:21.4%"></div>
+      <div class="bf binc" style="width:5.7%"></div>
+      <div class="bf" style="width:4.3%;background:#ccc"></div>
+    </div>
+  </div>
+
+  <div class="sh">MCD — 272 wards</div>
+  <div class="seatbar" style="margin-bottom:1.5rem">
+    <div class="sp bjp"><span class="n">134</span>BJP</div>
+    <div class="sp aap"><span class="n">95</span>AAP</div>
+    <div class="sp inc"><span class="n">28</span>INC</div>
+    <div class="sp oth"><span class="n">15</span>Others</div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top turnout constituencies</div>
+      <div class="bw"><div class="bl"><span>New Delhi</span><span><b>71.2%</b></span></div><div class="bt"><div class="bf bbjp" style="width:71.2%"></div></div></div>
+      <div class="bw"><div class="bl"><span>Chandni Chowk</span><span><b>68.9%</b></span></div><div class="bt"><div class="bf baap" style="width:68.9%"></div></div></div>
+      <div class="bw"><div class="bl"><span>Rohini</span><span><b>65.4%</b></span></div><div class="bt"><div class="bf bbjp" style="width:65.4%"></div></div></div>
+      <div class="bw"><div class="bl"><span>Okhla</span><span><b>63.1%</b></span></div><div class="bt"><div class="bf baap" style="width:63.1%"></div></div></div>
+      <div class="bw"><div class="bl"><span>Mustafabad</span><span><b>58.7%</b></span></div><div class="bt"><div class="bf bbjp" style="width:58.7%"></div></div></div>
+    </div>
+    <div class="card">
+      <div class="ct">Live result feed</div>
+      <div class="rr"><div class="rp bjp">BJP</div><span style="flex:1"><div class="cn">Parvesh Verma</div><div class="cp">New Delhi</div></span><span class="wb">Won +8,232</span></div>
+      <div class="rr"><div class="rp aap">AAP</div><span style="flex:1"><div class="cn">Amanatullah Khan</div><div class="cp">Okhla</div></span><span class="wb">Won +5,617</span></div>
+      <div class="rr"><div class="rp bjp">BJP</div><span style="flex:1"><div class="cn">Mohan Singh Bisht</div><div class="cp">Mustafabad</div></span><span class="wb">Won +3,904</span></div>
+      <div class="rr"><div class="rp inc">INC</div><span style="flex:1"><div class="cn">Haroon Yusuf</div><div class="cp">Ballimaran</div></span><span style="margin-left:auto;font-size:11px;color:#888">Leading</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CANDIDATES -->
+<div id="p-candidates" class="panel">
+  <div class="sh">All Candidates</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">
+    <select id="fp" onchange="filterC()"><option value="">All Parties</option><option>BJP</option><option>AAP</option><option>INC</option><option>IND</option></select>
+    <input type="text" id="fs" placeholder="Search name..." oninput="filterC()" style="flex:1;min-width:150px">
+  </div>
+  <div class="card" id="clist">
+    <div class="cr"><div class="av bjp">PV</div><div style="flex:1"><div class="cn">Parvesh Verma</div><div class="cp">BJP · Assembly · New Delhi</div></div><span style="font-size:11px;color:#FF6B00;font-weight:600">Won</span></div>
+    <div class="cr"><div class="av aap">AK</div><div style="flex:1"><div class="cn">Amanatullah Khan</div><div class="cp">AAP · Assembly · Okhla</div></div><span style="font-size:11px;color:#1A3FAA;font-weight:600">Won</span></div>
+    <div class="cr"><div class="av inc">HY</div><div style="flex:1"><div class="cn">Haroon Yusuf</div><div class="cp">INC · Assembly · Ballimaran</div></div><span style="font-size:11px;color:#1B6B3A;font-weight:600">Leading</span></div>
+    <div class="cr"><div class="av bjp">MB</div><div style="flex:1"><div class="cn">Mohan Singh Bisht</div><div class="cp">BJP · Assembly · Mustafabad</div></div><span style="font-size:11px;color:#FF6B00;font-weight:600">Won</span></div>
+    <div class="cr"><div class="av bjp">VS</div><div style="flex:1"><div class="cn">Virendra Sachdeva</div><div class="cp">BJP · Assembly · Rohini</div></div><span style="font-size:11px;color:#FF6B00;font-weight:600">Won</span></div>
+    <div class="cr"><div class="av aap">RC</div><div style="flex:1"><div class="cn">Raghav Chadha</div><div class="cp">AAP · Assembly · Rajinder Nagar</div></div><span style="font-size:11px;color:#888">Counting</span></div>
+  </div>
+  <p style="font-size:11px;color:#888;margin-top:.5rem">Showing sample data. Full list loads when Supabase is connected.</p>
+</div>
+
+<!-- AFFIDAVITS -->
+<div id="p-affidavits" class="panel">
+  <div class="sh">Candidate Affidavits</div>
+  <p style="font-size:12px;color:#888;margin-bottom:1rem">Assets · Liabilities · Criminal cases — Source: ECI</p>
+  <div class="ac"><div class="an">Parvesh Verma <span class="bg bjp">BJP</span></div><div class="am">New Delhi Assembly · Filed 14 Jan 2025</div><div class="aa">Assets: <span style="color:#1B6B3A">₹14.2 Cr</span> &nbsp;·&nbsp; Liabilities: ₹0 &nbsp;·&nbsp; <span style="color:#1B6B3A">0 criminal cases</span></div></div>
+  <div class="ac"><div class="an">Amanatullah Khan <span class="bg aap">AAP</span></div><div class="am">Okhla Assembly · Filed 13 Jan 2025</div><div class="aa">Assets: <span style="color:#1B6B3A">₹3.8 Cr</span> &nbsp;·&nbsp; Liabilities: ₹45 L &nbsp;·&nbsp; <span style="color:#C0392B">2 criminal cases pending</span></div></div>
+  <div class="ac"><div class="an">Haroon Yusuf <span class="bg inc">INC</span></div><div class="am">Ballimaran Assembly · Filed 15 Jan 2025</div><div class="aa">Assets: <span style="color:#1B6B3A">₹7.1 Cr</span> &nbsp;·&nbsp; Liabilities: ₹1.2 Cr &nbsp;·&nbsp; <span style="color:#1B6B3A">0 criminal cases</span></div></div>
+  <div class="ac"><div class="an">Mohan Singh Bisht <span class="bg bjp">BJP</span></div><div class="am">Mustafabad Assembly · Filed 12 Jan 2025</div><div class="aa">Assets: <span style="color:#1B6B3A">₹2.1 Cr</span> &nbsp;·&nbsp; Liabilities: ₹18 L &nbsp;·&nbsp; <span style="color:#C0392B">1 criminal case pending</span></div></div>
+</div>
+
+<!-- TURNOUT -->
+<div id="p-turnout" class="panel">
+  <div class="sh">Voter Turnout</div>
+  <div class="g3">
+    <div class="card" style="text-align:center"><div class="ct">Assembly overall</div><div class="big" style="color:#FF6B00">62.4%</div><div style="font-size:12px;color:#888;margin-top:4px">of 1,47,86,382 voters</div></div>
+    <div class="card" style="text-align:center"><div class="ct">MCD overall</div><div class="big" style="color:#1A3FAA">58.9%</div><div style="font-size:12px;color:#888;margin-top:4px">272 wards combined</div></div>
+    <div class="card" style="text-align:center"><div class="ct">Highest turnout</div><div class="big" style="color:#1B6B3A;font-size:2rem">71.2%</div><div style="font-size:12px;color:#888;margin-top:4px">New Delhi constituency</div></div>
+  </div>
+  <div class="card">
+    <div class="ct" style="margin-bottom:1rem">Constituency-wise turnout</div>
+    <div class="bw"><div class="bl"><span>New Delhi</span><span>71.2%</span></div><div class="bt"><div class="bf bbjp" style="width:71.2%"></div></div></div>
+    <div class="bw"><div class="bl"><span>Chandni Chowk</span><span>68.9%</span></div><div class="bt"><div class="bf baap" style="width:68.9%"></div></div></div>
+    <div class="bw"><div class="bl"><span>Rohini</span><span>65.4%</span></div><div class="bt"><div class="bf bbjp" style="width:65.4%"></div></div></div>
+    <div class="bw"><div class="bl"><span>Okhla</span><span>63.1%</span></div><div class="bt"><div class="bf baap" style="width:63.1%"></div></div></div>
+    <div class="bw"><div class="bl"><span>Mustafabad</span><span>58.7%</span></div><div class="bt"><div class="bf bbjp" style="width:58.7%"></div></div></div>
+    <div class="bw"><div class="bl"><span>Ballimaran</span><span>56.2%</span></div><div class="bt"><div class="bf binc" style="width:56.2%"></div></div></div>
+    <div class="bw"><div class="bl"><span>Patel Nagar</span><span>51.8%</span></div><div class="bt"><div class="bf bbjp" style="width:51.8%"></div></div></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="p-results" class="panel">
+  <div class="sh">Election Results</div>
+  <div style="display:flex;gap:8px;margin-bottom:1rem">
+    <button onclick="res('assembly',this)" id="ra" style="font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #FF6B00;background:#FFF0E6;color:#FF6B00;border-radius:4px;cursor:pointer">Assembly</button>
+    <button onclick="res('mcd',this)" id="rm" style="font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #ddd;background:white;color:#888;border-radius:4px;cursor:pointer">MCD Wards</button>
+  </div>
+  <div id="ra-panel">
+    <div class="card">
+      <div class="rr"><b style="color:#888;width:20px">1</b><div class="rp bjp">BJP</div><span style="flex:1"><div class="cn">Parvesh Verma</div><div class="cp">New Delhi</div></span><span style="text-align:right"><div style="font-size:13px;font-weight:600">42,180</div><div style="font-size:10px;color:#1B6B3A">+8,232 margin</div></span></div>
+      <div class="rr"><b style="color:#888;width:20px">2</b><div class="rp aap">AAP</div><span style="flex:1"><div class="cn">Amanatullah Khan</div><div class="cp">Okhla</div></span><span style="text-align:right"><div style="font-size:13px;font-weight:600">38,450</div><div style="font-size:10px;color:#1B6B3A">+5,617 margin</div></span></div>
+      <div class="rr"><b style="color:#888;width:20px">3</b><div class="rp bjp">BJP</div><span style="flex:1"><div class="cn">Mohan Singh Bisht</div><div class="cp">Mustafabad</div></span><span style="text-align:right"><div style="font-size:13px;font-weight:600">31,200</div><div style="font-size:10px;color:#1B6B3A">+3,904 margin</div></span></div>
+      <div class="rr"><b style="color:#888;width:20px">4</b><div class="rp bjp">BJP</div><span style="flex:1"><div class="cn">Virendra Sachdeva</div><div class="cp">Rohini</div></span><span style="text-align:right"><div style="font-size:13px;font-weight:600">29,700</div><div style="font-size:10px;color:#1B6B3A">+4,100 margin</div></span></div>
+      <div class="rr"><b style="color:#888;width:20px">5</b><div class="rp inc">INC</div><span style="flex:1"><div class="cn">Haroon Yusuf</div><div class="cp">Ballimaran</div></span><span style="font-size:11px;color:#888;margin-left:auto">Counting...</span></div>
+    </div>
+  </div>
+  <div id="rm-panel" style="display:none">
+    <div class="wg">
+      <div class="wc" onclick="alert('Ward 1 — Najafgarh\nBJP wins by 312 votes')"><div class="wn" style="color:#FF6B00">W-1</div><div class="wl">Najafgarh</div></div>
+      <div class="wc"><div class="wn" style="color:#1A3FAA">W-2</div><div class="wl">Dwarka Sec-6</div></div>
+      <div class="wc"><div class="wn" style="color:#FF6B00">W-3</div><div class="wl">Vikaspuri</div></div>
+      <div class="wc"><div class="wn" style="color:#1B6B3A">W-4</div><div class="wl">Janakpuri N</div></div>
+      <div class="wc"><div class="wn" style="color:#FF6B00">W-5</div><div class="wl">Uttam Nagar</div></div>
+      <div class="wc"><div class="wn" style="color:#1A3FAA">W-6</div><div class="wl">Tilak Nagar</div></div>
+      <div class="wc"><div class="wn" style="color:#FF6B00">W-7</div><div class="wl">Subhash Nagar</div></div>
+      <div class="wc"><div class="wn" style="color:#1A3FAA">W-8</div><div class="wl">Hari Nagar</div></div>
+      <div class="wc"><div class="wn" style="color:#888">W-9</div><div class="wl">Clock Tower</div></div>
+      <div class="wc"><div class="wn" style="color:#FF6B00">W-10</div><div class="wl">Delhi Cantt</div></div>
+      <div class="wc"><div class="wn" style="color:#1A3FAA">W-11</div><div class="wl">Rajouri Gdn</div></div>
+      <div class="wc"><div class="wn" style="color:#FF6B00">W-12</div><div class="wl">Khaira</div></div>
+    </div>
+    <p style="font-size:11px;color:#888">Click any ward to see result. Saffron=BJP · Blue=AAP · Green=INC</p>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  Built for <a href="https://everyvotematter.com">everyvotematter.com</a> &nbsp;·&nbsp; Data: ECI Delhi &nbsp;·&nbsp; Auto-refresh every 30 min<br>
+  <span id="lu" style="font-size:11px"></span>
+</footer>
+
+<script>
+function tab(n,b){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));
+  document.getElementById('p-'+n).classList.add('on');
+  b.classList.add('on');
+}
+function res(t,b){
+  document.getElementById('ra-panel').style.display=t==='assembly'?'block':'none';
+  document.getElementById('rm-panel').style.display=t==='mcd'?'block':'none';
+  document.getElementById('ra').style.cssText=t==='assembly'?'font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #FF6B00;background:#FFF0E6;color:#FF6B00;border-radius:4px;cursor:pointer':'font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #ddd;background:white;color:#888;border-radius:4px;cursor:pointer';
+  document.getElementById('rm').style.cssText=t==='mcd'?'font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #1A3FAA;background:#E6F0FF;color:#1A3FAA;border-radius:4px;cursor:pointer':'font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #ddd;background:white;color:#888;border-radius:4px;cursor:pointer';
+}
+function filterC(){
+  var p=document.getElementById('fp').value.toLowerCase();
+  var s=document.getElementById('fs').value.toLowerCase();
+  document.querySelectorAll('#clist .cr').forEach(r=>{
+    var t=r.innerText.toLowerCase();
+    r.style.display=(!p||t.includes(p))&&(!s||t.includes(s))?'flex':'none';
+  });
+}
+function tick(){
+  var n=new Date();
+  var t=n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('htime').textContent='Delhi '+t;
+  document.getElementById('lu').textContent='Last updated: '+n.toLocaleString('en-IN');
+}
+tick();
+setInterval(tick,60000);
+</script>
+</body>
+</html>
