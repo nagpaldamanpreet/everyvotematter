@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Area — Every Vote Matters</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#F7F4EF;--bg2:#EDE9E1;--bg3:#E3DED4;--white:#FFFFFF;--ink:#111110;--ink2:#2A2926;--muted:#7A786F;--muted2:#B0ADA4;--orange:#D4500A;--orange2:#E8651C;--orange-bg:rgba(212,80,10,0.07);--green:#1C6E3D;--green-bg:rgba(28,110,61,0.07);--green-border:rgba(28,110,61,0.18);--red:#B83232;--red-bg:rgba(184,50,50,0.07);--red-border:rgba(184,50,50,0.18);--amber:#9A6008;--amber-bg:rgba(154,96,8,0.07);--amber-border:rgba(154,96,8,0.18);--blue:#1A4E8A;--blue-bg:rgba(26,78,138,0.07);--blue-border:rgba(26,78,138,0.18);--border:#DDD9D0;--border2:#E8E4DC;--r:10px;--r2:14px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:15px}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.hdr{position:sticky;top:0;z-index:200;height:56px;padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;background:rgba(247,244,239,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.hdr-logo{display:flex;align-items:center;gap:9px;cursor:pointer}
+.hdr-flag{width:26px;height:26px;border-radius:50%;overflow:hidden;display:flex;flex-direction:column;border:1.5px solid var(--border);flex-shrink:0}
+.hf1{flex:1;background:#FF9933}.hf2{flex:1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:7px;color:#000080}.hf3{flex:1;background:#138808}
+.hdr-name{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--ink);line-height:1}
+.hdr-name span{color:var(--orange)}
+.hdr-tag{font-family:'JetBrains Mono',monospace;font-size:0.44rem;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;display:block;margin-top:1px}
+.hdr-nav{display:flex;gap:3px;align-items:center}
+.hn{background:none;border:none;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:500;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .15s}
+.hn:hover{background:var(--bg2);color:var(--ink)}
+.hn.on{color:var(--orange);background:var(--orange-bg)}
+.hn-cta{background:var(--orange)!important;color:#fff!important;font-weight:600;border-radius:7px;padding:7px 16px}
+.hn-cta:hover{background:var(--orange2)!important}
+.hdr-back{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:500;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .15s}
+.hdr-back:hover{border-color:var(--orange);color:var(--orange)}
+@media(max-width:680px){.hdr-nav{display:none}}
+.page{display:none;animation:fadeIn .25s ease}.page.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.home-hero{padding:3rem clamp(1rem,6vw,3rem) 2.5rem;background:linear-gradient(160deg,var(--white),var(--bg));border-bottom:1px solid var(--border)}
+.hh-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;max-width:1100px;margin:0 auto}
+@media(max-width:760px){.hh-grid{grid-template-columns:1fr}}
+.hh-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:.9rem}
+.hh-title{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2rem,5vw,3.2rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:1rem}
+.hh-title em{font-style:italic;color:var(--orange)}
+.hh-sub{font-size:.95rem;color:var(--muted);line-height:1.75;max-width:520px;margin-bottom:2rem;font-weight:300}
+.search-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:1.6rem;box-shadow:0 2px 12px rgba(17,17,16,.06)}
+.sc-title{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;margin-bottom:.3rem}
+.sc-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.5}
+.sc-input-wrap{position:relative;margin-bottom:10px}
+.sc-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--muted)}
+.sc-input{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;padding:10px 12px 10px 36px;border-radius:8px;outline:none;transition:border .15s}
+.sc-input:focus{border-color:var(--orange);background:var(--white)}
+.sc-input::placeholder{color:var(--muted2)}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.sc-sel{background:var(--bg);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.83rem;padding:9px 10px;border-radius:8px;outline:none;cursor:pointer;width:100%}
+.sc-sel:focus{border-color:var(--orange)}
+.sc-btn{width:100%;background:var(--orange);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.9rem;padding:12px;border-radius:8px;cursor:pointer;transition:all .15s}
+.sc-btn:hover{background:var(--orange2);transform:translateY(-1px)}
+.quick-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:.8rem}
+.chip{font-size:.72rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:4px 11px;border-radius:20px;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-bg)}
+.impact-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+@media(max-width:540px){.impact-strip{grid-template-columns:1fr 1fr}}
+.ic{background:var(--white);padding:1.3rem clamp(.8rem,2vw,1.5rem);text-align:center}
+.ic-num{font-family:'Fraunces',serif;font-weight:700;font-size:1.7rem;letter-spacing:-.03em;color:var(--orange)}
+.ic-label{font-size:.68rem;color:var(--muted);margin-top:2px}
+.how-section{padding:3rem clamp(1rem,6vw,3rem);border-bottom:1px solid var(--border);background:var(--white)}
+.s-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:.7rem}
+.s-title{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.02em;margin-bottom:.5rem}
+.s-sub{font-size:.88rem;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:2rem;font-weight:300}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:680px){.how-grid{grid-template-columns:1fr}}
+.how-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;cursor:pointer;transition:all .2s}
+.how-card:hover{border-color:var(--orange);box-shadow:0 4px 20px rgba(212,80,10,.08);transform:translateY(-2px)}
+.hc-num{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.16em;color:var(--orange);margin-bottom:.7rem}
+.hc-icon{font-size:1.6rem;margin-bottom:.5rem}
+.hc-title{font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;margin-bottom:.4rem}
+.hc-body{font-size:.78rem;color:var(--muted);line-height:1.65}
+.sources-strip{padding:1.2rem clamp(1rem,6vw,3rem);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
+.ss-label{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.ss-item{font-size:.75rem;color:var(--muted)}
+.area-bar{background:var(--white);border-bottom:1px solid var(--border);padding:.9rem clamp(1rem,4vw,2rem)}
+.ab-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ab-label{font-size:.75rem;color:var(--muted);font-weight:500;white-space:nowrap}
+.ab-sel{background:var(--bg);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.83rem;padding:8px 11px;border-radius:7px;outline:none;cursor:pointer;transition:border .15s}
+.ab-sel:focus{border-color:var(--orange)}
+.ab-find{background:var(--ink);color:var(--bg);border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:.8rem;padding:8px 18px;border-radius:7px;cursor:pointer;transition:all .15s}
+.ab-find:hover{background:var(--ink2)}
+.ab-gps{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(212,80,10,.25);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:500;padding:8px 14px;border-radius:7px;cursor:pointer;transition:all .15s}
+.ab-gps:hover{background:var(--orange);color:#fff}
+.area-hero{padding:1.4rem clamp(1rem,4vw,2rem);border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--white) 60%,var(--bg) 100%)}
+.ah-grid{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;margin-bottom:1.1rem}
+@media(max-width:520px){.ah-grid{grid-template-columns:1fr}}
+.ah-crumb{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.ah-name{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,3.5vw,1.9rem);letter-spacing:-.02em;margin-bottom:.2rem}
+.ah-dist{font-size:.78rem;color:var(--muted)}
+.ah-score{text-align:right}
+.ahs-num{font-family:'Fraunces',serif;font-weight:700;font-size:2.2rem;line-height:1;letter-spacing:-.04em}
+.ahs-label{font-family:'JetBrains Mono',monospace;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.reps-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:460px){.reps-row{grid-template-columns:1fr}}
+.rep-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .18s}
+.rep-card:hover{border-color:var(--orange);box-shadow:0 2px 12px rgba(212,80,10,.08);transform:translateY(-1px)}
+.rep-av{width:38px;height:38px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--orange);flex-shrink:0}
+.rep-info{flex:1;min-width:0}
+.rep-type{font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.rep-name{font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rep-party{font-family:'JetBrains Mono',monospace;font-size:.56rem;padding:2px 7px;border-radius:3px;margin-top:3px;display:inline-block;border:1px solid}
+.p-bjp{background:rgba(212,80,10,.07);color:var(--orange);border-color:rgba(212,80,10,.2)}
+.p-aap{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
+.p-inc{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.p-bsp{background:rgba(100,60,180,.07);color:#5B2FA0;border-color:rgba(100,60,180,.2)}
+.rep-score{text-align:right;flex-shrink:0}
+.rs-num{font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;line-height:1}
+.rs-lbl{font-family:'JetBrains Mono',monospace;font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+@media(max-width:480px){.stat-strip{grid-template-columns:1fr 1fr}}
+.ssc{background:var(--white);padding:1rem;text-align:center}
+.ssc-num{font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;letter-spacing:-.025em}
+.ssc-lbl{font-family:'JetBrains Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.area-main{display:grid;grid-template-columns:1fr 320px;min-height:60vh}
+@media(max-width:860px){.area-main{grid-template-columns:1fr}}
+.area-left{border-right:1px solid var(--border)}
+@media(max-width:860px){.area-left{border-right:none;border-bottom:1px solid var(--border)}}
+.area-right{background:var(--bg)}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--white);overflow-x:auto}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:none;padding:.8rem 1rem;font-size:.76rem;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif}
+.tab-btn:hover{color:var(--ink)}
+.tab-btn.on{color:var(--orange);border-bottom-color:var(--orange);background:var(--orange-bg)}
+.tab-pane{display:none;padding:1.2rem clamp(.8rem,2vw,1.4rem)}.tab-pane.on{display:block}
+.toolbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:1.1rem}
+.tb-search{flex:1;min-width:140px;background:var(--bg);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;padding:8px 11px;border-radius:7px;outline:none;transition:border .15s}
+.tb-search:focus{border-color:var(--orange);background:var(--white)}
+.tb-search::placeholder{color:var(--muted2)}
+.fp{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:.7rem;font-weight:500;padding:4px 11px;border-radius:20px;cursor:pointer;transition:all .15s}
+.fp:hover{border-color:var(--orange);color:var(--orange)}
+.fp.on{background:var(--orange-bg);border-color:rgba(212,80,10,.3);color:var(--orange)}
+.tb-count{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted);margin-left:auto;white-space:nowrap}
+.issue-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--border);border-radius:var(--r);padding:1rem;margin-bottom:8px;transition:all .18s;cursor:pointer}
+.issue-card:hover{box-shadow:0 2px 12px rgba(17,17,16,.08);transform:translateX(2px)}
+.issue-card.open{border-left-color:var(--red)}.issue-card.progress{border-left-color:var(--amber)}.issue-card.resolved{border-left-color:var(--green)}
+.ic-row1{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem;margin-bottom:.55rem}
+.ic-badges{display:flex;gap:5px;flex-wrap:wrap}
+.badge{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;border:1px solid}
+.b-road{background:rgba(212,80,10,.08);color:var(--orange);border-color:rgba(212,80,10,.2)}
+.b-water{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
+.b-drain{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
+.b-light{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.b-garbage{background:rgba(100,60,180,.07);color:#5B2FA0;border-color:rgba(100,60,180,.2)}
+.b-safety{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+.b-health{background:rgba(160,30,100,.07);color:#A01E64;border-color:rgba(160,30,100,.2)}
+.b-other,.b-ward{background:var(--bg2);color:var(--muted);border-color:var(--border)}
+.b-open{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+.b-progress{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
+.b-resolved{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.ic-title{font-size:.88rem;font-weight:600;margin-bottom:.35rem;line-height:1.4}
+.ic-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:.55rem}
+.ic-photo-box{width:100%;height:80px;background:var(--bg2);border-radius:6px;margin-bottom:.55rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.74rem;color:var(--muted2);border:1px solid var(--border)}
+.ic-meta{display:flex;gap:.7rem;flex-wrap:wrap}
+.ic-meta-item{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted)}
+.ic-footer{display:flex;align-items:center;gap:7px;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--border2)}
+.upvote-btn{display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:.7rem;font-weight:500;padding:5px 11px;border-radius:6px;cursor:pointer;transition:all .15s}
+.upvote-btn:hover,.upvote-btn.voted{background:var(--orange-bg);border-color:rgba(212,80,10,.3);color:var(--orange)}
+.rate-btn{display:flex;align-items:center;gap:4px;background:none;border:1px solid var(--green-border);color:var(--green);font-family:'Plus Jakarta Sans',sans-serif;font-size:.7rem;font-weight:500;padding:5px 11px;border-radius:6px;cursor:pointer;transition:all .15s;margin-left:auto}
+.rate-btn:hover{background:var(--green-bg)}
+.no-issues{text-align:center;padding:2rem 1rem;color:var(--muted);font-size:.85rem;font-style:italic}
+.form-block{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:1.3rem;margin-bottom:10px}
+.fb-title{font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;margin-bottom:.95rem;display:flex;align-items:center;gap:6px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:9px}
+.flabel{font-family:'JetBrains Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.req{color:var(--red);margin-left:2px}
+.fi{background:var(--bg);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;padding:9px 11px;border-radius:7px;outline:none;transition:border .15s;width:100%}
+.fi:focus{border-color:var(--orange);background:var(--white)}
+.fi::placeholder{color:var(--muted2)}
+textarea.fi{resize:vertical;min-height:80px}
+select.fi{cursor:pointer}
+.upload-zone{background:var(--bg);border:2px dashed var(--border);border-radius:8px;padding:1.4rem;text-align:center;cursor:pointer;transition:all .2s}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--orange);background:rgba(212,80,10,.03)}
+.uz-icon{font-size:1.5rem;margin-bottom:.3rem}
+.uz-text{font-size:.78rem;color:var(--muted);margin-bottom:2px}
+.uz-sub{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--muted2);letter-spacing:.08em}
+.preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:.7rem}
+.prev-img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:5px;border:1px solid var(--border)}
+.privacy-note{display:flex;gap:7px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:7px;padding:.7rem;font-size:.72rem;color:var(--ink);line-height:1.55;margin-top:.5rem}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem}
+.btn-primary{background:var(--ink);color:var(--bg);border:1.5px solid var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;padding:10px 22px;border-radius:7px;cursor:pointer;transition:all .15s}
+.btn-primary:hover{background:var(--ink2);transform:translateY(-1px)}
+.btn-orange{background:var(--orange)!important;border-color:var(--orange)!important;color:#fff!important}
+.btn-orange:hover{background:var(--orange2)!important}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;font-size:.82rem;padding:10px 16px;border-radius:7px;cursor:pointer;transition:all .15s}
+.btn-outline:hover{border-color:var(--ink)}
+.qa-input-row{display:flex;gap:8px;margin-bottom:1.1rem}
+.qa-in{flex:1;background:var(--bg);border:1.5px solid var(--border);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;padding:9px 11px;border-radius:7px;outline:none;transition:border .15s}
+.qa-in:focus{border-color:var(--orange);background:var(--white)}
+.qa-in::placeholder{color:var(--muted2)}
+.qa-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:8px}
+.qa-q{padding:.85rem 1rem;font-size:.84rem;font-weight:500;border-bottom:1px solid var(--border2);display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem;line-height:1.5}
+.qa-q-meta{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--muted);margin-top:3px;font-weight:400}
+.qa-ans{padding:.85rem 1rem;background:rgba(28,110,61,.03);font-size:.8rem;color:var(--ink);line-height:1.65}
+.qa-ans-lbl{font-family:'JetBrains Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.4rem}
+.qa-pending{padding:.85rem 1rem;background:var(--bg);font-size:.77rem;color:var(--muted);font-style:italic}
+.pending-badge{font-family:'JetBrains Mono',monospace;font-size:.54rem;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);padding:2px 7px;border-radius:3px;flex-shrink:0}
+.rating-sec{max-width:480px}
+.rating-intro{font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:1.3rem}
+.dim-row{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.7rem .9rem;margin-bottom:8px;transition:border .15s}
+.dim-row:hover{border-color:var(--orange)}
+.dim-label{font-size:.8rem;font-weight:500}
+.dim-stars{display:flex;gap:3px;cursor:pointer;user-select:none}
+.star-btn{font-size:1.05rem;transition:transform .1s;line-height:1}
+.star-btn:hover,.star-btn.on{transform:scale(1.2)}
+.submit-rating-btn{width:100%;background:var(--orange);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.88rem;padding:12px;border-radius:8px;cursor:pointer;transition:all .15s;margin-top:1rem}
+.submit-rating-btn:hover{background:var(--orange2);transform:translateY(-1px)}
+.review-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;margin-bottom:8px}
+.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.35rem}
+.rc-name{font-size:.82rem;font-weight:600}
+.rc-date{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--muted)}
+.rc-stars{font-size:.85rem;letter-spacing:1px;color:var(--amber);margin-top:2px}
+.rc-text{font-size:.78rem;color:var(--muted);line-height:1.55;font-style:italic;margin-top:4px}
+.tl-item{display:flex;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border2)}
+.tl-item:last-child{border-bottom:none}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.tl-dot.open{background:var(--red)}.tl-dot.progress{background:var(--amber)}.tl-dot.resolved{background:var(--green)}
+.tl-line{width:1.5px;flex:1;background:var(--border2);margin-top:4px;min-height:20px}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);min-width:72px;padding-top:2px}
+.tl-body{flex:1}
+.tl-title{font-size:.82rem;font-weight:600;margin-bottom:2px;line-height:1.4}
+.tl-desc{font-size:.74rem;color:var(--muted);line-height:1.5}
+.side-sec{padding:1.1rem clamp(.8rem,2vw,1.3rem);border-bottom:1px solid var(--border)}
+.side-title{font-family:'Fraunces',serif;font-weight:600;font-size:.9rem;margin-bottom:.9rem}
+.rep-detail{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-bottom:9px}
+.rd-top{display:flex;align-items:center;gap:9px;margin-bottom:.75rem}
+.rd-av{width:40px;height:40px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--orange);border:2px solid var(--border);flex-shrink:0}
+.rd-name{font-size:.86rem;font-weight:600;line-height:1.3}
+.rd-role{font-size:.7rem;color:var(--muted);margin-top:1px}
+.score-bar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.sbr-label{font-size:.7rem;color:var(--muted)}
+.sbr-val{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:500}
+.score-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:8px}
+.sb-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.contact-row{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--muted);margin-bottom:4px}
+.contact-row a{color:var(--orange);text-decoration:none}
+.contact-row a:hover{text-decoration:underline}
+.area-mini-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:9px}
+.ams{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:.65rem .5rem;text-align:center}
+.ams-num{font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;letter-spacing:-.02em}
+.ams-label{font-family:'JetBrains Mono',monospace;font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+.nearby-item{display:flex;align-items:flex-start;gap:7px;padding:.55rem 0;border-bottom:1px solid var(--border2);cursor:pointer;transition:opacity .15s}
+.nearby-item:hover{opacity:.7}
+.nearby-item:last-child{border-bottom:none}
+.ni-dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.ni-text{font-size:.76rem;flex:1;line-height:1.4}
+.ni-meta{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--muted);margin-top:2px}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:#25D366;color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;padding:10px;border-radius:8px;cursor:pointer;width:100%;transition:all .15s;margin-top:7px}
+.wa-btn:hover{background:#1DB954;transform:translateY(-1px)}
+.copy-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--ink);border:1.5px solid var(--border);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;font-size:.78rem;padding:8px;border-radius:8px;cursor:pointer;width:100%;transition:all .15s;margin-top:6px}
+.copy-btn:hover{border-color:var(--ink)}
+.overlay{position:fixed;inset:0;background:rgba(17,17,16,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.overlay.on{display:flex}
+.modal{background:var(--white);border-radius:16px;padding:1.7rem;max-width:400px;width:100%;position:relative;animation:fadeIn .22s ease;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:.9rem;right:.9rem;background:var(--bg2);border:none;color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:.9rem;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{color:var(--ink);background:var(--bg3)}
+.modal-title{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;margin-bottom:.3rem}
+.modal-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.55}
+.star-row{display:flex;gap:9px;justify-content:center;font-size:2rem;margin:1rem 0;cursor:pointer;user-select:none}
+.star-row span{transition:transform .1s}
+.star-row span:hover,.star-row span.on{transform:scale(1.2)}
+#toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:.8rem;padding:10px 22px;border-radius:8px;z-index:9999;transition:transform .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(17,17,16,.15);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-logo" onclick="goHome()">
+    <div class="hdr-flag"><div class="hf1"></div><div class="hf2">☸</div><div class="hf3"></div></div>
+    <div><div class="hdr-name">Every<span>Vote</span>Matters</div><span class="hdr-tag">India's Civic Platform</span></div>
+  </div>
+  <nav class="hdr-nav" id="main-nav">
+    <button class="hn on" id="nav-home" onclick="goHome()">Home</button>
+    <button class="hn" id="nav-area" onclick="showAreaPage()">My Area</button>
+    <button class="hn" onclick="showToast('Candidates — coming soon!')">Candidates</button>
+    <button class="hn" onclick="showToast('Scorecard — coming soon!')">Scorecard</button>
+    <button class="hn hn-cta" onclick="showAreaPage();setTimeout(()=>switchTab('report'),100)">🚨 Report Issue</button>
+  </nav>
+  <button class="hdr-back" id="back-btn" style="display:none" onclick="goHome()">← Back</button>
+</header>
+
+<!-- HOME -->
+<div id="pg-home" class="page on">
+  <div class="home-hero">
+    <div class="hh-grid">
+      <div>
+        <div class="hh-eyebrow">🇮🇳 India's Civic Accountability Platform</div>
+        <h1 class="hh-title">Before you vote —<br><em>know who you're<br>voting for.</em></h1>
+        <p class="hh-sub">Criminal records. Broken promises. Unresolved civic issues. Everything about your local representative — verified, transparent, plain language.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="sc-btn" style="width:auto;padding:11px 28px" onclick="showAreaPage()">📍 Find My Area</button>
+          <button class="btn-outline" style="padding:11px 22px" onclick="showAreaPage();setTimeout(()=>switchTab('report'),100)">🚨 Report a Problem</button>
+        </div>
+      </div>
+      <div class="search-card">
+        <div class="sc-title">Search Your Area</div>
+        <div class="sc-sub">Enter your constituency, ward, or pincode to see the full civic dashboard.</div>
+        <div class="sc-input-wrap"><span class="sc-ico">🔍</span><input class="sc-input" type="text" placeholder="Candidate name, constituency, ward…" id="home-search" oninput="liveHomeSearch()" onkeydown="if(event.key==='Enter')goToArea()"/></div>
+        <div class="sc-grid">
+          <select class="sc-sel" id="home-state"><option>Delhi</option><option>Maharashtra</option><option>Uttar Pradesh</option></select>
+          <select class="sc-sel" id="home-const" onchange="goToArea()">
+            <option value="">Select Constituency…</option>
+            <option>Ballimaran</option><option>Karol Bagh</option><option>Patel Nagar</option><option>Chandni Chowk</option><option>Rohini</option><option>Okhla</option><option>New Delhi</option><option>Greater Kailash</option><option>Dwarka</option><option>Matia Mahal</option><option>Shahdara</option><option>Mustafabad</option>
+          </select>
+        </div>
+        <button class="sc-btn" onclick="goToArea()">Search My Area →</button>
+        <div class="quick-chips">
+          <span class="chip" onclick="selectConst('Ballimaran')">Ballimaran</span>
+          <span class="chip" onclick="selectConst('Karol Bagh')">Karol Bagh</span>
+          <span class="chip" onclick="selectConst('Patel Nagar')">Patel Nagar</span>
+          <span class="chip" onclick="selectConst('Chandni Chowk')">Chandni Chowk</span>
+          <span class="chip" onclick="selectConst('Rohini')">Rohini</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="impact-strip">
+    <div class="ic"><div class="ic-num" id="c1">0</div><div class="ic-label">Candidates Profiled</div></div>
+    <div class="ic"><div class="ic-num" id="c2">0</div><div class="ic-label">Issues Reported</div></div>
+    <div class="ic"><div class="ic-num" id="c3">0</div><div class="ic-label">Promises Tracked</div></div>
+    <div class="ic"><div class="ic-num" id="c4">0</div><div class="ic-label">Citizens Active</div></div>
+  </div>
+  <div class="how-section">
+    <div class="s-eyebrow">How it works</div>
+    <div class="s-title">Three things every voter deserves</div>
+    <div class="s-sub">Our AI collects data 24/7 from ECI, Vidhan Sabha records, and local news. You get verified facts. You decide.</div>
+    <div class="how-grid">
+      <div class="how-card" onclick="showAreaPage()"><div class="hc-num">01</div><div class="hc-icon">🪪</div><div class="hc-title">Know Your Candidate</div><div class="hc-body">Criminal record, assets, attendance, education — from ECI affidavit in plain language. No spin.</div></div>
+      <div class="how-card" onclick="showAreaPage()"><div class="hc-num">02</div><div class="hc-icon">📊</div><div class="hc-title">Check the Scorecard</div><div class="hc-body">Promise tracker, resolution rate, citizen ratings — each representative graded A to D on real data.</div></div>
+      <div class="how-card" onclick="showAreaPage();setTimeout(()=>switchTab('report'),100)"><div class="hc-num">03</div><div class="hc-icon">📸</div><div class="hc-title">Report Problems</div><div class="hc-body">Upload a photo of the broken road or flooded drain. It goes on their record. Area score updates live.</div></div>
+    </div>
+  </div>
+  <div class="sources-strip">
+    <span class="ss-label">Data Sources</span>
+    <span class="ss-item">🏛 Election Commission of India</span>
+    <span class="ss-item">·</span><span class="ss-item">📋 Delhi Vidhan Sabha</span>
+    <span class="ss-item">·</span><span class="ss-item">📄 ADR India Database</span>
+    <span class="ss-item">·</span><span class="ss-item">📰 Regional News</span>
+    <span class="ss-item">·</span><span class="ss-item">👥 Citizen Reports</span>
+  </div>
+</div>
+
+<!-- AREA DASHBOARD -->
+<div id="pg-area" class="page">
+  <div class="area-bar">
+    <div class="ab-row">
+      <span class="ab-label">📍 Your Area:</span>
+      <select class="ab-sel" id="ab-state"><option>Delhi</option><option>Maharashtra</option><option>UP</option></select>
+      <select class="ab-sel" id="ab-const" onchange="loadArea()">
+        <option>Ballimaran</option><option>Karol Bagh</option><option>Patel Nagar</option><option>Chandni Chowk</option><option>Rohini</option><option>Okhla</option><option>New Delhi</option><option>Greater Kailash</option><option>Dwarka</option><option>Matia Mahal</option><option>Shahdara</option><option>Mustafabad</option>
+      </select>
+      <select class="ab-sel" id="ab-ward"><option>All Wards</option><option>Ward 1</option><option>Ward 2</option><option>Ward 3</option><option>Ward 4</option><option>Ward 5</option><option>Ward 6</option></select>
+      <button class="ab-find" onclick="loadArea()">🔍 Find</button>
+      <button class="ab-gps" onclick="detectLocation()">📡 Use My Location</button>
+    </div>
+  </div>
+  <div class="area-hero">
+    <div class="ah-grid">
+      <div>
+        <div class="ah-crumb" id="ah-crumb">Delhi › Central Delhi › Assembly</div>
+        <div class="ah-name" id="ah-name">Ballimaran</div>
+        <div class="ah-dist" id="ah-dist">Central Delhi · 6 Wards · ~2.1 Lakh Voters</div>
+      </div>
+      <div class="ah-score"><div class="ahs-num" id="ah-score" style="color:var(--green)">88</div><div class="ahs-label">Area Score</div></div>
+    </div>
+    <div class="reps-row">
+      <div class="rep-card" onclick="showRepModal('mla')">
+        <div class="rep-av" id="mla-av">I</div>
+        <div class="rep-info"><div class="rep-type">🏛 MLA · Assembly</div><div class="rep-name" id="mla-name">Imran Hussain</div><span class="rep-party p-aap" id="mla-party">AAP</span></div>
+        <div class="rep-score"><div class="rs-num" id="mla-score" style="color:var(--green)">88</div><div class="rs-lbl">Score</div></div>
+      </div>
+      <div class="rep-card" onclick="showRepModal('coun')">
+        <div class="rep-av" id="coun-av">S</div>
+        <div class="rep-info"><div class="rep-type">🏘 Councillor · Ward</div><div class="rep-name" id="coun-name">Sadia Khan</div><span class="rep-party p-aap" id="coun-party">AAP</span></div>
+        <div class="rep-score"><div class="rs-num" id="coun-score" style="color:var(--amber)">74</div><div class="rs-lbl">Score</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stat-strip">
+    <div class="ssc"><div class="ssc-num" style="color:var(--red)" id="ss-open">12</div><div class="ssc-lbl">Open Issues</div></div>
+    <div class="ssc"><div class="ssc-num" style="color:var(--green)" id="ss-resolved">28</div><div class="ssc-lbl">Resolved</div></div>
+    <div class="ssc"><div class="ssc-num" style="color:var(--amber)" id="ss-promises">3/4</div><div class="ssc-lbl">Promises Kept</div></div>
+    <div class="ssc"><div class="ssc-num" style="color:var(--orange)" id="ss-rating">4.5★</div><div class="ssc-lbl">Citizen Rating</div></div>
+  </div>
+  <div class="area-main">
+    <div class="area-left">
+      <div class="tabs">
+        <button class="tab-btn on" onclick="switchTab('issues',this)">🚨 Issues</button>
+        <button class="tab-btn" onclick="switchTab('report',this)">📸 Report</button>
+        <button class="tab-btn" onclick="switchTab('ask',this)">💬 Ask Rep</button>
+        <button class="tab-btn" onclick="switchTab('promises',this)">📋 Promises</button>
+        <button class="tab-btn" onclick="switchTab('rate',this)">⭐ Rate</button>
+        <button class="tab-btn" onclick="switchTab('history',this)">🕐 History</button>
+      </div>
+      <div class="tab-pane on" id="tab-issues">
+        <div class="toolbar">
+          <input class="tb-search" type="text" placeholder="🔍 Search issues…" id="issue-search" oninput="renderIssues()"/>
+          <button class="fp on" onclick="setIssueFilter('all',this)">All</button>
+          <button class="fp" onclick="setIssueFilter('open',this)">🔴 Open</button>
+          <button class="fp" onclick="setIssueFilter('progress',this)">🟡 Progress</button>
+          <button class="fp" onclick="setIssueFilter('resolved',this)">✅ Resolved</button>
+          <select class="ab-sel" id="cat-filter" onchange="renderIssues()" style="font-size:.7rem;padding:5px 8px">
+            <option value="">All Categories</option>
+            <option value="road">🛣️ Road</option><option value="water">💧 Water</option><option value="light">💡 Lights</option><option value="drain">🚿 Drain</option><option value="garbage">🗑️ Garbage</option><option value="safety">🔒 Safety</option>
+          </select>
+          <span class="tb-count" id="issue-count">12 issues</span>
+        </div>
+        <div id="issue-list"></div>
+      </div>
+      <div class="tab-pane" id="tab-report">
+        <div class="form-block">
+          <div class="fb-title">📍 Location</div>
+          <div class="form-grid">
+            <div class="fg"><div class="flabel">Constituency<span class="req">*</span></div><select class="fi" id="r-const"><option>Ballimaran</option><option>Karol Bagh</option><option>Patel Nagar</option><option>Chandni Chowk</option></select></div>
+            <div class="fg"><div class="flabel">Ward</div><select class="fi"><option>All Wards</option><option>Ward 1</option><option>Ward 2</option><option>Ward 3</option><option>Ward 4</option><option>Ward 5</option><option>Ward 6</option></select></div>
+          </div>
+          <div class="fg"><div class="flabel">Address / Landmark<span class="req">*</span></div><input class="fi" type="text" placeholder="e.g. Near Jama Masjid Gate 1, opp. SBI Bank" id="r-addr"/></div>
+        </div>
+        <div class="form-block">
+          <div class="fb-title">📝 Problem Details</div>
+          <div class="form-grid">
+            <div class="fg"><div class="flabel">Category<span class="req">*</span></div><select class="fi" id="r-cat"><option value="">Select…</option><option>🛣️ Road / Pothole</option><option>💧 Water Supply</option><option>🚿 Drainage</option><option>💡 Streetlight</option><option>🗑️ Garbage</option><option>🌳 Park</option><option>⚡ Electricity</option><option>🔒 Safety</option><option>🏥 Health</option><option>Other</option></select></div>
+            <div class="fg"><div class="flabel">Severity</div><select class="fi"><option>🟠 High — Daily Life Affected</option><option>🔴 Critical — Immediate Danger</option><option>🟡 Medium — Inconvenient</option><option>🟢 Low — Minor</option></select></div>
+          </div>
+          <div class="fg"><div class="flabel">Title<span class="req">*</span></div><input class="fi" type="text" placeholder="e.g. Large pothole near school gate" id="r-title"/></div>
+          <div class="fg"><div class="flabel">Description</div><textarea class="fi" placeholder="When did this start? How many people affected?" id="r-desc"></textarea></div>
+        </div>
+        <div class="form-block">
+          <div class="fb-title">📸 Upload Photos</div>
+          <div class="upload-zone" id="upload-zone" onclick="document.getElementById('photo-in').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+            <div class="uz-icon">📷</div>
+            <div class="uz-text">Click to upload or drag & drop photos</div>
+            <div class="uz-sub">JPG, PNG · Max 5 photos · 10MB each</div>
+          </div>
+          <input type="file" id="photo-in" accept="image/*" multiple style="display:none" onchange="previewPhotos(this)"/>
+          <div class="preview-grid" id="photo-previews"></div>
+        </div>
+        <div class="form-block">
+          <div class="fb-title">👤 Contact Details</div>
+          <div class="form-grid">
+            <div class="fg"><div class="flabel">Full Name<span class="req">*</span></div><input class="fi" type="text" placeholder="Your full name" id="r-name"/></div>
+            <div class="fg"><div class="flabel">Mobile<span class="req">*</span></div><input class="fi" type="tel" placeholder="+91 98XXX XXXXX" id="r-phone"/></div>
+          </div>
+          <div class="fg"><div class="flabel">Email (optional)</div><input class="fi" type="email" placeholder="for status updates"/></div>
+          <div class="privacy-note">🔒 <span>Your phone number is only shared with your ward councillor and MLA. It will <strong>never</strong> be made public or sold.</span></div>
+          <div class="form-actions">
+            <button class="btn-outline" onclick="switchTab('issues')">Cancel</button>
+            <button class="btn-primary btn-orange" onclick="submitReport()">Submit Report →</button>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-ask">
+        <div class="qa-input-row">
+          <input class="qa-in" type="text" id="qa-input" placeholder="Ask your MLA or councillor about your area…" onkeydown="if(event.key==='Enter')submitQuestion()"/>
+          <button class="btn-primary btn-orange" onclick="submitQuestion()" style="padding:9px 18px;white-space:nowrap">Ask →</button>
+        </div>
+        <div id="qa-list"></div>
+      </div>
+      <div class="tab-pane" id="tab-promises">
+        <div class="toolbar">
+          <input class="tb-search" type="text" placeholder="🔍 Search promises…" id="promise-search" oninput="renderPromises()"/>
+          <button class="fp on" onclick="setPromiseFilter('all',this)">All</button>
+          <button class="fp" onclick="setPromiseFilter('kept',this)">✅ Kept</button>
+          <button class="fp" onclick="setPromiseFilter('progress',this)">🟡 Progress</button>
+          <button class="fp" onclick="setPromiseFilter('broken',this)">❌ Broken</button>
+          <span class="tb-count" id="promise-count"></span>
+        </div>
+        <div id="promise-list"></div>
+      </div>
+      <div class="tab-pane" id="tab-rate">
+        <div class="rating-sec">
+          <div class="rating-intro">Rate your representative based on work done in your area. Your rating is public and contributes to their official Citizen Score.</div>
+          <div id="rating-dims"></div>
+          <div class="fg" style="margin-top:.5rem"><div class="flabel">Written Review (Optional)</div><textarea class="fi" placeholder="Share your experience…" rows="3" id="review-text"></textarea></div>
+          <button class="submit-rating-btn" onclick="submitRating()">Submit My Rating</button>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:1.4rem 0 .7rem">Reviews from Residents</div>
+          <div id="reviews-list"></div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-history"><div id="history-list"></div></div>
+    </div>
+    <div class="area-right">
+      <div class="side-sec"><div class="side-title">Your Representatives</div><div id="sidebar-reps"></div></div>
+      <div class="side-sec">
+        <div class="side-title">Area Summary</div>
+        <div class="area-mini-stats">
+          <div class="ams"><div class="ams-num" style="color:var(--red)" id="sb-open">12</div><div class="ams-label">Open</div></div>
+          <div class="ams"><div class="ams-num" style="color:var(--amber)" id="sb-prog">4</div><div class="ams-label">Progress</div></div>
+          <div class="ams"><div class="ams-num" style="color:var(--green)" id="sb-res">28</div><div class="ams-label">Resolved</div></div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem">Top Issues This Week</div>
+        <div id="sidebar-issues"></div>
+      </div>
+      <div class="side-sec">
+        <div class="side-title">Share This Area</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem;line-height:1.65">Share your area's civic scorecard with family and neighbours.</div>
+        <button class="wa-btn" onclick="shareWA()">💬 Share on WhatsApp</button>
+        <button class="copy-btn" onclick="copyLink()">🔗 Copy Area Link</button>
+      </div>
+      <div class="side-sec">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem">Data Sources</div>
+        <div style="font-size:.7rem;color:var(--muted);line-height:1.9">🏛 ECI Affidavit Portal<br>📋 Delhi Vidhan Sabha<br>🏘 MCD Ward Records<br>👥 Citizen Reports<br><span style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--muted2)">Updated every 30 min</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REP MODAL -->
+<div class="overlay" id="rep-modal">
+  <div class="modal"><button class="modal-close" onclick="closeModal('rep-modal')">✕</button><div id="rep-modal-content"></div></div>
+</div>
+
+<!-- RATE MODAL -->
+<div class="overlay" id="rate-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('rate-modal')">✕</button>
+    <div class="modal-title">⭐ Rate Issue Resolution</div>
+    <div class="modal-sub" id="rate-modal-issue">Was this issue resolved to your satisfaction?</div>
+    <div class="star-row" id="rate-stars"><span onclick="setRateStar(1)">☆</span><span onclick="setRateStar(2)">☆</span><span onclick="setRateStar(3)">☆</span><span onclick="setRateStar(4)">☆</span><span onclick="setRateStar(5)">☆</span></div>
+    <div class="fg"><div class="flabel">Comment (Optional)</div><textarea class="fi" placeholder="How well was it resolved?" rows="3"></textarea></div>
+    <button class="submit-rating-btn" onclick="submitRateModal()">Submit Rating</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const AREAS={
+  'Ballimaran':{name:'Ballimaran',crumb:'Delhi › Central Delhi › Assembly',dist:'Central Delhi · 6 Wards · ~2.1 Lakh Voters',score:88,mla:{name:'Imran Hussain',party:'AAP',pclass:'p-aap',score:88,since:'2013',phone:'011-23456789',email:'imran.hussain@delhiassembly.nic.in',attendance:'92%',promises:'3/4'},coun:{name:'Sadia Khan',party:'AAP',pclass:'p-aap',score:74,ward:'Ward 3',since:'2022',phone:'98XXXX1234',email:'ward3.ballimaran@mcd.gov.in'},open:12,resolved:28,promises:'3/4',rating:'4.5★'},
+  'Karol Bagh':{name:'Karol Bagh',crumb:'Delhi › Central Delhi › Assembly',dist:'Central Delhi · 6 Wards · ~2.4 Lakh Voters',score:59,mla:{name:'Vishesh Ravi',party:'BJP',pclass:'p-bjp',score:59,since:'2020',phone:'011-28765432',email:'vishesh.ravi@delhiassembly.nic.in',attendance:'71%',promises:'0/4'},coun:{name:'Ram Prakash',party:'BJP',pclass:'p-bjp',score:61,ward:'Ward 56',since:'2022',phone:'98XXXX5678',email:'ward56@mcd.gov.in'},open:21,resolved:31,promises:'0/4',rating:'3.2★'},
+  'Patel Nagar':{name:'Patel Nagar',crumb:'Delhi › Central Delhi › Assembly',dist:'Central Delhi · 6 Wards · ~1.9 Lakh Voters',score:94,mla:{name:'Raaj Kumar Anand',party:'BSP',pclass:'p-bsp',score:94,since:'2015',phone:'011-25678901',email:'rk.anand@delhiassembly.nic.in',attendance:'97%',promises:'4/4'},coun:{name:'Meena Devi',party:'BSP',pclass:'p-bsp',score:88,ward:'Ward 62',since:'2022',phone:'98XXXX9012',email:'ward62@mcd.gov.in'},open:2,resolved:17,promises:'4/4',rating:'4.8★'},
+  'Chandni Chowk':{name:'Chandni Chowk',crumb:'Delhi › Central Delhi › Assembly',dist:'Central Delhi · 6 Wards · ~1.8 Lakh Voters',score:82,mla:{name:'Alka Lamba',party:'INC',pclass:'p-inc',score:82,since:'2020',phone:'011-23765432',email:'alka.lamba@delhiassembly.nic.in',attendance:'84%',promises:'2/4'},coun:{name:'Ravi Shankar',party:'INC',pclass:'p-inc',score:71,ward:'Ward 20',since:'2022',phone:'98XXXX3456',email:'ward20@mcd.gov.in'},open:6,resolved:28,promises:'2/4',rating:'4.1★'},
+  'Rohini':{name:'Rohini',crumb:'Delhi › North West Delhi › Assembly',dist:'North West Delhi · 5 Wards · ~2.6 Lakh Voters',score:76,mla:{name:'Vijender Gupta',party:'BJP',pclass:'p-bjp',score:76,since:'2020',phone:'011-27654321',email:'vijender.gupta@delhiassembly.nic.in',attendance:'79%',promises:'2/3'},coun:{name:'Sunita Yadav',party:'BJP',pclass:'p-bjp',score:69,ward:'Ward 42',since:'2022',phone:'98XXXX7890',email:'ward42@mcd.gov.in'},open:9,resolved:22,promises:'2/3',rating:'3.8★'},
+  'Okhla':{name:'Okhla',crumb:'Delhi › South East Delhi › Assembly',dist:'South East Delhi · 4 Wards · ~2.0 Lakh Voters',score:71,mla:{name:'Amanatullah Khan',party:'AAP',pclass:'p-aap',score:71,since:'2015',phone:'011-29876543',email:'amanatullah.khan@delhiassembly.nic.in',attendance:'78%',promises:'2/4'},coun:{name:'Asif Iqbal',party:'AAP',pclass:'p-aap',score:65,ward:'Ward 110',since:'2022',phone:'98XXXX2345',email:'ward110@mcd.gov.in'},open:14,resolved:19,promises:'2/4',rating:'3.6★'},
+  'New Delhi':{name:'New Delhi',crumb:'Delhi › New Delhi District › Assembly',dist:'New Delhi · 3 Wards · ~1.5 Lakh Voters',score:88,mla:{name:'Parvesh Verma',party:'BJP',pclass:'p-bjp',score:88,since:'2025',phone:'011-23010000',email:'parvesh.verma@delhiassembly.nic.in',attendance:'91%',promises:'3/3'},coun:{name:'Kavya Sharma',party:'BJP',pclass:'p-bjp',score:80,ward:'Ward 41',since:'2022',phone:'98XXXX6789',email:'ward41@mcd.gov.in'},open:5,resolved:24,promises:'3/3',rating:'4.4★'},
+};
+
+const ISSUES_ALL={
+  'Ballimaran':[
+    {id:1,title:'Large pothole near Hauz Qazi Chowk',cat:'road',status:'open',desc:'Massive pothole 2 feet wide. Two bikes damaged this week. Worsens after rain.',date:'Apr 20, 2026',reporter:'Ramesh S.',votes:47,hasPhoto:true,ward:'Ward 3'},
+    {id:2,title:'15 streetlights non-functional on Dariba Kalan',cat:'light',status:'open',desc:'Entire stretch dark after 9pm. Safety concern for all residents.',date:'Apr 18, 2026',reporter:'Priya M.',votes:89,hasPhoto:false,ward:'Ward 2'},
+    {id:3,title:'Overflowing drain on Katra Neel Street',cat:'drain',status:'resolved',desc:'Blocked drain causing waterlogging and foul smell. Fixed within 6 days.',date:'Apr 10, 2026',reporter:'Ahmed K.',votes:33,hasPhoto:true,ward:'Ward 4'},
+    {id:4,title:'Garbage pile outside school gate',cat:'garbage',status:'progress',desc:'MCD truck not collecting for 8 days. Near children\'s school.',date:'Apr 19, 2026',reporter:'Sunita G.',votes:62,hasPhoto:true,ward:'Ward 1'},
+    {id:5,title:'Water supply disrupted for 3 days in Block B',cat:'water',status:'progress',desc:'No water since Tuesday. Elderly residents badly affected.',date:'Apr 17, 2026',reporter:'Mohan L.',votes:71,hasPhoto:false,ward:'Ward 5'},
+    {id:6,title:'Illegal stall blocking footpath near mosque',cat:'safety',status:'open',desc:'Pedestrians forced to walk on road. Near-miss accidents reported.',date:'Apr 21, 2026',reporter:'Farid A.',votes:28,hasPhoto:true,ward:'Ward 6'},
+  ],
+  'Karol Bagh':[
+    {id:7,title:'Road collapse on Main Market Road',cat:'road',status:'open',desc:'Entire section of road has sunk. Dangerous at night.',date:'Apr 19, 2026',reporter:'Vijay T.',votes:124,hasPhoto:true,ward:'Ward 55'},
+    {id:8,title:'Garbage not collected for 10 days',cat:'garbage',status:'open',desc:'6-foot garbage pile on Arya Samaj Road. Flies and smell unbearable.',date:'Apr 18, 2026',reporter:'Anita D.',votes:88,hasPhoto:true,ward:'Ward 57'},
+    {id:9,title:'Streetlight out for 3 weeks near school',cat:'light',status:'open',desc:'Dark stretch. Parents afraid to send children in evening.',date:'Apr 15, 2026',reporter:'Parent Assoc.',votes:56,hasPhoto:false,ward:'Ward 56'},
+  ],
+  'Patel Nagar':[
+    {id:10,title:'Minor pothole on Block D road',cat:'road',status:'resolved',desc:'Small pothole patched within 2 days. Excellent response.',date:'Apr 14, 2026',reporter:'Mrs. Malhotra',votes:12,hasPhoto:false,ward:'Ward 62'},
+    {id:11,title:'Park lights not working in Sector B',cat:'light',status:'resolved',desc:'4 park lights replaced. Community appreciated quick action.',date:'Apr 8, 2026',reporter:'Gurpreet S.',votes:22,hasPhoto:true,ward:'Ward 63'},
+  ],
+};
+
+const QA_ALL={
+  'Ballimaran':[
+    {q:'When will road repair on Lal Kuan Road start?',asker:'Vijay T.',date:'Apr 18, 2026',ans:'Tender floated. Work begins May 1. Completion in 3 weeks.',answered:true},
+    {q:'Why is MCD park in Ward 2 not maintained?',asker:'Sunita G.',date:'Apr 15, 2026',ans:null,answered:false},
+    {q:'Can a health camp be organised before Eid?',asker:'Dr. Rashid',date:'Apr 10, 2026',ans:'Health camp scheduled April 27 at Community Centre, Ward 3. 8am–2pm. Free checkups.',answered:true},
+  ],
+  'Karol Bagh':[
+    {q:'When will Main Market Road be repaired?',asker:'Trader Assoc.',date:'Apr 19, 2026',ans:null,answered:false},
+    {q:'Who is responsible for the encroachment on Arya Samaj Road?',asker:'Anonymous',date:'Apr 16, 2026',ans:null,answered:false},
+  ],
+};
+
+const PROMISES_ALL={
+  'Ballimaran':[
+    {text:'Upgrade all streetlights to LED across all 6 wards',cat:'Infrastructure',status:'kept',deadline:'Dec 2021',adminV:true,evidence:'BSES completion report Jan 2022',cKept:312,cBroken:18,src:'AAP Manifesto 2020'},
+    {text:'Open a Mohalla Clinic in every ward within 1 year',cat:'Health',status:'kept',deadline:'Feb 2021',adminV:true,evidence:'DHS records: 6 clinics opened',cKept:425,cBroken:31,src:'Campaign Rally Jan 2020'},
+    {text:'24/7 uninterrupted water supply to all households',cat:'Water',status:'progress',deadline:'Dec 2022',adminV:false,evidence:'Partial — 5 of 6 wards achieved',cKept:180,cBroken:140,src:'AAP Manifesto 2020'},
+    {text:'Install CCTV on all major crossings for women safety',cat:'Safety',status:'broken',deadline:'Jun 2021',adminV:false,evidence:'Only 40% coverage achieved as of Apr 2026',cKept:88,cBroken:280,src:'Campaign Manifesto'},
+  ],
+  'Karol Bagh':[
+    {text:'Revamp Karol Bagh market with new paving and lighting',cat:'Infrastructure',status:'progress',deadline:'Dec 2022',adminV:false,evidence:'Partial tenders issued, work incomplete',cKept:92,cBroken:340,src:'BJP Manifesto 2020'},
+    {text:'Build flyover at Pusa Road junction',cat:'Transport',status:'broken',deadline:'Dec 2023',adminV:false,evidence:'DDA rejected proposal. No follow-up.',cKept:14,cBroken:512,src:'Campaign Rally'},
+    {text:'CCTV on all market streets',cat:'Safety',status:'progress',deadline:'Jun 2021',adminV:true,evidence:'60% coverage confirmed by police',cKept:140,cBroken:180,src:'BJP Manifesto 2020'},
+  ],
+  'Patel Nagar':[
+    {text:'Zero-pothole zone in Patel Nagar',cat:'Roads',status:'kept',deadline:'Aug 2021',adminV:true,evidence:'MCD inspection: 0 potholes flagged Q3 2021',cKept:680,cBroken:12,src:'BSP Manifesto 2020'},
+    {text:'Free quarterly health checkup camps',cat:'Health',status:'kept',deadline:'Ongoing',adminV:true,evidence:'12 camps conducted. CGHS records on file.',cKept:740,cBroken:8,src:'Campaign Speech Jan 2020'},
+    {text:'Smart LED lights on all arterial roads',cat:'Infrastructure',status:'kept',deadline:'Mar 2021',adminV:true,evidence:'BSES certificate: 100% coverage',cKept:620,cBroken:10,src:'BSP Manifesto 2020'},
+    {text:'Daily door-to-door garbage collection 7 days/week',cat:'Sanitation',status:'kept',deadline:'Jun 2020',adminV:true,evidence:'MCD route records: 98.4% compliance',cKept:890,cBroken:6,src:'Ward Meeting Feb 2020'},
+  ],
+};
+
+const REVIEWS=[
+  {name:'Ramesh S.',stars:4,text:'Roads improved significantly. Still waiting on park work.',ward:'Ward 3',date:'Apr 2026'},
+  {name:'Sunita G.',stars:5,text:'Responded within 2 days to our water complaint. Very accessible.',ward:'Ward 1',date:'Mar 2026'},
+  {name:'Ahmed K.',stars:3,text:'CCTV promise never fulfilled. Rest of the work is decent.',ward:'Ward 4',date:'Mar 2026'},
+];
+
+const HISTORY_DATA=[
+  {status:'resolved',date:'Apr 10, 2026',title:'Pothole on Chandni Mahal road',desc:'Fixed in 4 days after 87 upvotes.'},
+  {status:'resolved',date:'Apr 7, 2026',title:'Broken water pipe, Katra Neel',desc:'Emergency repair done in 18 hours.'},
+  {status:'progress',date:'Apr 4, 2026',title:'Stray dog menace near school',desc:'MCD team deployed. Sterilisation drive ongoing.'},
+  {status:'open',date:'Mar 28, 2026',title:'Illegal dumping near Ward 3',desc:'Notice served. Awaiting cleanup.'},
+  {status:'resolved',date:'Mar 20, 2026',title:'Streetlight repairs, Dariba Kalan',desc:'8 lights replaced by BSES.'},
+];
+
+const RATING_DIMS=[
+  {icon:'🛣️',label:'Road & Infrastructure',key:'road',def:3},
+  {icon:'💧',label:'Water & Drainage',key:'water',def:4},
+  {icon:'💡',label:'Electricity & Lights',key:'light',def:2},
+  {icon:'🗑️',label:'Sanitation & Garbage',key:'sanitation',def:3},
+  {icon:'🏥',label:'Health & Safety',key:'health',def:4},
+];
+
+let currentArea='Ballimaran',issueFilter='all',promiseFilter='all';
+let userStars={road:3,water:4,light:2,sanitation:3,health:4};
+let rateStar=0,userIssues=[];
+
+function goHome(){
+  document.getElementById('pg-home').classList.add('on');
+  document.getElementById('pg-area').classList.remove('on');
+  document.getElementById('main-nav').style.display='';
+  document.getElementById('back-btn').style.display='none';
+  document.querySelectorAll('.hn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('nav-home').classList.add('on');
+}
+
+function showAreaPage(){
+  document.getElementById('pg-home').classList.remove('on');
+  document.getElementById('pg-area').classList.add('on');
+  document.getElementById('main-nav').style.display='none';
+  document.getElementById('back-btn').style.display='';
+  loadArea();switchTab('issues');window.scrollTo(0,0);
+}
+
+function selectConst(name){document.getElementById('home-const').value=name;currentArea=name;showAreaPage();}
+function goToArea(){const s=document.getElementById('home-const').value;if(s)currentArea=s;showAreaPage();}
+function liveHomeSearch(){const q=document.getElementById('home-search').value.toLowerCase();if(!q)return;const m=Object.keys(AREAS).find(a=>a.toLowerCase().includes(q));if(m)document.getElementById('home-const').value=m;}
+function detectLocation(){showToast('📡 Detecting… Using Ballimaran as closest match.');setTimeout(()=>{currentArea='Ballimaran';loadArea();},1200);}
+
+function loadArea(){
+  const sel=document.getElementById('ab-const').value;
+  if(AREAS[sel])currentArea=sel;
+  document.getElementById('ab-const').value=currentArea;
+  const a=AREAS[currentArea];if(!a)return;
+  const sc=scoreColor(a.score);
+  document.getElementById('ah-crumb').textContent=a.crumb;
+  document.getElementById('ah-name').textContent=a.name;
+  document.getElementById('ah-dist').textContent=a.dist;
+  document.getElementById('ah-score').textContent=a.score;
+  document.getElementById('ah-score').style.color=sc;
+  document.getElementById('mla-av').textContent=a.mla.name[0];
+  document.getElementById('mla-name').textContent=a.mla.name;
+  document.getElementById('mla-party').textContent=a.mla.party;
+  document.getElementById('mla-party').className='rep-party '+a.mla.pclass;
+  document.getElementById('mla-score').textContent=a.mla.score;
+  document.getElementById('mla-score').style.color=scoreColor(a.mla.score);
+  document.getElementById('coun-av').textContent=a.coun.name[0];
+  document.getElementById('coun-name').textContent=a.coun.name;
+  document.getElementById('coun-party').textContent=a.coun.party;
+  document.getElementById('coun-party').className='rep-party '+a.coun.pclass;
+  document.getElementById('coun-score').textContent=a.coun.score;
+  document.getElementById('coun-score').style.color=scoreColor(a.coun.score);
+  document.getElementById('ss-open').textContent=a.open;
+  document.getElementById('ss-resolved').textContent=a.resolved;
+  document.getElementById('ss-promises').textContent=a.promises;
+  document.getElementById('ss-rating').textContent=a.rating;
+  document.getElementById('sb-open').textContent=a.open;
+  document.getElementById('sb-prog').textContent=Math.floor(a.open/3);
+  document.getElementById('sb-res').textContent=a.resolved;
+  const rc=document.getElementById('r-const');if(rc)rc.value=currentArea;
+  renderAll();showToast('📍 Loaded: '+a.name);
+  setTimeout(()=>{document.querySelectorAll('.sb-fill').forEach(b=>{const w=b.style.width;b.style.width='0';requestAnimationFrame(()=>{b.style.width=w;});});},200);
+}
+
+function renderAll(){renderIssues();renderQA();renderPromises();renderRatings();renderHistory();renderSidebar();}
+
+function getIssues(){return [...(ISSUES_ALL[currentArea]||[]),...userIssues.filter(i=>i.area===currentArea)];}
+
+function renderIssues(){
+  const q=(document.getElementById('issue-search')||{}).value?.toLowerCase()||'';
+  const cat=(document.getElementById('cat-filter')||{}).value||'';
+  let issues=getIssues();
+  if(issueFilter!=='all')issues=issues.filter(i=>i.status===issueFilter);
+  if(q)issues=issues.filter(i=>i.title.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q)||i.ward.toLowerCase().includes(q));
+  if(cat)issues=issues.filter(i=>i.cat===cat);
+  document.getElementById('issue-count').textContent=issues.length+' issue'+(issues.length!==1?'s':'');
+  const catL={road:'🛣️ Road',water:'💧 Water',drain:'🚿 Drain',light:'💡 Lights',garbage:'🗑️ Garbage',safety:'🔒 Safety',health:'🏥 Health'};
+  const catB={road:'b-road',water:'b-water',drain:'b-drain',light:'b-light',garbage:'b-garbage',safety:'b-safety',health:'b-health'};
+  const stL={open:'🔴 Open',progress:'🟡 In Progress',resolved:'✅ Resolved'};
+  const stB={open:'b-open',progress:'b-progress',resolved:'b-resolved'};
+  document.getElementById('issue-list').innerHTML=issues.length?issues.map(i=>`
+    <div class="issue-card ${i.status}">
+      ${i.hasPhoto?'<div class="ic-photo-box">📷 Photo evidence attached</div>':''}
+      <div class="ic-row1"><div class="ic-badges"><span class="badge ${catB[i.cat]||'b-other'}">${catL[i.cat]||i.cat}</span><span class="badge b-ward">${i.ward}</span></div><span class="badge ${stB[i.status]}">${stL[i.status]}</span></div>
+      <div class="ic-title">${i.title}</div>
+      <div class="ic-desc">${i.desc}</div>
+      <div class="ic-meta"><span class="ic-meta-item">👤 ${i.reporter}</span><span class="ic-meta-item">📅 ${i.date}</span></div>
+      <div class="ic-footer">
+        <button class="upvote-btn" id="up-${i.id}" onclick="upvote(${i.id},this)">👍 <span class="uvc">${i.votes}</span> Support</button>
+        ${i.status==='resolved'?`<button class="rate-btn" onclick="openRateModal('${i.title.replace(/'/g,"\\'")}')">⭐ Rate Resolution</button>`:''}
+      </div>
+    </div>`).join(''):'<div class="no-issues">No issues found matching your search.</div>';
+}
+
+function setIssueFilter(v,b){issueFilter=v;document.querySelectorAll('#tab-issues .fp').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderIssues();}
+
+function upvote(id,btn){
+  btn.classList.toggle('voted');
+  const all=[...(ISSUES_ALL[currentArea]||[]),...userIssues];
+  const issue=all.find(i=>i.id===id);
+  if(issue){issue.votes+=btn.classList.contains('voted')?1:-1;btn.querySelector('.uvc').textContent=issue.votes;if(btn.classList.contains('voted'))showToast('👍 Support added!');}
+}
+
+function submitReport(){
+  const req=[['r-const','Constituency'],['r-addr','Address'],['r-cat','Category'],['r-title','Title'],['r-name','Name'],['r-phone','Phone']];
+  let ok=true;
+  req.forEach(([id])=>{const el=document.getElementById(id);if(!el||!el.value.trim()){if(el)el.style.borderColor='var(--red)';ok=false;}else el.style.borderColor='';});
+  if(!ok){showToast('⚠ Please fill all required fields');return;}
+  userIssues.push({id:Date.now(),area:currentArea,title:document.getElementById('r-title').value,cat:'other',status:'open',desc:document.getElementById('r-desc').value||'Newly reported issue.',date:'Today',reporter:'You',votes:1,hasPhoto:document.getElementById('photo-previews').children.length>0,ward:'Ward 1'});
+  showToast('✅ Reported! ID: #EVM-'+Math.floor(Math.random()*9000+1000)+' · MLA & Councillor notified.');
+  ['r-title','r-desc','r-addr'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('photo-previews').innerHTML='';
+  setTimeout(()=>{switchTab('issues');renderIssues();},1800);
+}
+
+function previewPhotos(input){const g=document.getElementById('photo-previews');Array.from(input.files).slice(0,5).forEach(f=>{const r=new FileReader();r.onload=e=>{const img=document.createElement('img');img.src=e.target.result;img.className='prev-img';g.appendChild(img);};r.readAsDataURL(f);});}
+function handleDrop(e){e.preventDefault();this.classList.remove('drag');const dt=new DataTransfer();Array.from(e.dataTransfer.files).forEach(f=>dt.items.add(f));const inp=document.getElementById('photo-in');inp.files=dt.files;previewPhotos(inp);}
+
+function renderQA(){
+  const qa=QA_ALL[currentArea]||[];
+  document.getElementById('qa-list').innerHTML=qa.length?qa.map(q=>`<div class="qa-card"><div class="qa-q"><div><div>${q.q}</div><div class="qa-q-meta">Asked by ${q.asker} · ${q.date}</div></div>${!q.answered?'<span class="pending-badge">Pending</span>':''}</div>${q.answered?`<div class="qa-ans"><div class="qa-ans-lbl">✅ Representative's Response</div>${q.ans}</div>`:'<div class="qa-pending">⏳ Awaiting response. Representative notified. Avg: 3–5 days.</div>'}</div>`).join(''):'<div class="no-issues">No questions yet. Be the first to ask!</div>';
+}
+
+function submitQuestion(){
+  const inp=document.getElementById('qa-input');
+  if(!inp.value.trim()){showToast('⚠ Please type a question');return;}
+  if(!QA_ALL[currentArea])QA_ALL[currentArea]=[];
+  QA_ALL[currentArea].unshift({q:inp.value.trim(),asker:'You',date:'Just now',ans:null,answered:false});
+  renderQA();inp.value='';showToast('✅ Question submitted! Representative notified.');
+}
+
+function renderPromises(){
+  const q=(document.getElementById('promise-search')||{}).value?.toLowerCase()||'';
+  let p=PROMISES_ALL[currentArea]||[];
+  if(promiseFilter!=='all')p=p.filter(x=>x.status===promiseFilter);
+  if(q)p=p.filter(x=>x.text.toLowerCase().includes(q)||x.cat.toLowerCase().includes(q));
+  document.getElementById('promise-count').textContent=p.length+' promise'+(p.length!==1?'s':'');
+  const sL={kept:'✅ Kept',progress:'🟡 In Progress',broken:'❌ Broken',promised:'🔵 Promised'};
+  const sBd={kept:'var(--green)',progress:'var(--amber)',broken:'var(--red)',promised:'var(--blue)'};
+  const sBg={kept:'b-resolved',progress:'b-progress',broken:'b-open',promised:'b-water'};
+  document.getElementById('promise-list').innerHTML=p.length?p.map(x=>`
+    <div class="issue-card" style="border-left-color:${sBd[x.status]||'var(--border)'}">
+      <div class="ic-row1"><div class="ic-badges"><span class="badge b-other">${x.cat}</span><span class="badge b-ward">By ${x.deadline}</span></div><span class="badge ${sBg[x.status]}">${sL[x.status]}</span></div>
+      <div class="ic-title" style="font-style:italic">"${x.text}"</div>
+      <div class="ic-desc">Source: ${x.src}</div>
+      ${x.adminV?`<div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:6px;padding:.6rem .8rem;font-size:.75rem;margin:.5rem 0;line-height:1.5"><strong style="color:var(--green)">✓ Admin Verified:</strong> ${x.evidence}</div>`:''}
+      <div style="display:flex;gap:10px;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);margin:.5rem 0"><span style="color:var(--green)">✅ ${x.cKept} say kept</span><span style="color:var(--red)">❌ ${x.cBroken} say broken</span></div>
+      <div class="ic-footer"><button class="upvote-btn" onclick="this.classList.toggle('voted');showToast('✓ Vote recorded!')">✅ Kept</button><button class="upvote-btn" style="margin-left:6px" onclick="this.classList.toggle('voted');showToast('✓ Vote recorded!')">❌ Broken</button></div>
+    </div>`).join(''):'<div class="no-issues">No promises found for this area.</div>';
+}
+
+function setPromiseFilter(v,b){promiseFilter=v;document.querySelectorAll('#tab-promises .fp').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderPromises();}
+
+function renderRatings(){
+  document.getElementById('rating-dims').innerHTML=RATING_DIMS.map(d=>`<div class="dim-row"><div class="dim-label">${d.icon} ${d.label}</div><div class="dim-stars" id="ds-${d.key}">${[1,2,3,4,5].map(n=>`<span class="star-btn ${n<=(userStars[d.key]||d.def)?'on':''}" onclick="setDimStar('${d.key}',${n})">${n<=(userStars[d.key]||d.def)?'★':'☆'}</span>`).join('')}</div></div>`).join('');
+  document.getElementById('reviews-list').innerHTML=REVIEWS.map(r=>`<div class="review-card"><div class="rc-top"><div><div class="rc-name">${r.name}</div><div class="rc-date">${r.ward} · ${r.date}</div></div><div class="rc-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div></div><div class="rc-text">"${r.text}"</div></div>`).join('');
+}
+
+function setDimStar(k,n){userStars[k]=n;const c=document.getElementById('ds-'+k);if(c)c.innerHTML=[1,2,3,4,5].map(i=>`<span class="star-btn ${i<=n?'on':''}" onclick="setDimStar('${k}',${i})">${i<=n?'★':'☆'}</span>`).join('');}
+function submitRating(){showToast('⭐ Rating submitted! Thank you — Citizen Score updated.');}
+
+function renderHistory(){
+  document.getElementById('history-list').innerHTML=HISTORY_DATA.map((h,i)=>`<div class="tl-item"><div class="tl-left"><div class="tl-dot ${h.status}"></div>${i<HISTORY_DATA.length-1?'<div class="tl-line"></div>':''}</div><div class="tl-date">${h.date}</div><div class="tl-body"><div class="tl-title">${h.title}</div><div class="tl-desc">${h.desc}</div></div></div>`).join('');
+}
+
+function renderSidebar(){
+  const a=AREAS[currentArea];if(!a)return;
+  const rH=(rep,type)=>{const sc=scoreColor(rep.score);return `<div class="rep-detail"><div class="rd-top"><div class="rd-av">${rep.name[0]}</div><div><div class="rd-name">${rep.name}</div><div class="rd-role">${type==='mla'?'MLA · '+a.name:'Councillor · '+rep.ward}</div><span class="rep-party ${rep.pclass}" style="margin-top:3px;display:inline-block">${rep.party}</span></div></div><div class="score-bar-row"><span class="sbr-label">Score</span><span class="sbr-val" style="color:${sc}">${rep.score}/100</span></div><div class="score-bar"><div class="sb-fill" style="width:${rep.score}%;background:${sc}"></div></div>${type==='mla'?`<div class="score-bar-row"><span class="sbr-label">Attendance</span><span class="sbr-val">${rep.attendance}</span></div>`:''}
+    <div class="contact-row">📞 <a href="tel:${rep.phone}">${rep.phone}</a></div><div class="contact-row">📧 <a href="mailto:${rep.email}">${rep.email}</a></div><div class="contact-row">📅 Since ${rep.since}</div>
+    <div style="display:flex;gap:6px;margin-top:.7rem"><button class="btn-primary btn-orange" style="flex:1;font-size:.72rem;padding:7px" onclick="switchTab('ask')">💬 Ask</button><button class="btn-outline" style="flex:1;font-size:.72rem;padding:7px" onclick="switchTab('report')">🚨 Report</button></div>
+  </div>`;};
+  document.getElementById('sidebar-reps').innerHTML=rH(a.mla,'mla')+rH(a.coun,'coun');
+  const issues=(ISSUES_ALL[currentArea]||[]).slice(0,4);
+  const dc={open:'var(--red)',progress:'var(--amber)',resolved:'var(--green)'};
+  document.getElementById('sidebar-issues').innerHTML=issues.map(i=>`<div class="nearby-item" onclick="switchTab('issues')"><div class="ni-dot" style="background:${dc[i.status]}"></div><div><div class="ni-text">${i.title}</div><div class="ni-meta">${i.ward} · ${i.votes} supporters</div></div></div>`).join('');
+}
+
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  const p=document.getElementById('tab-'+name);if(p)p.classList.add('on');
+  if(btn)btn.classList.add('on');
+  else{const map=['issues','report','ask','promises','rate','history'];const idx=map.indexOf(name);const btns=document.querySelectorAll('.tab-btn');if(btns[idx])btns[idx].classList.add('on');}
+}
+
+function showRepModal(type){
+  const a=AREAS[currentArea];if(!a)return;
+  const rep=type==='mla'?a.mla:a.coun;
+  const sc=scoreColor(rep.score);
+  document.getElementById('rep-modal-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem"><div class="rd-av" style="width:52px;height:52px;font-size:1.3rem">${rep.name[0]}</div><div><div class="rd-name" style="font-size:1rem">${rep.name}</div><div class="rd-role">${type==='mla'?'MLA · '+a.name:'Ward Councillor · '+rep.ward}</div><span class="rep-party ${rep.pclass}" style="margin-top:3px;display:inline-block">${rep.party}</span></div></div>
+    <div class="score-bar-row"><span class="sbr-label">Citizen Score</span><span class="sbr-val" style="color:${sc};font-size:.9rem">${rep.score}/100</span></div>
+    <div class="score-bar" style="margin-bottom:1rem"><div class="sb-fill" style="width:${rep.score}%;background:${sc}"></div></div>
+    ${type==='mla'?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem"><div class="ams"><div class="ams-num">${rep.attendance}</div><div class="ams-label">Attendance</div></div><div class="ams"><div class="ams-num">${rep.promises}</div><div class="ams-label">Promises</div></div></div>`:''}
+    <div class="contact-row" style="font-size:.8rem">📞 <a href="tel:${rep.phone}" style="color:var(--orange)">${rep.phone}</a></div>
+    <div class="contact-row" style="font-size:.8rem">📧 <a href="mailto:${rep.email}" style="color:var(--orange)">${rep.email}</a></div>
+    <div class="contact-row" style="font-size:.8rem">📅 In office since ${rep.since}</div>
+    <div style="display:flex;gap:8px;margin-top:1rem">
+      <button class="btn-primary btn-orange" style="flex:1;font-size:.78rem;padding:9px" onclick="switchTab('ask');closeModal('rep-modal')">💬 Ask a Question</button>
+      <button class="btn-outline" style="flex:1;font-size:.78rem;padding:9px" onclick="switchTab('report');closeModal('rep-modal')">🚨 Report Issue</button>
+    </div>`;
+  document.getElementById('rep-modal').classList.add('on');
+}
+
+function openRateModal(title){
+  rateStar=0;
+  document.getElementById('rate-modal-issue').textContent='"'+title+'"';
+  document.querySelectorAll('#rate-stars span').forEach(s=>{s.textContent='☆';s.classList.remove('on');});
+  document.getElementById('rate-modal').classList.add('on');
+}
+function setRateStar(n){rateStar=n;document.querySelectorAll('#rate-stars span').forEach((s,i)=>{s.textContent=i<n?'★':'☆';s.classList.toggle('on',i<n);});}
+function submitRateModal(){if(!rateStar){showToast('⚠ Please select a star rating');return;}closeModal('rate-modal');showToast('⭐ '+rateStar+' stars submitted! Thank you.');}
+function closeModal(id){document.getElementById(id).classList.remove('on');}
+
+function shareWA(){const a=AREAS[currentArea];window.open('https://wa.me/?text='+encodeURIComponent('Check civic scorecard for '+a.name+': '+a.open+' open issues, '+a.resolved+' resolved, Score '+a.score+'/100. Rate your rep at www.everyvotematter.com'),'_blank');}
+function copyLink(){navigator.clipboard.writeText('https://www.everyvotematter.com/area/'+currentArea.toLowerCase().replace(/ /g,'-')).catch(()=>{});showToast('🔗 Area link copied!');}
+function scoreColor(s){return s>=80?'var(--green)':s>=60?'var(--amber)':'var(--red)';}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.transform='translateX(-50%) translateY(0)';clearTimeout(window._tt);window._tt=setTimeout(()=>{t.style.transform='translateX(-50%) translateY(100px)';},3500);}
+
+document.getElementById('rep-modal').addEventListener('click',function(e){if(e.target===this)closeModal('rep-modal');});
+document.getElementById('rate-modal').addEventListener('click',function(e){if(e.target===this)closeModal('rate-modal');});
+
+function animCount(id,target){const el=document.getElementById(id);if(!el)return;let v=0,step=target/50;const iv=setInterval(()=>{v=Math.min(v+step,target);el.textContent=Math.floor(v).toLocaleString('en-IN');if(v>=target)clearInterval(iv);},30);}
+animCount('c1',8420);animCount('c2',2847);animCount('c3',18400);animCount('c4',18490);
+renderAll();
+</script>
+</body>
+</html>
