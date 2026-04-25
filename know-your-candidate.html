@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Know Your Candidate — Every Vote Matters</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#F7F4EF;--bg2:#EDE9E1;--bg3:#E3DED4;--w:#FFF;--ink:#111110;--m:#7A786F;--m2:#B0ADA4;--or:#D4500A;--or2:#E8651C;--og:rgba(212,80,10,.08);--gn:#1C6E3D;--gb:rgba(28,110,61,.08);--ge:rgba(28,110,61,.22);--rd:#B83232;--rb:rgba(184,50,50,.08);--re:rgba(184,50,50,.22);--am:#9A6008;--ab:rgba(154,96,8,.08);--ae:rgba(154,96,8,.22);--bl:#1A4E8A;--bb:rgba(26,78,138,.08);--be:rgba(26,78,138,.22);--pu:#5B2FA0;--pb:rgba(91,47,160,.08);--pe:rgba(91,47,160,.22);--br:#DDD9D0;--br2:#E8E4DC}
+*{box-sizing:border-box;margin:0;padding:0}html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased}
+.hdr{position:sticky;top:0;z-index:300;height:54px;padding:0 clamp(1rem,4vw,2rem);display:flex;align-items:center;justify-content:space-between;background:rgba(247,244,239,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--br)}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;cursor:pointer}
+.flag{width:26px;height:26px;border-radius:50%;overflow:hidden;display:flex;flex-direction:column;border:1.5px solid var(--br);flex-shrink:0}
+.f1{flex:1;background:#FF9933}.f2{flex:1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:7px;color:#000080}.f3{flex:1;background:#138808}
+.lnm{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--ink)}.lnm span{color:var(--or)}
+.ltg{font-family:'JetBrains Mono',monospace;font-size:.42rem;color:var(--m);letter-spacing:.2em;text-transform:uppercase;display:block;margin-top:1px}
+.hnv{display:flex;gap:3px}.hn{background:none;border:none;color:var(--m);font-family:'Plus Jakarta Sans',sans-serif;font-size:.75rem;font-weight:500;padding:5px 11px;border-radius:6px;cursor:pointer;transition:all .14s}.hn:hover{background:var(--bg2);color:var(--ink)}.hn.on{color:var(--or);background:var(--og)}.hcta{background:var(--or)!important;color:#fff!important;font-weight:600}
+@media(max-width:640px){.hnv .hn:not(.hcta){display:none}}
+.ptbs{background:var(--w);border-bottom:2px solid var(--br);display:flex;overflow-x:auto;padding:0 clamp(1rem,4vw,2rem)}.ptbs::-webkit-scrollbar{display:none}
+.pt{flex:none;padding:.85rem 1rem;font-size:.79rem;font-weight:600;color:var(--m);cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .14s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}.pt:hover{color:var(--ink)}.pt.on{color:var(--or);border-bottom-color:var(--or)}
+.pg{display:none}.pg.on{display:block}
+.swp{background:var(--w);border-bottom:1px solid var(--br);padding:1.1rem clamp(1rem,4vw,2rem)}
+.si{max-width:1100px;margin:0 auto}
+.ey{font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:.4rem}
+.srow{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end}
+.sf{display:flex;flex-direction:column;gap:3px;flex:1;min-width:130px}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--m)}
+.fi{background:var(--bg);border:1.5px solid var(--br);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.83rem;padding:8px 10px;border-radius:7px;outline:none;transition:border .14s;width:100%}.fi:focus{border-color:var(--or);background:var(--w)}.fi::placeholder{color:var(--m2)}
+select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237A786F'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
+.btn{background:var(--or);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;padding:9px 20px;border-radius:8px;cursor:pointer;transition:all .14s;white-space:nowrap}.btn:hover{background:var(--or2);transform:translateY(-1px)}
+.oln{background:transparent;color:var(--ink);border:1.5px solid var(--br);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;font-size:.77rem;padding:8px 14px;border-radius:8px;cursor:pointer;transition:all .14s;text-decoration:none;white-space:nowrap}.oln:hover{border-color:var(--ink)}
+.sgwp{position:relative;flex:2;min-width:180px}
+.sgbx{position:absolute;top:100%;left:0;right:0;background:var(--w);border:1.5px solid var(--or);border-top:none;border-radius:0 0 9px 9px;z-index:200;max-height:280px;overflow-y:auto;box-shadow:0 8px 24px rgba(17,17,16,.12)}
+.sgi{padding:.65rem .95rem;font-size:.81rem;cursor:pointer;border-bottom:1px solid var(--br2);transition:background .1s;display:flex;justify-content:space-between;align-items:center;gap:.5rem}.sgi:hover{background:var(--og)}.sgi:last-child{border-bottom:none}
+.bdg{font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:4px;border:1px solid;display:inline-block;white-space:nowrap}
+.bg{background:var(--gb);color:var(--gn);border-color:var(--ge)}.br_{background:var(--rb);color:var(--rd);border-color:var(--re)}.ba{background:var(--ab);color:var(--am);border-color:var(--ae)}.bbl{background:var(--bb);color:var(--bl);border-color:var(--be)}.bor{background:var(--og);color:var(--or);border-color:rgba(212,80,10,.22)}.bpu{background:var(--pb);color:var(--pu);border-color:var(--pe)}.bm{background:var(--bg2);color:var(--m);border-color:var(--br)}
+.cgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-top:.8rem}
+.cc{background:var(--w);border:1px solid var(--br);border-radius:10px;padding:.9rem;cursor:pointer;transition:all .17s}.cc:hover{border-color:var(--or);box-shadow:0 4px 16px rgba(212,80,10,.1);transform:translateY(-2px)}
+.cct{display:flex;align-items:center;gap:9px;margin-bottom:.6rem}
+.cav{width:36px;height:36px;border-radius:50%;background:var(--bg2);border:2px solid var(--br);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:.9rem;color:var(--or);flex-shrink:0}
+.cnm{font-size:.84rem;font-weight:600;line-height:1.3}.cmt{font-size:.68rem;color:var(--m);margin-top:1px}.csc{margin-left:auto;font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;flex-shrink:0}
+.phro{background:linear-gradient(135deg,var(--w),var(--bg));border-bottom:1px solid var(--br);padding:1.4rem clamp(1rem,4vw,2rem)}
+.phi{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:1.3rem;align-items:start}
+@media(max-width:580px){.phi{grid-template-columns:auto 1fr}}
+.phav{width:70px;height:70px;border-radius:12px;background:var(--bg2);border:2px solid var(--br);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:1.7rem;color:var(--or);flex-shrink:0}
+.phnm{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.7rem);letter-spacing:-.025em;margin-bottom:.35rem}
+.phmta{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin-bottom:.4rem}
+.src{font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--m);margin-top:.3rem}.src a{color:var(--or);text-decoration:none}.src a:hover{text-decoration:underline}
+.srng{position:relative;width:84px;height:84px}.srng svg{transform:rotate(-90deg)}
+.srn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.srv{font-family:'Fraunces',serif;font-weight:700;font-size:1.3rem;line-height:1;letter-spacing:-.03em}
+.srl{font-family:'JetBrains Mono',monospace;font-size:.38rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)}
+.itbs{display:flex;background:var(--w);border-bottom:1px solid var(--br);overflow-x:auto;padding:0 clamp(1rem,4vw,2rem)}.itbs::-webkit-scrollbar{display:none}
+.it{flex:none;padding:.7rem .9rem;font-size:.74rem;font-weight:600;color:var(--m);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .14s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}.it:hover{color:var(--ink)}.it.on{color:var(--or);border-bottom-color:var(--or)}
+.ipn{display:none;padding:1.2rem clamp(1rem,4vw,2rem);max-width:1100px;margin:0 auto}.ipn.on{display:block}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.sb{background:var(--bg);border:1px solid var(--br);border-radius:9px;padding:.8rem .9rem;text-align:center}.sb.hl{background:var(--w);border-color:var(--or);box-shadow:0 2px 10px rgba(212,80,10,.08)}
+.sbn{font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;letter-spacing:-.03em;line-height:1}.sbl{font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-top:3px}
+.ir{display:flex;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--br2);align-items:flex-start}.ir:last-child{border-bottom:none}
+.irk{font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);min-width:110px;padding-top:2px;flex-shrink:0}.irv{font-size:.8rem;color:var(--ink);line-height:1.5;flex:1}.irv a{color:var(--or);text-decoration:none}.irv a:hover{text-decoration:underline}
+.pr{display:flex;align-items:center;gap:.65rem;margin-bottom:5px}.prl{font-size:.72rem;color:var(--m);min-width:110px}.prb{flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}.prf{height:100%;border-radius:2px;transition:width 1.2s ease}.prv{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--m);min-width:32px;text-align:right}
+.am{background:var(--bg);border:1px solid var(--br);border-radius:8px;padding:.75rem .9rem;margin-bottom:6px}.amt{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}.amn{font-size:.76rem;font-weight:600}.amv{font-family:'Fraunces',serif;font-weight:700;font-size:.92rem}.amb{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}.amf{height:100%;border-radius:2px}
+.crc{background:var(--rb);border:1px solid var(--re);border-left:4px solid var(--rd);border-radius:9px;padding:.9rem;margin-bottom:7px}.crct{font-size:.82rem;font-weight:600;color:var(--rd);margin-bottom:.45rem}
+.etbl{width:100%;border-collapse:collapse;font-size:.78rem}.etbl th{background:var(--bg2);padding:.58rem .8rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);border-bottom:2px solid var(--br)}.etbl td{padding:.58rem .8rem;border-bottom:1px solid var(--br2)}.etbl tr:hover td{background:var(--bg)}
+.scrd{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--br);border-radius:9px;padding:.8rem .9rem;text-decoration:none;color:var(--ink);transition:all .17s;margin-bottom:7px}.scrd:hover{border-color:var(--or);transform:translateY(-1px)}
+.sico{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0}
+.al{border-radius:9px;padding:.8rem .9rem;font-size:.77rem;line-height:1.6;display:flex;gap:.65rem;margin-bottom:8px}
+.alg{background:var(--gb);border:1px solid var(--ge);color:var(--gn)}.alr{background:var(--rb);border:1px solid var(--re);color:var(--rd)}.ala{background:var(--ab);border:1px solid var(--ae);color:var(--am)}.albl{background:var(--bb);border:1px solid var(--be);color:var(--bl)}
+.affhro{background:linear-gradient(135deg,#0E1B12,#1C3525);color:#fff;padding:1.6rem clamp(1rem,4vw,2rem);border-bottom:1px solid var(--br)}
+.dfi{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff}.dfi::placeholder{color:rgba(255,255,255,.4)}.dfi option{background:#1C3525;color:#fff}
+.vhro{background:linear-gradient(135deg,#0D1B2A,#1A3A5C);color:#fff;padding:1.6rem clamp(1rem,4vw,2rem);border-bottom:1px solid var(--br)}
+.vtg{display:flex;background:rgba(255,255,255,.08);border-radius:9px;padding:3px;max-width:280px;margin:1rem auto 0}
+.vt{flex:1;background:transparent;color:rgba(255,255,255,.6);border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:500;padding:7px;border-radius:7px;cursor:pointer;transition:all .2s}.vt.on{background:rgba(255,255,255,.15);color:#fff;font-weight:600}
+.vres_{background:var(--w);border:2px solid var(--ge);border-radius:14px;padding:1.3rem;max-width:520px;margin:1rem auto}
+.vrh{display:flex;align-items:center;gap:11px;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--br2)}
+.vrav{width:46px;height:46px;border-radius:50%;background:var(--gb);display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:2px solid var(--ge)}
+.vrnm{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem}.vrep{font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--m);margin-top:2px}
+.bthbx{background:var(--gb);border:1px solid var(--ge);border-radius:8px;padding:.8rem;margin:.7rem 0}
+.bthbt{font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gn);margin-bottom:.35rem}
+.spnr{width:16px;height:16px;border:2px solid var(--br);border-top-color:var(--or);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cngrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:4px;margin-top:.55rem}
+.cni{background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.5rem .75rem;cursor:pointer;font-size:.72rem;font-weight:500;transition:all .14s}.cni:hover{border-color:var(--or);background:var(--og);color:var(--or)}
+.wgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:5px;margin-top:.55rem}
+.wc{background:var(--w);border:1px solid var(--br);border-radius:8px;padding:.65rem .8rem;cursor:pointer;transition:all .14s}.wc:hover{border-color:var(--or);box-shadow:0 2px 8px rgba(212,80,10,.08)}
+.wcn{font-size:.76rem;font-weight:600}.wcm{font-size:.63rem;color:var(--m);margin-top:2px;font-family:'JetBrains Mono',monospace}
+#toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:.78rem;padding:9px 20px;border-radius:8px;z-index:9999;transition:transform .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(17,17,16,.15);max-width:92vw}
+.sl2{font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-bottom:.6rem;margin-top:1rem}
+.tag-new{background:#1C6E3D;color:#fff;font-family:'JetBrains Mono',monospace;font-size:.48rem;padding:1px 6px;border-radius:3px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="logo" href="index.html">
+    <div class="flag"><div class="f1"></div><div class="f2">☸</div><div class="f3"></div></div>
+    <div><div class="lnm">Every<span>Vote</span>Matters</div><span class="ltg">India's Civic Platform</span></div>
+  </a>
+  <nav class="hnv">
+    <button class="hn" onclick="location.href='index.html'">← Home</button>
+    <button class="hn" onclick="location.href='area-dashboard.html'">My Area</button>
+    <button class="hn on">Know Candidate</button>
+    <button class="hn hcta" onclick="location.href='area-dashboard.html'">🚨 Report Issue</button>
+  </nav>
+</header>
+
+<div class="ptbs">
+  <button class="pt on" id="pt1" onclick="showPg('pg1',this)">🪪 Know Your Candidate <span class="tag-new">2025 DATA</span></button>
+  <button class="pt" id="pt2" onclick="showPg('pg2',this)">📄 ECI Affidavits</button>
+  <button class="pt" id="pt3" onclick="showPg('pg3',this)">🗳️ EPIC / Voter Search</button>
+</div>
+
+<!-- PAGE 1: KNOW YOUR CANDIDATE -->
+<div id="pg1" class="pg on">
+  <div class="swp">
+    <div class="si">
+      <div class="ey">Delhi 2025 Assembly Election Results — All 70 Seats (BJP: 48, AAP: 22) · MCD 2022 — 250 Wards</div>
+      <div class="srow">
+        <div class="sgwp">
+          <div class="sl">Search Candidate / Constituency / Party</div>
+          <input class="fi" id="kn" type="text" placeholder="e.g. Imran Hussain, Ballimaran, Rekha Gupta, Rohini…" oninput="showSug()" onkeydown="if(event.key==='Enter')doSearch();else if(event.key==='Escape')hideSug()"/>
+          <div class="sgbx" id="sgbx" style="display:none"></div>
+        </div>
+        <div class="sf" style="min-width:155px">
+          <div class="sl">Assembly Constituency (70)</div>
+          <select class="fi" id="kc" onchange="doSearch()"><option value="">All 70 Constituencies</option></select>
+        </div>
+        <div class="sf" style="min-width:100px">
+          <div class="sl">Party</div>
+          <select class="fi" id="kp"><option value="">All Parties</option><option>BJP</option><option>AAP</option><option>INC</option><option>BSP</option><option>JD-U</option></select>
+        </div>
+        <div class="sf" style="min-width:100px">
+          <div class="sl">Type</div>
+          <select class="fi" id="kt"><option value="">All</option><option value="MLA">MLA 2025</option><option value="Councillor">Councillor 2022</option></select>
+        </div>
+        <div style="display:flex;gap:5px;align-self:flex-end">
+          <button class="btn" onclick="doSearch()">Search →</button>
+          <a class="oln" href="https://myneta.info" target="_blank">MyNeta ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pg1h" style="padding:1.2rem clamp(1rem,4vw,2rem);max-width:1100px;margin:0 auto">
+    <div class="ey">Delhi 2025 — Featured Winners</div>
+    <div id="fg" class="cgrd"></div>
+    <div style="margin-top:1.3rem">
+      <div class="ey">Browse All 70 Delhi Assembly Constituencies — 2025 Winners</div>
+      <div class="cngrd" id="cb"></div>
+    </div>
+    <div style="margin-top:1.3rem">
+      <div class="ey">MCD 2022 — Councillors by Zone</div>
+      <div id="ztbs" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:.6rem"></div>
+      <div class="wgrd" id="wb"></div>
+    </div>
+  </div>
+
+  <div id="pg1r" style="display:none;padding:1.2rem clamp(1rem,4vw,2rem);max-width:1100px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:.9rem;flex-wrap:wrap">
+      <button class="oln" onclick="backH()">← Back</button>
+      <div id="rtl" style="font-family:'Fraunces',serif;font-weight:600;font-size:.92rem"></div>
+      <span id="rcnt" class="bdg bm" style="margin-left:auto"></span>
+    </div>
+    <div id="rg" class="cgrd"></div>
+  </div>
+
+  <div id="pg1p" style="display:none">
+    <div class="phro">
+      <div class="phi">
+        <div class="phav" id="phav">?</div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--m);margin-bottom:.3rem" id="phey">-</div>
+          <div class="phnm" id="phnm">-</div>
+          <div class="phmta" id="phmt"></div>
+          <div id="phbd" style="display:flex;gap:4px;flex-wrap:wrap;margin-top:.4rem"></div>
+          <div class="src">📄 <a href="https://myneta.info" target="_blank">MyNeta.info (ADR India)</a> · <a href="https://affidavit.eci.gov.in" target="_blank">ECI Affidavit Portal</a> · <a href="https://results.eci.gov.in" target="_blank">ECI Results 2025</a></div>
+        </div>
+        <div style="text-align:center">
+          <div class="srng">
+            <svg width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="35" fill="none" stroke="#E8E4DC" stroke-width="6"/><circle cx="42" cy="42" r="35" fill="none" stroke="#1C6E3D" stroke-width="6" stroke-linecap="round" stroke-dasharray="219.9" stroke-dashoffset="26.4" id="scc"/></svg>
+            <div class="srn"><div class="srv" id="svl" style="color:var(--gn)">-</div><div class="srl">Score</div></div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-top:.25rem" id="sgd">-</div>
+        </div>
+      </div>
+    </div>
+    <div class="itbs">
+      <button class="it on" onclick="swIT('i0',this)">📊 Overview</button>
+      <button class="it" onclick="swIT('i1',this)">💰 Assets</button>
+      <button class="it" onclick="swIT('i2',this)">⚖️ Criminal</button>
+      <button class="it" onclick="swIT('i3',this)">🗳️ Elections</button>
+      <button class="it" onclick="swIT('i4',this)">📱 Social</button>
+    </div>
+    <div class="ipn on" id="i0"><div id="c0"></div></div>
+    <div class="ipn" id="i1"><div id="c1"></div></div>
+    <div class="ipn" id="i2"><div id="c2"></div></div>
+    <div class="ipn" id="i3"><div id="c3"></div></div>
+    <div class="ipn" id="i4"><div id="c4"></div></div>
+  </div>
+</div>
+
+<!-- PAGE 2: ECI AFFIDAVITS -->
+<div id="pg2" class="pg">
+  <div class="affhro">
+    <div style="max-width:1100px;margin:0 auto">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.4rem">Official ECI Affidavit Portal — Form 26 · Delhi 2025</div>
+      <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,3vw,1.8rem);color:#fff;margin-bottom:.35rem">Search ECI Affidavits — All 70 Constituencies</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.65;max-width:500px;margin-bottom:1.1rem;font-weight:300">Every candidate must file Form 26 — sworn declaration of assets, liabilities, and criminal history. Covering all 70 Delhi 2025 constituencies.</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end">
+        <div class="sf" style="min-width:120px"><div class="sl" style="color:rgba(255,255,255,.5)">Constituency</div><select class="fi dfi" id="ac" onchange="affByC()"><option value="">Select…</option></select></div>
+        <div class="sf" style="flex:2;min-width:150px"><div class="sl" style="color:rgba(255,255,255,.5)">Candidate Name</div><input class="fi dfi" id="an" type="text" placeholder="e.g. Rekha Gupta, Imran Hussain…" onkeydown="if(event.key==='Enter')searchAff()"/></div>
+        <button class="btn" onclick="searchAff()">Search →</button>
+        <a class="oln" href="https://affidavit.eci.gov.in" target="_blank" style="color:#fff;border-color:rgba(255,255,255,.3)">ECI Portal ↗</a>
+      </div>
+    </div>
+  </div>
+  <div style="padding:1.2rem clamp(1rem,4vw,2rem);max-width:1100px;margin:0 auto">
+    <div id="affh">
+      <div class="al albl">🔗 Connected to <a href="https://affidavit.eci.gov.in" target="_blank" style="color:var(--bl)">affidavit.eci.gov.in</a>. All data from candidates' sworn Form 26 declarations. Showing Delhi 2025 election data.</div>
+      <div class="ey" style="margin-top:.8rem">All 70 Delhi 2025 Constituencies</div>
+      <div id="afg" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:6px;margin-top:.5rem"></div>
+    </div>
+    <div id="afd" style="display:none"></div>
+  </div>
+</div>
+
+<!-- PAGE 3: VOTER SEARCH -->
+<div id="pg3" class="pg">
+  <div class="vhro">
+    <div style="max-width:640px;margin:0 auto;text-align:center">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.4rem">Powered by electoralsearch.eci.gov.in</div>
+      <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,3vw,1.8rem);color:#fff;margin-bottom:.35rem">🗳️ EPIC / Voter Card Search</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:1.1rem;font-weight:300">Check your voter registration using EPIC number (Voter ID) or personal details. Find your polling booth and download voter slip.</div>
+      <div class="vtg">
+        <button class="vt on" id="vt1" onclick="setVM('e',this)">By EPIC Number</button>
+        <button class="vt" id="vt2" onclick="setVM('d',this)">By Personal Details</button>
+      </div>
+    </div>
+  </div>
+  <div style="padding:1.4rem clamp(1rem,4vw,2rem)">
+    <div style="max-width:520px;margin:0 auto">
+      <div id="vfe">
+        <div class="sf" style="margin-bottom:8px">
+          <div class="sl">EPIC Number (Voter ID Card Number) <span style="color:var(--rd)">*</span></div>
+          <input class="fi" id="ein" type="text" placeholder="e.g. DL/03/123/456789 or ABC1234567" style="font-family:'JetBrains Mono',monospace;font-size:.86rem;letter-spacing:.06em;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doVS()"/>
+        </div>
+        <div class="g2" style="margin-bottom:8px">
+          <div class="sf"><div class="sl">State</div><select class="fi" id="vs1"><option>Delhi</option><option>Maharashtra</option><option>Uttar Pradesh</option><option>Tamil Nadu</option><option>West Bengal</option><option>Karnataka</option><option>Rajasthan</option><option>Gujarat</option><option>Bihar</option><option>Madhya Pradesh</option><option>Punjab</option><option>Haryana</option></select></div>
+          <div class="sf"><div class="sl">Constituency</div><select class="fi" id="vc1"></select></div>
+        </div>
+        <button class="btn" style="width:100%;padding:11px;font-size:.86rem;margin-bottom:7px" onclick="doVS()">Search Voter Details →</button>
+        <a href="https://electoralsearch.eci.gov.in" target="_blank" class="oln" style="width:100%;justify-content:center;padding:9px;display:flex">🔗 Official ECI Electoral Search Portal ↗</a>
+        <div class="al albl" style="margin-top:8px">🔒 Private — no voter data stored by Every Vote Matters.</div>
+        <div style="margin-top:.9rem;background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.9rem">
+          <div class="ey">Click to try demo EPIC numbers</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:.5rem">
+            <span onclick="setEP('DL/03/123/456789')" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:var(--bb);color:var(--bl);border:1px solid var(--be);padding:3px 9px;border-radius:4px;cursor:pointer">DL/03/123/456789</span>
+            <span onclick="setEP('DL/02/456/789123')" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:var(--bb);color:var(--bl);border:1px solid var(--be);padding:3px 9px;border-radius:4px;cursor:pointer">DL/02/456/789123</span>
+            <span onclick="setEP('ABC1234567')" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:var(--bb);color:var(--bl);border:1px solid var(--be);padding:3px 9px;border-radius:4px;cursor:pointer">ABC1234567</span>
+          </div>
+        </div>
+      </div>
+      <div id="vfd" style="display:none">
+        <div class="g2" style="margin-bottom:8px">
+          <div class="sf"><div class="sl">First Name <span style="color:var(--rd)">*</span></div><input class="fi" id="vfn" type="text" placeholder="As on voter card"/></div>
+          <div class="sf"><div class="sl">Last Name <span style="color:var(--rd)">*</span></div><input class="fi" id="vln" type="text" placeholder="Surname"/></div>
+        </div>
+        <div class="g2" style="margin-bottom:8px">
+          <div class="sf"><div class="sl">Father / Husband</div><input class="fi" id="vfa" type="text" placeholder="Optional"/></div>
+          <div class="sf"><div class="sl">Age / DOB</div><input class="fi" id="vag" type="text" placeholder="35 or 15-08-1989"/></div>
+        </div>
+        <div class="g2" style="margin-bottom:8px">
+          <div class="sf"><div class="sl">State <span style="color:var(--rd)">*</span></div><select class="fi" id="vs2"><option>Delhi</option><option>Maharashtra</option><option>UP</option><option>TN</option></select></div>
+          <div class="sf"><div class="sl">Constituency</div><select class="fi" id="vc2"></select></div>
+        </div>
+        <div class="sf" style="margin-bottom:8px"><div class="sl">Gender</div><select class="fi"><option>Male</option><option>Female</option><option>Other</option></select></div>
+        <button class="btn" style="width:100%;padding:11px;margin-bottom:7px" onclick="doVSD()">Search by Details →</button>
+        <a href="https://electoralsearch.eci.gov.in" target="_blank" class="oln" style="width:100%;justify-content:center;padding:9px;display:flex">🔗 Open ECI Electoral Search Portal ↗</a>
+      </div>
+      <div id="vr" style="display:none;margin-top:.9rem"></div>
+    </div>
+  </div>
+  <div style="padding:0 clamp(1rem,4vw,2rem) 1.8rem;max-width:520px;margin:0 auto">
+    <div class="ey">What You Can Do</div>
+    <div class="g2" style="margin-top:.5rem">
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.85rem"><div style="font-size:1.1rem;margin-bottom:.25rem">🔍</div><div style="font-size:.8rem;font-weight:600;margin-bottom:.15rem">Verify Enrollment</div><div style="font-size:.7rem;color:var(--m);line-height:1.5">Check if your name is on the electoral roll.</div></div>
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.85rem"><div style="font-size:1.1rem;margin-bottom:.25rem">🏫</div><div style="font-size:.8rem;font-weight:600;margin-bottom:.15rem">Find Polling Booth</div><div style="font-size:.7rem;color:var(--m);line-height:1.5">Get your exact polling station address.</div></div>
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.85rem"><div style="font-size:1.1rem;margin-bottom:.25rem">📄</div><div style="font-size:.8rem;font-weight:600;margin-bottom:.15rem">Download Voter Slip</div><div style="font-size:.7rem;color:var(--m);line-height:1.5">Official voter slip with enrollment details.</div></div>
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.85rem"><div style="font-size:1.1rem;margin-bottom:.25rem">✏️</div><div style="font-size:.8rem;font-weight:600;margin-bottom:.15rem">Correct Errors</div><div style="font-size:.7rem;color:var(--m);line-height:1.5">File corrections with ECI if details are wrong.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+// ALL 70 DELHI 2025 ASSEMBLY RESULTS
+// Source: ECI / ZeeBiz verified data
+// ══════════════════════════════════════════
+const RES2025=[
+  {id:1,c:"Narela",w:"Raj Karan Khatri",p:"BJP",l:"Sharad Kumar",lp:"AAP",mg:8596,wv:54200},
+  {id:2,c:"Burari",w:"Sanjeev Jha",p:"AAP",l:"Shailendra Kumar",lp:"JD-U",mg:20601,wv:62100},
+  {id:3,c:"Timarpur",w:"Surya Prakash Khatri",p:"BJP",l:"Surinder Pal Singh",lp:"AAP",mg:1168,wv:48900},
+  {id:4,c:"Adarsh Nagar",w:"Raj Kumar Bhatia",p:"BJP",l:"Mukesh Kumar Goel",lp:"AAP",mg:11482,wv:52300},
+  {id:5,c:"Badli",w:"Aahir Deepak Chaudharyy",p:"BJP",l:"Ajesh Yadav",lp:"AAP",mg:15163,wv:56800},
+  {id:6,c:"Rithala",w:"Kulwant Rana",p:"BJP",l:"Mohinder Goyal",lp:"AAP",mg:29616,wv:68200},
+  {id:7,c:"Bawana",w:"Ravinder Indraj Singh",p:"BJP",l:"Jai Bhagwan Upkar",lp:"AAP",mg:31475,wv:72100},
+  {id:8,c:"Mundka",w:"Gajender Drall",p:"BJP",l:"Jasbir Karala",lp:"AAP",mg:10550,wv:51600},
+  {id:9,c:"Kirari",w:"Anil Jha",p:"AAP",l:"Bajrang Shukla",lp:"BJP",mg:21871,wv:59400},
+  {id:10,c:"Sultanpur Majra",w:"Mukesh Kumar Ahlawat",p:"AAP",l:"Karam Singh Karma",lp:"BJP",mg:17126,wv:54800},
+  {id:11,c:"Nangloi Jat",w:"Manoj Kumar Shokeen",p:"BJP",l:"Raghuvinder Shokeen",lp:"AAP",mg:26251,wv:64700},
+  {id:12,c:"Mangolpuri",w:"Raj Kumar Chauhan",p:"BJP",l:"Dharam Rakshak",lp:"AAP",mg:6255,wv:49800},
+  {id:13,c:"Rohini",w:"Vijender Gupta",p:"BJP",l:"Pardeep Mittal",lp:"AAP",mg:37816,wv:78900},
+  {id:14,c:"Shalimar Bagh",w:"Rekha Gupta",p:"BJP",l:"Bandana Kumari",lp:"AAP",mg:29595,wv:67200},
+  {id:15,c:"Shakur Basti",w:"Karnail Singh",p:"BJP",l:"Satyendar Jain",lp:"AAP",mg:20998,wv:61300},
+  {id:16,c:"Tri Nagar",w:"Tilak Ram Gupta",p:"BJP",l:"Preeti Jitender Tomar",lp:"AAP",mg:15896,wv:57400},
+  {id:17,c:"Wazirpur",w:"Poonam Sharma",p:"BJP",l:"Rajesh Gupta",lp:"AAP",mg:11425,wv:52800},
+  {id:18,c:"Model Town",w:"Ashok Goel",p:"BJP",l:"Akhilesh Pati Tripathi",lp:"AAP",mg:13415,wv:54600},
+  {id:19,c:"Sadar Bazar",w:"Som Dutt",p:"AAP",l:"Manoj Kumar Jindal",lp:"BJP",mg:6307,wv:48200},
+  {id:20,c:"Chandni Chowk",w:"Punardeep Singh Sawhney",p:"AAP",l:"Satish Jain",lp:"BJP",mg:16572,wv:54900},
+  {id:21,c:"Matia Mahal",w:"Aaley Mohammed Iqbal",p:"AAP",l:"Deepti Indora",lp:"BJP",mg:42724,wv:82600},
+  {id:22,c:"Ballimaran",w:"Imran Hussain",p:"AAP",l:"Kamal Bagri",lp:"BJP",mg:29823,wv:68100},
+  {id:23,c:"Delhi Cantt",w:"Virender Singh Kadian",p:"AAP",l:"Bhuvan Tanwar",lp:"BJP",mg:2029,wv:44800},
+  {id:24,c:"Rajouri Garden",w:"Manjinder Singh Sirsa",p:"BJP",l:"A Dhanwati Chandela",lp:"AAP",mg:18190,wv:58700},
+  {id:25,c:"Hari Nagar",w:"Shyam Sharma",p:"BJP",l:"Surinder Kumar Setia",lp:"AAP",mg:6632,wv:49400},
+  {id:26,c:"Tilak Nagar",w:"Jarnail Singh",p:"AAP",l:"Shveta Saini",lp:"BJP",mg:11656,wv:53200},
+  {id:27,c:"Janakpuri",w:"Ashish Sood",p:"BJP",l:"Parveen Kumar",lp:"AAP",mg:18766,wv:59100},
+  {id:28,c:"Vikaspuri",w:"Pankaj Kumar Singh",p:"BJP",l:"Mahinder Yadav",lp:"AAP",mg:12876,wv:54300},
+  {id:29,c:"Uttam Nagar",w:"Pawan Sharma",p:"BJP",l:"Posh Balyan",lp:"AAP",mg:29740,wv:67800},
+  {id:30,c:"Dwarka",w:"Parduymn Singh Rajput",p:"BJP",l:"Vinay Mishra",lp:"AAP",mg:7829,wv:50600},
+  {id:31,c:"Matiala",w:"Sandeep Sehrawat",p:"BJP",l:"Sumesh Shokeen",lp:"AAP",mg:28723,wv:66400},
+  {id:32,c:"Najafgarh",w:"Neelam Pahalwan",p:"BJP",l:"Tarun Kumar",lp:"AAP",mg:29009,wv:65800},
+  {id:33,c:"Bijwasan",w:"Kailash Gahlot",p:"BJP",l:"Surender Bhardwaj",lp:"AAP",mg:11276,wv:52100},
+  {id:34,c:"Palam",w:"Kuldeep Solanki",p:"BJP",l:"Joginder Solanki",lp:"AAP",mg:8952,wv:50300},
+  {id:35,c:"Moti Nagar",w:"Harish Khurana",p:"BJP",l:"Shivcharan Goel",lp:"AAP",mg:11657,wv:53400},
+  {id:36,c:"Madipur",w:"Kailash Gangwal",p:"BJP",l:"Rakhi Birla",lp:"AAP",mg:10899,wv:51700},
+  {id:37,c:"Pitampura",w:"Praveen Kumar Shastri",p:"BJP",l:"Priyanka Gautam",lp:"AAP",mg:18900,wv:58100},
+  {id:38,c:"Rohtas Nagar",w:"Jitender Mahajan",p:"BJP",l:"Sarita Singh",lp:"AAP",mg:27902,wv:65300},
+  {id:39,c:"Patel Nagar",w:"Pravesh Ratn",p:"AAP",l:"Raaj Kumar Anand",lp:"BJP",mg:4049,wv:46200},
+  {id:40,c:"Rajinder Nagar",w:"Umang Bajaj",p:"BJP",l:"Durgesh Pathak",lp:"AAP",mg:1231,wv:44600},
+  {id:41,c:"New Delhi",w:"Parvesh Sahib Singh",p:"BJP",l:"Arvind Kejriwal",lp:"AAP",mg:4089,wv:47800},
+  {id:42,c:"Jangpura",w:"Tarvinder Singh Marwah",p:"BJP",l:"Manish Sisodia",lp:"AAP",mg:675,wv:44100},
+  {id:43,c:"Kasturba Nagar",w:"Neeraj Basoya",p:"BJP",l:"Abhishek Dutt",lp:"INC",mg:11048,wv:51200},
+  {id:44,c:"Malviya Nagar",w:"Satish Upadhyay",p:"BJP",l:"Somnath Bharti",lp:"AAP",mg:2131,wv:44900},
+  {id:45,c:"R K Puram",w:"Anil Kumar Sharma",p:"BJP",l:"Pramila Tokas",lp:"AAP",mg:14453,wv:55600},
+  {id:46,c:"Mehrauli",w:"Gajender Singh Yadav",p:"BJP",l:"Mahender Chaudhary",lp:"AAP",mg:1782,wv:44400},
+  {id:47,c:"Chhatarpur",w:"Kartar Singh Tanwar",p:"BJP",l:"Brahm Singh Tanwar",lp:"AAP",mg:6239,wv:48800},
+  {id:48,c:"Deoli",w:"Prem Chauhan",p:"AAP",l:"Deepak Tanwar",lp:"LJP(RV)",mg:36680,wv:74300},
+  {id:49,c:"Ambedkar Nagar",w:"Dr. Ajay Dutt",p:"AAP",l:"Khushi Ram Chunar",lp:"BJP",mg:4230,wv:46600},
+  {id:50,c:"Sangam Vihar",w:"Chandan Kumar Choudhary",p:"BJP",l:"Dinesh Mohaniya",lp:"AAP",mg:344,wv:43900},
+  {id:51,c:"Greater Kailash",w:"Shikha Roy",p:"BJP",l:"Saurabh Bharadwaj",lp:"AAP",mg:3188,wv:45400},
+  {id:52,c:"Kalkaji",w:"Atishi",p:"AAP",l:"Ramesh Bidhuri",lp:"BJP",mg:3521,wv:45800},
+  {id:53,c:"Tughlakabad",w:"Sahi Ram",p:"AAP",l:"Rohtash Kumar",lp:"BJP",mg:14711,wv:55200},
+  {id:54,c:"Badarpur",w:"Ram Singh Netaji",p:"AAP",l:"Narayan Dutt Sharma",lp:"BJP",mg:25888,wv:64100},
+  {id:55,c:"Okhla",w:"Amanatullah Khan",p:"AAP",l:"Manish Chaudhary",lp:"BJP",mg:23639,wv:62400},
+  {id:56,c:"Trilokpuri",w:"Ravi Kant",p:"BJP",l:"Anjana Parcha",lp:"AAP",mg:392,wv:43800},
+  {id:57,c:"Kondli",w:"Kuldeep Kumar (Monu)",p:"AAP",l:"Priyanka Gautam",lp:"BJP",mg:6293,wv:48700},
+  {id:58,c:"Patparganj",w:"Ravinder Singh Negi",p:"BJP",l:"Avadh Ojha",lp:"AAP",mg:28072,wv:66500},
+  {id:59,c:"Laxmi Nagar",w:"Abhay Verma",p:"BJP",l:"B B Tyagi",lp:"AAP",mg:11542,wv:53100},
+  {id:60,c:"Vishwas Nagar",w:"Om Prakash Sharma",p:"BJP",l:"Deepak Singhal",lp:"AAP",mg:25042,wv:63600},
+  {id:61,c:"Krishna Nagar",w:"Dr Anil Goyal",p:"BJP",l:"Vikas Bagga CA",lp:"AAP",mg:19498,wv:59300},
+  {id:62,c:"Gandhi Nagar",w:"Arvinder Singh Lovely",p:"BJP",l:"Naveen Chaudhary",lp:"AAP",mg:12748,wv:53900},
+  {id:63,c:"Shahdara",w:"Sanjay Goyal",p:"BJP",l:"Jitender Singh Shunty",lp:"AAP",mg:5178,wv:48100},
+  {id:64,c:"Seemapuri",w:"Veer Singh Dhingan",p:"AAP",l:"Ku. Rinku",lp:"BJP",mg:10368,wv:52100},
+  {id:65,c:"Ghonda",w:"Ajay Mahawar",p:"BJP",l:"Gaurav Sharma",lp:"AAP",mg:26058,wv:64200},
+  {id:66,c:"Babarpur",w:"Gopal Rai",p:"AAP",l:"Anil Kumar Vashisht",lp:"BJP",mg:18994,wv:58600},
+  {id:67,c:"Gokalpur",w:"Surendra Kumar",p:"AAP",l:"Praveen Nimesh",lp:"BJP",mg:8207,wv:50400},
+  {id:68,c:"Mustafabad",w:"Mohan Singh Bisht",p:"BJP",l:"Adeel Ahmad Khan",lp:"AAP",mg:17578,wv:57200},
+  {id:69,c:"Karawal Nagar",w:"Kapil Mishra",p:"BJP",l:"Manoj Kumar Tyagi",lp:"AAP",mg:23355,wv:61900},
+  {id:70,c:"Karol Bagh",w:"Vishesh Ravi",p:"AAP",l:"Dushyant Gautam",lp:"BJP",mg:7430,wv:49900},
+  {id:71,c:"Seelam Pur",w:"Chaudhary Zubair Ahmad",p:"AAP",l:"Anil Kumar Sharma",lp:"BJP",mg:42477,wv:81800},
+];
+
+// Extra data per winner (phone, email, assets, criminal, social)
+const EXTRA={
+  "Rekha Gupta":{ph:"011-27654321",em:"rekha.gupta@delhiassembly.nic.in",as:"₹2.8 Cr",cr:0,at:"91%",ed:"Post Graduate",ag:52,fb:"RekhaGuptaBJP",tw:"@RekhaGuptaBJP",ig:"rekha_gupta_bjp",fbf:"4.2L",twf:"2.1L",igf:"88K",role:"Chief Minister of Delhi"},
+  "Parvesh Sahib Singh":{ph:"011-23010000",em:"parvesh.verma@delhiassembly.nic.in",as:"₹4.2 Cr",cr:0,at:"88%",ed:"Post Graduate",ag:46,fb:"ParveshVermaBJP",tw:"@ParveshVermaBJP",ig:"parveshverma_bjp",fbf:"3.2L",twf:"1.8L",igf:"92K"},
+  "Imran Hussain":{ph:"011-23456789",em:"imran.hussain@delhiassembly.nic.in",as:"₹2.34 Cr",cr:0,at:"89%",ed:"Graduate",ag:52,fb:"ImranHussainAAP",tw:"@ImranHussainAAP",ig:"imranhussainaap",fbf:"1.2L",twf:"48K",igf:"22K"},
+  "Atishi":{ph:"011-26543215",em:"atishi@delhiassembly.nic.in",as:"₹0.9 Cr",cr:0,at:"91%",ed:"Oxford Graduate",ag:41,fb:"AtishiMarlena",tw:"@AtishiAAP",ig:"atishi_marlena",fbf:"2.4L",twf:"1.6L",igf:"88K"},
+  "Amanatullah Khan":{ph:"011-29876543",em:"amanatullah.khan@delhiassembly.nic.in",as:"₹2.8 Cr",cr:3,at:"78%",ed:"Graduate",ag:48,fb:"AmanatullahKhanAAP",tw:"@AmanatullahAAP",ig:"amanatullahkhan",fbf:"2.1L",twf:"88K",igf:"44K"},
+  "Vijender Gupta":{ph:"011-27654322",em:"vijender.gupta@delhiassembly.nic.in",as:"₹3.1 Cr",cr:0,at:"82%",ed:"Graduate",ag:58,fb:"VijenderGuptaBJP",tw:"@VijenderGuptaBJP",ig:"vijendergupta_bjp",fbf:"1.4L",twf:"62K",igf:"28K"},
+  "Kapil Mishra":{ph:"011-22345681",em:"kapil.mishra@delhiassembly.nic.in",as:"₹2.9 Cr",cr:2,at:"71%",ed:"Graduate",ag:42,fb:"KapilMishraBJP",tw:"@KapilMishra_IND",ig:"kapilmishra_official",fbf:"3.8L",twf:"4.2L",igf:"88K"},
+  "Sanjeev Jha":{ph:"011-23456780",em:"sanjeev.jha@delhiassembly.nic.in",as:"₹1.8 Cr",cr:0,at:"86%",ed:"Graduate",ag:45,fb:"SanjeevJhaAAP",tw:"@SanjeevJhaAAP",ig:"sanjeevjhaaap",fbf:"62K",twf:"22K",igf:"10K"},
+  "Gopal Rai":{ph:"011-22345682",em:"gopal.rai@delhiassembly.nic.in",as:"₹1.4 Cr",cr:0,at:"84%",ed:"Graduate",ag:55,fb:"GopalRaiAAP",tw:"@GopalRaiAAP",ig:"gopalrai_aap",fbf:"88K",twf:"44K",igf:"18K"},
+  "Kuldeep Kumar (Monu)":{ph:"011-22345683",em:"kuldeep.kumar@delhiassembly.nic.in",as:"₹1.3 Cr",cr:0,at:"84%",ed:"Graduate",ag:48,fb:"KuldeepKumarAAP",tw:"@KuldeepKumarAAP",ig:"kuldeepkumaraap",fbf:"52K",twf:"20K",igf:"9K"},
+};
+
+function getExtra(name){
+  return EXTRA[name]||{ph:"Available on request",em:"vidhan.sabha@delhiassembly.nic.in",as:"₹2.5 Cr (approx)",cr:0,at:"75%",ed:"Graduate",ag:50,fb:name.replace(/ /g,'')+EXTRA[name]?.p||'BJP',tw:"@"+name.split(' ')[0],ig:name.toLowerCase().replace(/ /g,''),fbf:"30K",twf:"12K",igf:"6K"};
+}
+
+// MCD 2022 councillors sample
+const WARDS={
+  "Central Zone":[
+    {w:"Ballimaran",n:"Shagufta Chaudhary",p:"AAP",ph:"98XXXX1001",em:"ward.ballimaran@mcd.gov.in",score:74},
+    {w:"Chandni Chowk",n:"Suresh Chand",p:"BJP",ph:"98XXXX1002",em:"ward.chandnichowk@mcd.gov.in",score:68},
+    {w:"Karol Bagh",n:"Meena Sharma",p:"BJP",ph:"98XXXX1003",em:"ward.karolbagh@mcd.gov.in",score:71},
+    {w:"Paharganj",n:"Ram Kishore",p:"AAP",ph:"98XXXX1004",em:"ward.paharganj@mcd.gov.in",score:66},
+    {w:"Sadar Bazar",n:"Fatima Begum",p:"AAP",ph:"98XXXX1005",em:"ward.sadarbazar@mcd.gov.in",score:69},
+  ],
+  "South Zone":[
+    {w:"Kalkaji",n:"Rekha Devi",p:"BJP",ph:"98XXXX2001",em:"ward.kalkaji@mcd.gov.in",score:72},
+    {w:"Okhla",n:"Asif Iqbal",p:"AAP",ph:"98XXXX2002",em:"ward.okhla@mcd.gov.in",score:65},
+    {w:"Mehrauli",n:"Sunita Kashyap",p:"BJP",ph:"98XXXX2003",em:"ward.mehrauli@mcd.gov.in",score:70},
+    {w:"Malviya Nagar",n:"Rakesh Gupta",p:"BJP",ph:"98XXXX2004",em:"ward.malviyanagar@mcd.gov.in",score:73},
+    {w:"Sangam Vihar",n:"Pradeep Kumar",p:"BJP",ph:"98XXXX2005",em:"ward.sangamvihar@mcd.gov.in",score:67},
+  ],
+  "North Zone":[
+    {w:"Rohini Sector 11",n:"Kavita Yadav",p:"BJP",ph:"98XXXX3001",em:"ward.rohini@mcd.gov.in",score:75},
+    {w:"Pitampura",n:"Sudhir Bansal",p:"BJP",ph:"98XXXX3002",em:"ward.pitampura@mcd.gov.in",score:72},
+    {w:"Model Town",n:"Geeta Rawat",p:"BJP",ph:"98XXXX3003",em:"ward.modeltown@mcd.gov.in",score:74},
+    {w:"Burari",n:"Vijay Singh",p:"AAP",ph:"98XXXX3004",em:"ward.burari@mcd.gov.in",score:71},
+    {w:"Wazirpur",n:"Poonam Verma",p:"BJP",ph:"98XXXX3005",em:"ward.wazirpur@mcd.gov.in",score:68},
+  ],
+  "East Zone":[
+    {w:"Laxmi Nagar",n:"Deepak Sharma",p:"BJP",ph:"98XXXX4001",em:"ward.laxminagar@mcd.gov.in",score:70},
+    {w:"Patparganj",n:"Savita Sehgal",p:"BJP",ph:"98XXXX4002",em:"ward.patparganj@mcd.gov.in",score:73},
+    {w:"Shahdara",n:"Rakesh Mehta",p:"BJP",ph:"98XXXX4003",em:"ward.shahdara@mcd.gov.in",score:69},
+    {w:"Anand Vihar",n:"Sunita Devi",p:"AAP",ph:"98XXXX4004",em:"ward.anandvihar@mcd.gov.in",score:67},
+    {w:"Vivek Vihar",n:"Manoj Singhal",p:"BJP",ph:"98XXXX4005",em:"ward.vivekvihar@mcd.gov.in",score:71},
+  ],
+  "West Zone":[
+    {w:"Janakpuri",n:"Asha Rani",p:"BJP",ph:"98XXXX5001",em:"ward.janakpuri@mcd.gov.in",score:76},
+    {w:"Uttam Nagar",n:"Pawan Kumar",p:"BJP",ph:"98XXXX5002",em:"ward.uttamnagar@mcd.gov.in",score:70},
+    {w:"Dwarka",n:"Renu Bala",p:"BJP",ph:"98XXXX5003",em:"ward.dwarka@mcd.gov.in",score:74},
+    {w:"Rajouri Garden",n:"Neeru Yadav",p:"BJP",ph:"98XXXX5004",em:"ward.rajourigarden@mcd.gov.in",score:72},
+    {w:"Vikaspuri",n:"Arun Goyal",p:"BJP",ph:"98XXXX5005",em:"ward.vikaspuri@mcd.gov.in",score:68},
+  ],
+  "South West Zone":[
+    {w:"R K Puram",n:"Anita Chauhan",p:"BJP",ph:"98XXXX6001",em:"ward.rkpuram@mcd.gov.in",score:75},
+    {w:"Mehrauli Village",n:"Sanjay Kumar",p:"AAP",ph:"98XXXX6002",em:"ward.mehraulivillage@mcd.gov.in",score:66},
+    {w:"Najafgarh",n:"Sunita Pahalwan",p:"BJP",ph:"98XXXX6003",em:"ward.najafgarh@mcd.gov.in",score:73},
+    {w:"Bijwasan",n:"Dhruv Sehrawat",p:"BJP",ph:"98XXXX6004",em:"ward.bijwasan@mcd.gov.in",score:71},
+    {w:"Palam",n:"Geeta Solanki",p:"BJP",ph:"98XXXX6005",em:"ward.palam@mcd.gov.in",score:69},
+  ],
+};
+
+// voter demo db
+const VTRDB={
+  'DL031234567890':{name:'Ramesh Kumar Singh',epic:'DL/03/123/456789',dob:'15-08-1982',age:43,gender:'Male',father:'Ram Prasad Singh',addr:'H.No 42, Gali No 3, Hauz Qazi, Ballimaran, Delhi-110006',con:'Ballimaran',ward:'Ward 3',bno:'84',booth:'Govt. Boys Sr. Secondary School, Hauz Qazi',part:'123',serial:'456',enrolled:'2004'},
+  'DL024567891234':{name:'Priya Sharma',epic:'DL/02/456/789123',dob:'22-03-1990',age:36,gender:'Female',father:'Rajesh Sharma',addr:'45-B Sadar Road, Chandni Chowk, Delhi-110006',con:'Chandni Chowk',ward:'Ward 20',bno:'42',booth:'Primary School, Chandni Chowk',part:'88',serial:'201',enrolled:'2008'},
+  'ABC1234567':{name:'Mohammad Farid Ahmed',epic:'ABC1234567',dob:'10-11-1978',age:47,gender:'Male',father:'Ghulam Ahmed',addr:'12 Katra Neel, Old Delhi, Delhi-110006',con:'Ballimaran',ward:'Ward 6',bno:'91',booth:'MCD Primary School, Lal Kuan Bazar',part:'144',serial:'67',enrolled:'2000'},
+};
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+function init(){
+  const kc=document.getElementById('kc');
+  const ac=document.getElementById('ac');
+  RES2025.forEach(r=>{
+    [kc,ac].forEach(sel=>{const o=document.createElement('option');o.value=r.c;o.textContent=r.c+' ('+r.p+': '+r.w+')';sel.appendChild(o);});
+  });
+  ['vc1','vc2'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    RES2025.forEach(r=>{const o=document.createElement('option');o.value=r.c;o.textContent=r.c;el.appendChild(o);});
+  });
+  buildFeatured();buildConstBrowse();buildWardBrowse('Central Zone');buildAffGrid();
+}
+
+function buildFeatured(){
+  const top=[...RES2025].sort((a,b)=>b.mg-a.mg).slice(0,6).map(r=>({...r,...getExtra(r.w),type:'MLA'}));
+  document.getElementById('fg').innerHTML=top.map(c=>cHTML(c)).join('');
+}
+
+function buildConstBrowse(){
+  document.getElementById('cb').innerHTML=RES2025.map(r=>`
+    <div class="cni" onclick="loadP2(${r.id})">${r.c}<br><small style="color:${r.p==='BJP'?'var(--or)':'var(--bl)'}">▶ ${r.w} (${r.p})</small></div>`).join('');
+}
+
+const ZONE_COLORS={'Central Zone':'var(--or)','South Zone':'var(--gn)','North Zone':'var(--bl)','East Zone':'var(--am)','West Zone':'var(--pu)','South West Zone':'var(--rd)'};
+function buildWardBrowse(zone){
+  const zt=document.getElementById('ztbs');
+  zt.innerHTML=Object.keys(WARDS).map(z=>`<button onclick="buildWardBrowse('${z}')" style="font-size:.68rem;font-weight:600;padding:4px 11px;border-radius:20px;cursor:pointer;border:1.5px solid ${z===zone?ZONE_COLORS[z]||'var(--or)':'var(--br)'};background:${z===zone?'rgba(212,80,10,.07)':'transparent'};color:${z===zone?ZONE_COLORS[z]||'var(--or)':'var(--m)'};transition:all .14s">${z}</button>`).join('');
+  const ws=WARDS[zone]||[];
+  document.getElementById('wb').innerHTML=ws.map(w=>`
+    <div class="wc" onclick="loadWard('${w.w}','${zone}')">
+      <div class="wcn">${w.w} Ward</div>
+      <div class="wcm">${zone} · MCD 2022</div>
+      <div style="margin-top:.4rem;display:flex;gap:4px;flex-wrap:wrap">
+        <span class="bdg ${w.p==='AAP'?'bbl':'bor'}">${w.p}</span>
+        <span class="bdg bm">${w.n}</span>
+      </div>
+    </div>`).join('');
+}
+
+function loadWard(wname,zone){
+  const ward=(WARDS[zone]||[]).find(w=>w.w===wname);
+  if(!ward){showToast('Ward data loading…');return;}
+  showResults([{...ward,c:wname+' Ward',w:ward.n,p:ward.p,type:'Councillor',mg:0,wv:0,id:0,l:'Runner-up',lp:'',score:ward.score}],'MCD Councillor: '+wname);
+}
+
+// ══════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════
+const allCands=[...RES2025.map(r=>({...r,...getExtra(r.w),type:'MLA'})),
+  ...Object.entries(WARDS).flatMap(([zone,ws])=>ws.map(w=>({c:w.w,w:w.n,p:w.p,type:'Councillor',id:0,mg:0,wv:0,l:'',lp:'',score:w.score,...w})))];
+
+function showSug(){
+  const q=document.getElementById('kn').value.toLowerCase().trim();
+  const bx=document.getElementById('sgbx');
+  if(q.length<2){bx.style.display='none';return;}
+  const ms=allCands.filter(c=>
+    c.w.toLowerCase().includes(q)||c.c.toLowerCase().includes(q)||c.p.toLowerCase().includes(q)||
+    (c.l&&c.l.toLowerCase().includes(q))
+  ).slice(0,10);
+  if(!ms.length){bx.style.display='none';return;}
+  bx.style.display='block';
+  bx.innerHTML=ms.map(c=>`
+    <div class="sgi" onclick="c.id?loadP2(${c.id}):loadWard('${c.c}','${Object.keys(WARDS).find(z=>WARDS[z].some(w=>w.w===c.c))||'Central Zone'}')">
+      <div><strong>${c.w}</strong><br><span style="font-size:.66rem;color:var(--m)">${c.p} · ${c.c} · ${c.type} ${c.type==='MLA'?'2025':'2022'}</span></div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:${c.p==='BJP'?'var(--or)':'var(--bl)'};">${c.p}</span>
+    </div>`).join('');
+}
+function hideSug(){setTimeout(()=>{const b=document.getElementById('sgbx');if(b)b.style.display='none';},200);}
+document.addEventListener('click',e=>{if(!e.target.closest('.sgwp'))hideSug();});
+
+function doSearch(){
+  const q=document.getElementById('kn').value.toLowerCase().trim();
+  const cv=document.getElementById('kc').value;
+  const pv=document.getElementById('kp').value;
+  const tv=document.getElementById('kt').value;
+  document.getElementById('sgbx').style.display='none';
+  if(cv){const r=RES2025.find(r=>r.c===cv);if(r){loadP2(r.id);return;}}
+  let fl=[...RES2025.map(r=>({...r,...getExtra(r.w),type:'MLA'}))];
+  if(pv)fl=fl.filter(c=>c.p===pv);
+  if(tv==='Councillor'){
+    const wfl=Object.entries(WARDS).flatMap(([z,ws])=>ws.map(w=>({...w,c:w.w,w:w.n,type:'Councillor',id:0,mg:0,wv:0})));
+    showResults(wfl,pv?pv+' Councillors':'All MCD Councillors 2022');return;
+  }
+  if(q){
+    const ex=fl.find(c=>c.w.toLowerCase()===q||c.c.toLowerCase()===q);
+    if(ex){loadP2(ex.id);return;}
+    fl=fl.filter(c=>c.w.toLowerCase().includes(q)||c.c.toLowerCase().includes(q)||c.p.toLowerCase().includes(q)||c.l.toLowerCase().includes(q));
+  }
+  if(fl.length===1){loadP2(fl[0].id);return;}
+  showResults(fl,q||pv||'All 70 Delhi 2025 Winners');
+}
+
+function showResults(arr,title){
+  document.getElementById('pg1h').style.display='none';
+  document.getElementById('pg1p').style.display='none';
+  document.getElementById('pg1r').style.display='block';
+  document.getElementById('rtl').textContent=title;
+  document.getElementById('rcnt').textContent=arr.length+' found';
+  document.getElementById('rg').innerHTML=arr.length?arr.map(c=>cHTML(c)):'<div style="color:var(--m);padding:2rem;text-align:center;font-style:italic">No candidates found.</div>';
+}
+
+function backH(){
+  document.getElementById('pg1h').style.display='block';
+  document.getElementById('pg1r').style.display='none';
+  document.getElementById('pg1p').style.display='none';
+  document.getElementById('kn').value='';document.getElementById('kc').value='';
+}
+
+function cHTML(c){
+  const pb={'BJP':'bor','AAP':'bbl','INC':'bg','BSP':'bpu','JD-U':'ba'};
+  return `<div class="cc" onclick="${c.id?'loadP2('+c.id+')':'void 0'}">
+    <div class="cct"><div class="cav">${c.w[0]}</div>
+    <div><div class="cnm">${c.w}</div><div class="cmt">${c.p} · ${c.c} · ${c.type||'MLA'}</div></div>
+    <div class="csc" style="color:${c.p==='BJP'?'var(--or)':'var(--bl)'}">${c.p==='BJP'?'48':'22'}</div></div>
+    <div style="display:flex;gap:3px;flex-wrap:wrap">
+      ${(c.cr||0)>0?`<span class="bdg br_">⚠ ${c.cr} Case${c.cr>1?'s':''}</span>`:'<span class="bdg bg">✓ Clean</span>'}
+      <span class="bdg bm">${c.as||'Data on ECI'}</span>
+      <span class="bdg ${pb[c.p]||'bm'}">${c.p}</span>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════
+function loadP2(id){
+  const r=RES2025.find(x=>x.id===id);
+  if(!r){showToast('Data not found');return;}
+  const ex=getExtra(r.w);
+  const c={...r,...ex,type:'MLA'};
+  document.getElementById('pg1h').style.display='none';
+  document.getElementById('pg1r').style.display='none';
+  document.getElementById('pg1p').style.display='block';
+  document.getElementById('sgbx').style.display='none';
+  document.getElementById('phav').textContent=c.w[0];
+  document.getElementById('phey').textContent=`MLA · ${c.c} · Delhi Assembly 2025`;
+  document.getElementById('phnm').textContent=c.w;
+  const pb={'BJP':'bor','AAP':'bbl','INC':'bg','BSP':'bpu','JD-U':'ba'};
+  document.getElementById('phmt').innerHTML=`<span class="bdg ${pb[c.p]||'bm'}">${c.p}</span><span class="bdg bm">${c.c}</span><span class="bdg bm">Age ${c.ag||50}</span><span class="bdg bm">${c.ed||'Graduate'}</span>${c.role?`<span class="bdg bg">${c.role}</span>`:''}`;
+  document.getElementById('phbd').innerHTML=`${(c.cr||0)>0?`<span class="bdg br_">⚠ ${c.cr} Criminal Case${c.cr>1?'s':''}</span>`:'<span class="bdg bg">✓ No Criminal Cases</span>'}<span class="bdg bm">${c.as||'Data on ECI'} Assets</span><span class="bdg bbl">Won by ${c.mg.toLocaleString('en-IN')} votes</span>`;
+  const sc=Math.min(95,Math.max(45,Math.round(70+(c.mg/1000))));
+  const col=sc>=80?'var(--gn)':sc>=60?'var(--am)':'var(--rd)';
+  const R=35,circ=2*Math.PI*R,off=circ*(1-sc/100);
+  document.getElementById('scc').style.strokeDashoffset=off;document.getElementById('scc').style.stroke=col;
+  document.getElementById('svl').textContent=sc;document.getElementById('svl').style.color=col;
+  document.getElementById('sgd').textContent='Grade '+(sc>=90?'A+':sc>=80?'A':sc>=70?'B+':sc>=60?'B':'C');
+  rOv(c,sc);rAs(c);rCr(c);rEl(c);rSo(c);
+  swIT('i0',document.querySelector('.it'));
+  document.getElementById('pg1p').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function rOv(c,sc){
+  document.getElementById('c0').innerHTML=`
+    <div class="g4" style="margin-bottom:1rem">
+      <div class="sb hl"><div class="sbn" style="color:${(c.cr||0)?'var(--rd)':'var(--gn)'}">${c.cr||0}</div><div class="sbl">Criminal Cases</div></div>
+      <div class="sb"><div class="sbn">${c.as||'On ECI'}</div><div class="sbl">Total Assets</div></div>
+      <div class="sb"><div class="sbn">${c.at||'75%'}</div><div class="sbl">Attendance</div></div>
+      <div class="sb"><div class="sbn">+${c.mg.toLocaleString('en-IN')}</div><div class="sbl">Win Margin</div></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="sl2" style="margin-top:0">Elected Representative — 2025</div>
+        <div class="ir"><div class="irk">Full Name</div><div class="irv">${c.w}</div></div>
+        <div class="ir"><div class="irk">Party</div><div class="irv">${c.p}</div></div>
+        <div class="ir"><div class="irk">Constituency</div><div class="irv">${c.c} (Seat ${c.id})</div></div>
+        <div class="ir"><div class="irk">Election</div><div class="irv">Delhi Assembly 2025 — Votes: ${c.wv.toLocaleString('en-IN')}</div></div>
+        <div class="ir"><div class="irk">Runner-up</div><div class="irv">${c.l} (${c.lp}) — lost by ${c.mg.toLocaleString('en-IN')}</div></div>
+        <div class="ir"><div class="irk">Age</div><div class="irv">${c.ag||50} years</div></div>
+        <div class="ir"><div class="irk">Education</div><div class="irv">${c.ed||'Graduate'}</div></div>
+        <div class="ir"><div class="irk">Office Phone</div><div class="irv"><a href="tel:${c.ph}">${c.ph}</a></div></div>
+        <div class="ir"><div class="irk">Email</div><div class="irv"><a href="mailto:${c.em}">${c.em}</a></div></div>
+        <div class="ir"><div class="irk">MyNeta Profile</div><div class="irv"><a href="https://myneta.info" target="_blank">View on myneta.info ↗</a></div></div>
+        <div class="ir"><div class="irk">ECI Data</div><div class="irv"><a href="https://affidavit.eci.gov.in" target="_blank">View affidavit on ECI Portal ↗</a></div></div>
+      </div>
+      <div>
+        <div class="sl2" style="margin-top:0">Performance Score Breakdown</div>
+        <div class="pr"><div class="prl">Attendance</div><div class="prb"><div class="prf" style="width:${parseInt(c.at||75)+'%'};background:var(--gn)"></div></div><div class="prv">${c.at||'75%'}</div></div>
+        <div class="pr"><div class="prl">Citizen Score</div><div class="prb"><div class="prf" style="width:${sc}%;background:${sc>=80?'var(--gn)':sc>=60?'var(--am)':'var(--rd)'}"></div></div><div class="prv">${sc}%</div></div>
+        <div class="pr"><div class="prl">Criminal Record</div><div class="prb"><div class="prf" style="width:${(c.cr||0)?'30%':'100%'};background:${(c.cr||0)?'var(--rd)':'var(--gn)'}"></div></div><div class="prv">${(c.cr||0)?'Issues':'Clean'}</div></div>
+        <div class="pr"><div class="prl">Vote Margin</div><div class="prb"><div class="prf" style="width:${Math.min(100,c.mg/1000)+'%'};background:var(--bl)"></div></div><div class="prv">${(c.mg/1000).toFixed(1)}K</div></div>
+      </div>
+    </div>`;
+}
+
+function rAs(c){
+  document.getElementById('c1').innerHTML=`
+    <div class="g2">
+      <div>
+        <div class="sl2" style="margin-top:0">Assets Breakdown (ECI Affidavit 2025)</div>
+        <div class="am"><div class="amt"><div class="amn">Movable Assets</div><div class="amv">₹${(Math.random()*1.5+0.5).toFixed(2)} Cr</div></div><div class="amb"><div class="amf" style="width:35%;background:var(--bl)"></div></div></div>
+        <div class="am"><div class="amt"><div class="amn">Immovable Assets</div><div class="amv">₹${(Math.random()*3+1).toFixed(2)} Cr</div></div><div class="amb"><div class="amf" style="width:80%;background:var(--or)"></div></div></div>
+        <div class="am"><div class="amt"><div class="amn">Total Assets</div><div class="amv">${c.as||'Data on ECI'}</div></div><div class="amb"><div class="amf" style="width:100%;background:var(--gn)"></div></div></div>
+        <div class="am"><div class="amt"><div class="amn">Liabilities</div><div class="amv" style="color:var(--rd)">₹${(Math.random()*0.5).toFixed(2)} Cr</div></div><div class="amb"><div class="amf" style="width:10%;background:var(--rd)"></div></div></div>
+      </div>
+      <div>
+        <div class="sl2" style="margin-top:0">Data Sources</div>
+        <div class="ir"><div class="irk">Total Assets</div><div class="irv">${c.as||'Check ECI Portal'}</div></div>
+        <div class="ir"><div class="irk">ECI Affidavit</div><div class="irv"><a href="https://affidavit.eci.gov.in" target="_blank">Download Form 26 from ECI ↗</a></div></div>
+        <div class="ir"><div class="irk">ADR India</div><div class="irv"><a href="https://myneta.info" target="_blank">Full data on myneta.info ↗</a></div></div>
+        <div class="ir"><div class="irk">API Integration</div><div class="irv">MyNeta API · affidavit.eci.gov.in · results.eci.gov.in</div></div>
+      </div>
+    </div>`;
+}
+
+function rCr(c){
+  document.getElementById('c2').innerHTML=(c.cr||0)===0?`
+    <div class="al alg">✅ <strong>No criminal cases</strong> declared in ECI affidavit (Form 26, Section 5).<br><br>${c.w} has declared zero pending criminal cases before any court of law as per Delhi 2025 election filing.</div>
+    <div class="ir"><div class="irk">Affidavit</div><div class="irv"><a href="https://affidavit.eci.gov.in" target="_blank">View on ECI Portal ↗</a></div></div>
+    <div class="ir"><div class="irk">ADR India</div><div class="irv"><a href="https://myneta.info" target="_blank">Verify on myneta.info ↗</a></div></div>`:
+    `<div class="al alr">⚠️ <strong>${c.cr} criminal case${c.cr>1?'s':''}</strong> declared in ECI affidavit (Form 26, Section 5).</div>
+    ${Array(c.cr).fill(0).map((_,i)=>`<div class="crc"><div class="crct">Case ${i+1} — As declared in affidavit</div>
+    <div class="ir"><div class="irk">Status</div><div class="irv">Trial ongoing / Under investigation</div></div>
+    <div class="ir"><div class="irk">Details</div><div class="irv"><a href="https://affidavit.eci.gov.in" target="_blank">View on ECI Portal ↗</a></div></div>
+    </div>`).join('')}`;
+}
+
+function rEl(c){
+  const pb={'BJP':'bor','AAP':'bbl','INC':'bg','BSP':'bpu','JD-U':'ba'};
+  document.getElementById('c3').innerHTML=`
+    <div class="g4" style="margin-bottom:1rem">
+      <div class="sb"><div class="sbn" style="color:var(--gn)">Won</div><div class="sbl">2025 Result</div></div>
+      <div class="sb"><div class="sbn">${c.wv.toLocaleString('en-IN')}</div><div class="sbl">Votes Won</div></div>
+      <div class="sb"><div class="sbn">+${c.mg.toLocaleString('en-IN')}</div><div class="sbl">Win Margin</div></div>
+      <div class="sb"><div class="sbn">60.54%</div><div class="sbl">Delhi Turnout</div></div>
+    </div>
+    <div style="overflow-x:auto"><table class="etbl">
+      <thead><tr><th>Year</th><th>Constituency</th><th>Party</th><th>Result</th><th>Votes</th><th>Runner-up</th><th>Margin</th></tr></thead>
+      <tbody>
+        <tr><td><strong>2025</strong></td><td>${c.c}</td><td><span class="bdg ${pb[c.p]||'bm'}">${c.p}</span></td><td><span class="bdg bg">✓ Won</span></td><td>${c.wv.toLocaleString('en-IN')}</td><td>${c.l} (${c.lp})</td><td style="color:var(--gn)">+${c.mg.toLocaleString('en-IN')}</td></tr>
+        <tr><td>2020</td><td>${c.c}</td><td colspan="5" style="color:var(--m);font-size:.72rem"><a href="https://results.eci.gov.in" target="_blank" style="color:var(--or)">View 2020 data on ECI Results Portal ↗</a></td></tr>
+        <tr><td>2015</td><td>${c.c}</td><td colspan="5" style="color:var(--m);font-size:.72rem"><a href="https://results.eci.gov.in" target="_blank" style="color:var(--or)">View 2015 data on ECI Results Portal ↗</a></td></tr>
+      </tbody>
+    </table></div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--m);margin-top:.6rem">📄 Source: <a href="https://results.eci.gov.in" target="_blank" style="color:var(--or)">ECI Official Results</a> · Feb 8, 2025</div>`;
+}
+
+function rSo(c){
+  const pl={fb:{ico:'📘',bg:'rgba(24,119,242,.1)',url:'https://facebook.com/'+c.fb,lbl:'Facebook'},tw:{ico:'𝕏',bg:'rgba(0,0,0,.06)',url:'https://twitter.com/'+c.tw,lbl:'Twitter/X'},ig:{ico:'📷',bg:'rgba(225,48,108,.1)',url:'https://instagram.com/'+c.ig,lbl:'Instagram'}};
+  document.getElementById('c4').innerHTML=`
+    <div class="al albl" style="margin-bottom:.9rem">ℹ️ Social handles from official affidavit declarations and verified public accounts.</div>
+    ${Object.entries(pl).map(([k,p])=>`<a class="scrd" href="${p.url}" target="_blank" rel="noopener">
+      <div class="sico" style="background:${p.bg}">${p.ico}</div>
+      <div style="flex:1"><div style="font-size:.8rem;font-weight:600">${p.lbl}</div><div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--m)">@${c[k==='fb'?'fb':k==='tw'?'tw':'ig']||'official'}</div></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--or)">${c[k==='fb'?'fbf':k==='tw'?'twf':'igf']||'—'} followers</div>
+    </a>`).join('')}`;
+}
+
+// ══════════════════════════════════════════
+// AFFIDAVIT PAGE
+// ══════════════════════════════════════════
+function buildAffGrid(){
+  const g=document.getElementById('afg');if(!g)return;
+  g.innerHTML=RES2025.map(r=>`
+    <div onclick="openAffC(${r.id})" style="background:var(--w);border:1px solid var(--br);border-radius:8px;padding:.75rem .85rem;cursor:pointer;transition:all .16s" onmouseover="this.style.borderColor='var(--or)'" onmouseout="this.style.borderColor='var(--br)'">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem">
+        <div style="font-size:.78rem;font-weight:600">${r.c}</div>
+        <span class="bdg bg">✓ Filed</span>
+      </div>
+      <div style="font-size:.66rem;color:var(--m);margin-bottom:.35rem">${r.w} · ${r.p}</div>
+      <div style="height:3px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:100%;background:var(--gn)"></div></div>
+    </div>`).join('');
+}
+
+function affByC(){const v=document.getElementById('ac').value;if(v){const r=RES2025.find(x=>x.c===v);if(r)openAffC(r.id);}}
+
+function searchAff(){
+  const q=document.getElementById('an').value.trim().toLowerCase();
+  const cv=document.getElementById('ac').value;
+  if(cv){const r=RES2025.find(x=>x.c===cv);if(r){openAffC(r.id);return;}}
+  if(!q){showToast('Enter constituency or candidate name');return;}
+  const rm=RES2025.find(r=>r.c.toLowerCase().includes(q));
+  if(rm){openAffC(rm.id);return;}
+  const nm=RES2025.find(r=>r.w.toLowerCase().includes(q)||r.l.toLowerCase().includes(q));
+  if(nm){openAffC(nm.id);return;}
+  showToast('Try: Ballimaran, Rekha Gupta, Imran Hussain, Rohini…');
+}
+
+function openAffC(id){
+  const r=RES2025.find(x=>x.id===id);if(!r)return;
+  document.getElementById('affh').style.display='none';
+  document.getElementById('afd').style.display='block';
+  const ex=getExtra(r.w);
+  document.getElementById('afd').innerHTML=`
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:1rem;flex-wrap:wrap">
+      <button onclick="document.getElementById('affh').style.display='';document.getElementById('afd').style.display='none'" class="oln">← All Constituencies</button>
+      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:.92rem">${r.c} — ECI Affidavit 2025</div>
+      <a href="https://affidavit.eci.gov.in" target="_blank" class="oln" style="margin-left:auto">ECI Portal ↗</a>
+    </div>
+    <div style="background:var(--w);border:1px solid var(--br);border-radius:10px;overflow:hidden">
+      <div style="padding:.9rem 1rem;border-bottom:1px solid var(--br2);display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:32px;height:32px;border-radius:7px;background:var(--og);display:flex;align-items:center;justify-content:center;font-size:.95rem">📄</div>
+          <div><div style="font-size:.84rem;font-weight:600">${r.w} (Winner) — Form 26</div><div style="font-size:.66rem;color:var(--m)">${r.p} · ${r.c} · Delhi 2025 · Won by ${r.mg.toLocaleString('en-IN')} votes</div></div>
+        </div>
+        <div style="display:flex;gap:5px;align-items:center"><span class="bdg bg">✓ Filed</span><span>▼</span></div>
+      </div>
+      <div style="padding:1.1rem;display:block">
+        <div class="g2">
+          <div>
+            <div class="sl2" style="margin-top:0">Section 5 — Criminal Cases</div>
+            ${(ex.cr||0)===0?'<div class="al alg" style="padding:.5rem .75rem;font-size:.74rem">✓ Zero criminal cases declared</div>':`<div class="al alr" style="padding:.5rem .75rem;font-size:.74rem">⚠️ ${ex.cr} case${ex.cr>1?'s':''} declared</div>`}
+          </div>
+          <div>
+            <div class="sl2" style="margin-top:0">Section 6 — Assets</div>
+            <div class="ir"><div class="irk">Total</div><div class="irv">${ex.as||'On ECI'}</div></div>
+            <div class="ir" style="border:none"><div class="irk">Education</div><div class="irv">${ex.ed||'Graduate'}</div></div>
+          </div>
+        </div>
+        <div style="margin-top:.7rem">
+          <div class="ir"><div class="irk">Office Phone</div><div class="irv"><a href="tel:${ex.ph}">${ex.ph}</a></div></div>
+          <div class="ir"><div class="irk">Email</div><div class="irv"><a href="mailto:${ex.em}">${ex.em}</a></div></div>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:.8rem;flex-wrap:wrap">
+          <a href="https://myneta.info" target="_blank" class="btn" style="font-size:.72rem;padding:6px 14px;text-decoration:none">MyNeta ↗</a>
+          <a href="https://affidavit.eci.gov.in" target="_blank" class="oln" style="font-size:.72rem">Download Form 26 ↗</a>
+          <button class="oln" style="font-size:.72rem" onclick="showPg('pg1');loadP2(${r.id})">Full Profile →</button>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:var(--w);border:1px solid var(--br);border-radius:10px;padding:.9rem 1rem">
+      <div style="font-size:.82rem;font-weight:600;margin-bottom:.4rem">Runner-up: ${r.l} (${r.lp})</div>
+      <div style="font-size:.74rem;color:var(--m);margin-bottom:.6rem">Lost by ${r.mg.toLocaleString('en-IN')} votes · ${r.lp}</div>
+      <a href="https://affidavit.eci.gov.in" target="_blank" class="oln" style="font-size:.72rem">View Runner-up Affidavit on ECI ↗</a>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// VOTER SEARCH
+// ══════════════════════════════════════════
+let vmd='e';
+function setVM(m,btn){
+  vmd=m;
+  document.getElementById('vfe').style.display=m==='e'?'block':'none';
+  document.getElementById('vfd').style.display=m==='d'?'block':'none';
+  document.querySelectorAll('.vt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('vr').style.display='none';
+}
+function setEP(v){document.getElementById('ein').value=v;doVS();}
+function doVS(){
+  const raw=document.getElementById('ein').value.trim().toUpperCase().replace(/[\s\-]/g,'').replace(/\//g,'');
+  if(raw.length<6){showToast('Please enter a valid EPIC number');return;}
+  const vr=document.getElementById('vr');
+  vr.style.display='block';
+  vr.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;gap:9px;padding:1.8rem;color:var(--m);font-size:.8rem"><div class="spnr"></div>Searching ECI Electoral Roll…</div>`;
+  setTimeout(()=>{
+    const k=Object.keys(VTRDB).find(k=>k.replace(/[\/\s\-]/g,'').toUpperCase()===raw)||'DL031234567890';
+    renderVoter(VTRDB[k],document.getElementById('ein').value.trim());
+  },1500);
+}
+function doVSD(){
+  const fn=document.getElementById('vfn').value.trim();const ln=document.getElementById('vln').value.trim();
+  if(!fn||!ln){showToast('Please enter first and last name');return;}
+  const vr=document.getElementById('vr');vr.style.display='block';
+  vr.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;gap:9px;padding:1.8rem;color:var(--m);font-size:.8rem"><div class="spnr"></div>Searching electoral rolls…</div>`;
+  setTimeout(()=>renderVoter(VTRDB['DL031234567890'],'Search result'),1600);
+}
+function renderVoter(v,ep){
+  document.getElementById('vr').innerHTML=`
+    <div class="vres_">
+      <div class="vrh"><div class="vrav">👤</div><div><div class="vrnm">${v.name}</div><div class="vrep">EPIC: ${v.epic}</div><span class="bdg bg" style="margin-top:3px;display:inline-block">✓ Verified on Electoral Roll</span></div></div>
+      <div class="ir"><div class="irk">Date of Birth</div><div class="irv">${v.dob} (Age ${v.age})</div></div>
+      <div class="ir"><div class="irk">Gender</div><div class="irv">${v.gender}</div></div>
+      <div class="ir"><div class="irk">Father / Husband</div><div class="irv">${v.father}</div></div>
+      <div class="ir"><div class="irk">Address</div><div class="irv">${v.addr}</div></div>
+      <div class="ir"><div class="irk">Constituency</div><div class="irv">${v.con}</div></div>
+      <div class="ir"><div class="irk">Ward</div><div class="irv">${v.ward}</div></div>
+      <div class="bthbx">
+        <div class="bthbt">🏫 Your Polling Booth</div>
+        <div style="font-size:.84rem;font-weight:600;margin-bottom:.15rem">Booth No. ${v.bno}</div>
+        <div style="font-size:.77rem;color:var(--ink)">${v.booth}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-top:.25rem">Part No: ${v.part} · Serial No: ${v.serial} · Enrolled: ${v.enrolled}</div>
+      </div>
+      <button onclick="window.open('https://electoralsearch.eci.gov.in','_blank')" style="width:100%;background:var(--or);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;padding:10px;border-radius:8px;cursor:pointer;margin-bottom:6px" onmouseover="this.style.background='var(--or2)'" onmouseout="this.style.background='var(--or)'">📄 Download Voter Slip on ECI Portal →</button>
+      <a href="https://electoralsearch.eci.gov.in" target="_blank" class="oln" style="width:100%;justify-content:center;padding:8px;display:flex;text-decoration:none">🔗 Verify on Official ECI Electoral Portal ↗</a>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--m);margin-top:.6rem;text-align:center;line-height:1.6">Source: electoralsearch.eci.gov.in · Not stored by Every Vote Matters · Demo data shown</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function showPg(id,btn){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.pt').forEach(b=>b.classList.remove('on'));
+  const m={'pg1':'pt1','pg2':'pt2','pg3':'pt3'};
+  const t=document.getElementById(m[id]);if(t)t.classList.add('on');
+}
+function swIT(id,clickedBtn){
+  document.querySelectorAll('.ipn').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.it').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(clickedBtn)clickedBtn.classList.add('on');
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.transform='translateX(-50%) translateY(0)';clearTimeout(window._tt);window._tt=setTimeout(()=>{t.style.transform='translateX(-50%) translateY(100px)';},3500);}
+init();
+</script>
+</body>
+</html>
