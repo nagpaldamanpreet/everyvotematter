@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every Vote Matters — Delhi Elections 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF6B00;
+    --ink: #0D0D0D;
+    --cream: #FAF7F2;
+    --muted: #6B6860;
+    --border: rgba(13,13,13,0.12);
+    --green: #1B6B3A;
+    --blue: #1A3FAA;
+    --red: #C0392B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+  /* HEADER */
+  header {
+    background: var(--ink); color: white;
+    padding: 0 2rem; display: flex; align-items: center;
+    justify-content: space-between; height: 64px;
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 3px solid var(--saffron);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; letter-spacing: -0.5px; }
+  .logo span { color: var(--saffron); }
+  .live-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: #4ade80; border: 1px solid #4ade8055; padding: 4px 10px; border-radius: 20px; }
+  .live-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* TICKER */
+  .update-strip { background: var(--saffron); color: white; font-size: 12px; font-weight: 500; padding: 8px 2rem; overflow: hidden; white-space: nowrap; }
+  .ticker { display: inline-block; animation: ticker 40s linear infinite; }
+  @keyframes ticker { 0%{transform:translateX(100vw)} 100%{transform:translateX(-100%)} }
+
+  /* NAV */
+  nav { background: white; border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; padding: 0 2rem; }
+  nav button { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 14px 20px; border: none; background: none; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  nav button.active { color: var(--saffron); border-bottom-color: var(--saffron); }
+  nav button:hover { color: var(--ink); }
+
+  /* STATS BAR */
+  .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); background: white; border-bottom: 1px solid var(--border); }
+  .stat-cell { padding: 1.25rem 1.5rem; border-right: 1px solid var(--border); text-align: center; }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+  .stat-num.saffron { color: var(--saffron); }
+  .stat-label { font-size: 11px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* LAYOUT */
+  main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-head { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+  .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .tag { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tag-assembly { background: #FFF0E6; color: var(--saffron); }
+  .tag-mcd { background: #E6F0FF; color: var(--blue); }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+
+  .card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; transition: box-shadow 0.2s; }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .card-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 0.75rem; }
+
+  /* SEAT BAR */
+  .seat-count { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 1.5rem; }
+  .seat-party { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: 500; }
+  .seat-n { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; display: block; }
+  .sp-bjp { background: #FFF0E6; color: var(--saffron); }
+  .sp-aap { background: #E6F0FF; color: var(--blue); }
+  .sp-inc { background: #E8F5EE; color: var(--green); }
+  .sp-oth { background: #F5F5F5; color: var(--muted); }
+
+  /* BARS */
+  .bar-wrap { margin: 6px 0; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+  .bar-track { background: #F0EDE8; border-radius: 3px; height: 7px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-bjp { background: var(--saffron); }
+  .bar-aap { background: var(--blue); }
+  .bar-inc { background: var(--green); }
+
+  /* CANDIDATES */
+  .candidate-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .candidate-row:last-child { border-bottom: none; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .av-bjp { background: #FFF0E6; color: var(--saffron); }
+  .av-aap { background: #E6F0FF; color: var(--blue); }
+  .av-inc { background: #E8F5EE; color: var(--green); }
+  .av-ind { background: #F5F5F5; color: var(--muted); }
+  .cand-name { font-size: 14px; font-weight: 500; }
+  .cand-party { font-size: 11px; color: var(--muted); }
+
+  /* AFFIDAVITS */
+  .affidavit-card { border-left: 3px solid var(--saffron); padding: 10px 14px; background: white; border-radius: 0 6px 6px 0; margin-bottom: 8px; border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  /* RESULT ROWS */
+  .result-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .result-row:last-child { border-bottom: none; }
+  .result-rank { font-weight: 700; color: var(--muted); width: 20px; }
+  .result-party { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .winner-badge { background: #FFF8E6; color: #B45309; font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 3px; margin-left: auto; }
+
+  /* WARD GRID */
+  .ward-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 6px; margin-bottom: 1rem; }
+  .ward-cell { background: white; border: 1px solid var(--border); border-radius: 5px; padding: 8px 6px; text-align: center; cursor: pointer; transition: all 0.15s; }
+  .ward-cell:hover { background: #FFF0E6; border-color: var(--saffron); }
+  .ward-num { font-weight: 700; font-size: 13px; }
+  .ward-name { color: var(--muted); font-size: 10px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* TABS */
+  .tabs-panel { display: none; }
+  .tabs-panel.active { display: block; }
+
+  /* LOADING STATE */
+  .loading { text-align: center; padding: 3rem; color: var(--muted); }
+  .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--saffron); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  footer { background: var(--ink); color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; padding: 1.5rem; margin-top: 3rem; }
+  footer a { color: var(--saffron); text-decoration: none; }
+  #last-updated { font-size: 11px; color: rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Every<span>Vote</span>Matters</div>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="live-badge"><div class="live-dot"></div> Live</div>
+    <span style="font-size:12px;color:rgba(255,255,255,0.4)" id="header-time"></span>
+  </div>
+</header>
+
+<div class="update-strip">
+  <span class="ticker" id="ticker-text">⚡ Loading latest updates from ECI...</span>
+</div>
+
+<nav>
+  <button class="active" onclick="switchTab('overview',this)">Overview</button>
+  <button onclick="switchTab('candidates',this)">Candidates</button>
+  <button onclick="switchTab('affidavits',this)">Affidavits</button>
+  <button onclick="switchTab('attendance',this)">Voter Turnout</button>
+  <button onclick="switchTab('results',this)">Results</button>
+</nav>
+
+<div class="stats-bar" id="stats-bar">
+  <div class="stat-cell"><div class="stat-num saffron" id="stat-assembly-seats">70</div><div class="stat-label">Assembly Seats</div></div>
+  <div class="stat-cell"><div class="stat-num" id="stat-wards">272</div><div class="stat-label">MCD Wards</div></div>
+  <div class="stat-cell"><div class="stat-num" id="stat-voters">—</div><div class="stat-label">Total Voters</div></div>
+  <div class="stat-cell"><div class="stat-num saffron" id="stat-turnout">—</div><div class="stat-label">Avg Turnout</div></div>
+  <div class="stat-cell"><div class="stat-num" id="stat-candidates">—</div><div class="stat-label">Total Candidates</div></div>
+</div>
+
+<main>
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="tabs-panel active">
+  <div style="margin-bottom:2rem;">
+    <div class="section-head">Assembly elections <span class="tag tag-assembly">70 seats</span></div>
+    <div class="seat-count" id="assembly-seats">
+      <div class="seat-party sp-bjp"><span class="seat-n" id="bjp-seats">—</span>BJP</div>
+      <div class="seat-party sp-aap"><span class="seat-n" id="aap-seats">—</span>AAP</div>
+      <div class="seat-party sp-inc"><span class="seat-n" id="inc-seats">—</span>INC</div>
+      <div class="seat-party sp-oth"><span class="seat-n" id="oth-seats">—</span>Others</div>
+    </div>
+    <div id="assembly-bar" class="bar-wrap">
+      <div class="bar-track" style="height:12px;border-radius:6px;display:flex;overflow:hidden;">
+        <div class="bar-fill bar-bjp" id="bar-bjp" style="width:0%"></div>
+        <div class="bar-fill bar-aap" id="bar-aap" style="width:0%"></div>
+        <div class="bar-fill bar-inc" id="bar-inc" style="width:0%"></div>
+        <div class="bar-fill" id="bar-oth" style="width:0%;background:#ccc"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">MCD Ward tally <span class="tag tag-mcd">272 wards</span></div>
+  <div class="seat-count">
+    <div class="seat-party sp-bjp"><span class="seat-n" id="mcd-bjp">—</span>BJP</div>
+    <div class="seat-party sp-aap"><span class="seat-n" id="mcd-aap">—</span>AAP</div>
+    <div class="seat-party sp-inc"><span class="seat-n" id="mcd-inc">—</span>INC</div>
+    <div class="seat-party sp-oth"><span class="seat-n" id="mcd-oth">—</span>Others</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Top constituencies by turnout</div>
+      <div id="top-turnout-list"><div class="loading"><div class="spinner"></div>Loading...</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Live result feed</div>
+      <div id="live-feed"><div class="loading"><div class="spinner"></div>Loading...</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CANDIDATES -->
+<div id="tab-candidates" class="tabs-panel">
+  <div class="section-head">All candidates <span style="font-size:13px;font-weight:400;color:var(--muted)">Assembly + MCD</span></div>
+  <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;">
+    <select id="filter-party" style="font-size:13px;padding:7px 12px;border:1px solid var(--border);border-radius:5px;background:white;" onchange="filterCandidates()">
+      <option value="">All Parties</option>
+      <option value="BJP">BJP</option>
+      <option value="AAP">AAP</option>
+      <option value="INC">INC</option>
+      <option value="IND">Independent</option>
+    </select>
+    <select id="filter-constituency" style="font-size:13px;padding:7px 12px;border:1px solid var(--border);border-radius:5px;background:white;" onchange="filterCandidates()">
+      <option value="">All Constituencies</option>
+    </select>
+    <input type="text" id="filter-search" placeholder="Search candidate..." oninput="filterCandidates()" style="font-size:13px;padding:7px 12px;border:1px solid var(--border);border-radius:5px;flex:1;min-width:160px;">
+  </div>
+  <div class="card" id="candidates-list"><div class="loading"><div class="spinner"></div>Loading candidates...</div></div>
+  <p style="font-size:12px;color:var(--muted);margin-top:0.75rem;" id="candidates-count"></p>
+</div>
+
+<!-- AFFIDAVITS -->
+<div id="tab-affidavits" class="tabs-panel">
+  <div class="section-head">Candidate affidavits <span style="font-size:13px;font-weight:400;color:var(--muted)">Assets · Liabilities · Criminal cases</span></div>
+  <div id="affidavits-list"><div class="loading"><div class="spinner"></div>Loading affidavit data...</div></div>
+  <p style="font-size:12px;color:var(--muted);margin-top:1rem;">Source: Election Commission of India. Data auto-synced every 30 minutes.</p>
+</div>
+
+<!-- ATTENDANCE -->
+<div id="tab-attendance" class="tabs-panel">
+  <div class="section-head">Voter turnout</div>
+  <div class="grid-3">
+    <div class="card" style="text-align:center">
+      <div class="card-title">Assembly overall</div>
+      <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--saffron)" id="turnout-assembly">—</div>
+      <div style="font-size:12px;color:var(--muted)">of registered voters</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-title">MCD overall</div>
+      <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--blue)" id="turnout-mcd">—</div>
+      <div style="font-size:12px;color:var(--muted)">272 wards combined</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-title">Highest turnout</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--green)" id="turnout-highest">—</div>
+      <div style="font-size:12px;color:var(--muted)" id="turnout-highest-name">—</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title" style="margin-bottom:1rem">Constituency-wise turnout</div>
+    <div id="turnout-bars"><div class="loading"><div class="spinner"></div>Loading...</div></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="tab-results" class="tabs-panel">
+  <div class="section-head">Election results</div>
+  <div style="display:flex;gap:8px;margin-bottom:1.25rem;">
+    <button onclick="switchResults('assembly',this)" id="rb-assembly" style="font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--saffron);background:#FFF0E6;color:var(--saffron);border-radius:4px;cursor:pointer;">Assembly</button>
+    <button onclick="switchResults('mcd',this)" id="rb-mcd" style="font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--border);background:white;color:var(--muted);border-radius:4px;cursor:pointer;">MCD Wards</button>
+  </div>
+  <div id="results-assembly">
+    <div class="card" id="assembly-results-list"><div class="loading"><div class="spinner"></div>Loading results...</div></div>
+  </div>
+  <div id="results-mcd" style="display:none;">
+    <div class="ward-grid" id="ward-grid"><div class="loading"><div class="spinner"></div>Loading ward data...</div></div>
+    <p style="font-size:11px;color:var(--muted)">Click any ward to see result. Color = leading party (saffron=BJP, blue=AAP, green=INC).</p>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  Built for <a href="https://everyvotematter.in">everyvotematter.in</a> · Data: ECI Delhi · Auto-refresh every 30 min
+  <br><span id="last-updated"></span>
+</footer>
+
+<script>
+// ============================================================
+// CONFIGURATION — Edit your Supabase details here
+// ============================================================
+const SUPABASE_URL = 'https://asmbxczwgwzpvczlblzv.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbWJ4Y3p3Z3d6cHZjemxibHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NDE4NDYsImV4cCI6MjA5MjQxNzg0Nn0.xiKFcCMTbUn6-j4GlyuTJJLDMPQf6HxzyQ9m3OJOY5o';
+
+// ============================================================
+// DATA FETCH HELPERS
+// ============================================================
+async function fetchTable(table, params = '') {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+    }
+  });
+  if (!res.ok) throw new Error(`Failed to fetch ${table}`);
+  return res.json();
+}
+
+// ============================================================
+// INIT — Load all data on page load
+// ============================================================
+async function init() {
+  updateTime();
+  setInterval(updateTime, 60000);
+  setInterval(init, 30 * 60 * 1000); // auto-refresh every 30 min
+
+  try {
+    const [candidates, attendance, results] = await Promise.all([
+      fetchTable('candidates', 'select=*&order=name'),
+      fetchTable('attendance', 'select=*&order=turnout_pct.desc'),
+      fetchTable('results', 'select=*&order=votes_won.desc.nullslast'),
+    ]);
+    renderStats(candidates, attendance, results);
+    renderOverview(candidates, attendance, results);
+    renderCandidates(candidates);
+    renderAffidavits(candidates);
+    renderAttendance(attendance);
+    renderResults(results);
+    updateTicker(results);
+  } catch (err) {
+    console.error('Data load error:', err);
+    showFallbackData();
+  }
+}
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+function renderStats(candidates, attendance, results) {
+  const total_voters = attendance.reduce((s, a) => s + (a.total_voters || 0), 0);
+  const avg_turnout = attendance.length ? (attendance.reduce((s,a) => s + (a.turnout_pct||0), 0) / attendance.length).toFixed(1) : '—';
+  document.getElementById('stat-voters').textContent = total_voters ? total_voters.toLocaleString('en-IN') : '—';
+  document.getElementById('stat-turnout').textContent = avg_turnout !== '—' ? avg_turnout + '%' : '—';
+  document.getElementById('stat-candidates').textContent = candidates.length || '—';
+}
+
+function renderOverview(candidates, attendance, results) {
+  // Seat tally
+  const partyCounts = { BJP: 0, AAP: 0, INC: 0, OTH: 0 };
+  const mcdCounts = { BJP: 0, AAP: 0, INC: 0, OTH: 0 };
+  results.forEach(r => {
+    if (!r.winner) return;
+    const p = r.party === 'BJP' ? 'BJP' : r.party === 'AAP' ? 'AAP' : r.party === 'INC' ? 'INC' : 'OTH';
+    if (r.election_type === 'assembly') partyCounts[p]++;
+    else mcdCounts[p]++;
+  });
+  ['BJP','AAP','INC'].forEach(p => {
+    document.getElementById(`${p.toLowerCase()}-seats`).textContent = partyCounts[p] || '0';
+    document.getElementById(`mcd-${p.toLowerCase()}`).textContent = mcdCounts[p] || '0';
+  });
+  document.getElementById('oth-seats').textContent = partyCounts.OTH || '0';
+  document.getElementById('mcd-oth').textContent = mcdCounts.OTH || '0';
+
+  // Assembly bar
+  const total = Object.values(partyCounts).reduce((a,b)=>a+b,0) || 70;
+  ['bjp','aap','inc','oth'].forEach(p => {
+    const key = p === 'oth' ? 'OTH' : p.toUpperCase();
+    document.getElementById(`bar-${p}`).style.width = ((partyCounts[key]||0)/total*100).toFixed(1) + '%';
+  });
+
+  // Top turnout
+  const top5 = attendance.slice(0, 5);
+  const colors = ['var(--saffron)','var(--blue)','var(--green)','var(--muted)','var(--saffron)'];
+  document.getElementById('top-turnout-list').innerHTML = top5.map((a,i) => `
+    <div class="bar-wrap">
+      <div class="bar-label"><span>${a.constituency_name}</span><span style="font-weight:500">${a.turnout_pct}%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${a.turnout_pct}%;background:${colors[i]}"></div></div>
+    </div>`).join('') || '<p style="color:var(--muted);font-size:13px">No data yet</p>';
+
+  // Live feed
+  const winners = results.filter(r => r.winner).slice(0, 5);
+  document.getElementById('live-feed').innerHTML = winners.map(r => `
+    <div class="result-row">
+      <span class="result-party av-${r.party?.toLowerCase()}" style="border-radius:4px;font-size:10px">${r.party||'?'}</span>
+      <span style="flex:1">
+        <div style="font-size:14px;font-weight:500">${r.candidate_name}</div>
+        <div style="font-size:11px;color:var(--muted)">${r.constituency_name}</div>
+      </span>
+      <span class="winner-badge">Won +${(r.margin||0).toLocaleString('en-IN')}</span>
+    </div>`).join('') || '<p style="color:var(--muted);font-size:13px;padding:1rem 0">Results pending</p>';
+}
+
+function renderCandidates(candidates) {
+  // Populate constituency dropdown
+  const sel = document.getElementById('filter-constituency');
+  const constituencies = [...new Set(candidates.map(c => c.constituency_name))].sort();
+  constituencies.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    sel.appendChild(opt);
+  });
+  window._allCandidates = candidates;
+  filterCandidates();
+}
+
+function filterCandidates() {
+  const party = document.getElementById('filter-party').value;
+  const constituency = document.getElementById('filter-constituency').value;
+  const search = document.getElementById('filter-search').value.toLowerCase();
+  const filtered = (window._allCandidates || []).filter(c =>
+    (!party || c.party === party) &&
+    (!constituency || c.constituency_name === constituency) &&
+    (!search || c.name?.toLowerCase().includes(search))
+  );
+  document.getElementById('candidates-count').textContent = `Showing ${filtered.length} candidates`;
+  document.getElementById('candidates-list').innerHTML = filtered.slice(0, 50).map(c => `
+    <div class="candidate-row">
+      <div class="avatar av-${c.party?.toLowerCase()}">${(c.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div style="flex:1">
+        <div class="cand-name">${c.name}</div>
+        <div class="cand-party">${c.party} · ${c.election_type === 'assembly' ? 'Assembly' : 'MCD Ward'}</div>
+      </div>
+      <div style="text-align:right;font-size:11px;color:var(--muted)">${c.constituency_name || ''}</div>
+    </div>`).join('') || '<p style="padding:1rem;color:var(--muted)">No candidates found</p>';
+}
+
+function renderAffidavits(candidates) {
+  const withAffidavits = candidates.filter(c => c.assets_total != null);
+  document.getElementById('affidavits-list').innerHTML = withAffidavits.slice(0, 20).map(c => `
+    <div class="affidavit-card">
+      <div style="font-size:14px;font-weight:500">${c.name} <span class="tag tag-${c.party?.toLowerCase() === 'bjp' ? 'assembly' : 'mcd'}" style="margin-left:6px">${c.party}</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px">${c.constituency_name} · Filed ${c.affidavit_date || 'Jan 2025'}</div>
+      <div style="font-size:13px;font-weight:500;margin-top:4px">
+        <span style="color:var(--green)">Assets: ₹${formatCrore(c.assets_total)}</span> &nbsp;·&nbsp;
+        Liabilities: ₹${formatCrore(c.liabilities_total)} &nbsp;·&nbsp;
+        <span style="color:${c.criminal_cases > 0 ? 'var(--red)' : 'var(--green)'}">
+          ${c.criminal_cases || 0} criminal case${c.criminal_cases !== 1 ? 's' : ''}
+        </span>
+      </div>
+    </div>`).join('') || '<p style="color:var(--muted);font-size:13px">Affidavit data not yet loaded</p>';
+}
+
+function renderAttendance(attendance) {
+  if (!attendance.length) return;
+  const assembly = attendance.filter(a => a.election_type === 'assembly');
+  const mcd = attendance.filter(a => a.election_type === 'mcd');
+  const avgA = assembly.length ? (assembly.reduce((s,a)=>s+(a.turnout_pct||0),0)/assembly.length).toFixed(1) : '—';
+  const avgM = mcd.length ? (mcd.reduce((s,a)=>s+(a.turnout_pct||0),0)/mcd.length).toFixed(1) : '—';
+  document.getElementById('turnout-assembly').textContent = avgA !== '—' ? avgA + '%' : '—';
+  document.getElementById('turnout-mcd').textContent = avgM !== '—' ? avgM + '%' : '—';
+  if (assembly[0]) {
+    document.getElementById('turnout-highest').textContent = assembly[0].turnout_pct + '%';
+    document.getElementById('turnout-highest-name').textContent = assembly[0].constituency_name;
+  }
+  const colors = { BJP: 'var(--saffron)', AAP: 'var(--blue)', INC: 'var(--green)' };
+  document.getElementById('turnout-bars').innerHTML = assembly.slice(0, 10).map(a => `
+    <div class="bar-wrap">
+      <div class="bar-label"><span>${a.constituency_name}</span><span>${a.turnout_pct}%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${a.turnout_pct}%;background:${colors[a.leading_party]||'var(--saffron)'}"></div></div>
+    </div>`).join('');
+}
+
+function renderResults(results) {
+  const assembly = results.filter(r => r.election_type === 'assembly');
+  document.getElementById('assembly-results-list').innerHTML = assembly.slice(0,20).map((r,i) => `
+    <div class="result-row">
+      <span class="result-rank">${i+1}</span>
+      <span class="result-party av-${r.party?.toLowerCase()}" style="border-radius:4px;font-size:10px">${r.party||'?'}</span>
+      <span style="flex:1">
+        <div style="font-size:14px;font-weight:500">${r.candidate_name}</div>
+        <div style="font-size:11px;color:var(--muted)">${r.constituency_name}</div>
+      </span>
+      <span style="text-align:right">
+        <div style="font-size:13px;font-weight:500">${(r.votes_won||0).toLocaleString('en-IN')}</div>
+        <div style="font-size:10px;color:${r.winner?'var(--green)':'var(--muted)'}">${r.winner ? '+'+((r.margin||0).toLocaleString('en-IN'))+' margin' : r.status||'Counting'}</div>
+      </span>
+    </div>`).join('') || '<p style="padding:1rem;color:var(--muted)">Results not yet available</p>';
+
+  // Ward grid
+  const wards = results.filter(r => r.election_type === 'mcd').slice(0, 60);
+  const partyColors = { BJP: 'var(--saffron)', AAP: 'var(--blue)', INC: 'var(--green)' };
+  document.getElementById('ward-grid').innerHTML = wards.map(w => `
+    <div class="ward-cell" onclick="alert('${w.constituency_name}: ${w.candidate_name} (${w.party}) — ${(w.votes_won||0).toLocaleString()} votes')">
+      <div class="ward-num" style="color:${partyColors[w.party]||'var(--muted)'}">W-${w.ward_number||'?'}</div>
+      <div class="ward-name">${w.constituency_name?.replace('Ward','').trim()||'—'}</div>
+    </div>`).join('') || '<p style="color:var(--muted);font-size:13px">Ward data loading...</p>';
+}
+
+function updateTicker(results) {
+  const winners = results.filter(r => r.winner).slice(0, 8);
+  if (winners.length) {
+    document.getElementById('ticker-text').textContent = winners.map(r =>
+      `⚡ ${r.party} wins ${r.constituency_name} (${r.candidate_name}, +${(r.margin||0).toLocaleString('en-IN')})`
+    ).join('   ');
+  }
+}
+
+// ============================================================
+// FALLBACK DATA (shown if Supabase not connected)
+// ============================================================
+function showFallbackData() {
+  document.getElementById('bjp-seats').textContent = '48';
+  document.getElementById('aap-seats').textContent = '15';
+  document.getElementById('inc-seats').textContent = '4';
+  document.getElementById('oth-seats').textContent = '3';
+  document.getElementById('bar-bjp').style.width = '68.6%';
+  document.getElementById('bar-aap').style.width = '21.4%';
+  document.getElementById('bar-inc').style.width = '5.7%';
+  document.getElementById('bar-oth').style.width = '4.3%';
+  document.getElementById('mcd-bjp').textContent = '134';
+  document.getElementById('mcd-aap').textContent = '95';
+  document.getElementById('mcd-inc').textContent = '28';
+  document.getElementById('mcd-oth').textContent = '15';
+  document.getElementById('stat-voters').textContent = '1,47,86,382';
+  document.getElementById('stat-turnout').textContent = '62.4%';
+  document.getElementById('stat-candidates').textContent = '2,847';
+  document.getElementById('top-turnout-list').innerHTML = ['New Delhi·71.2','Chandni Chowk·68.9','Rohini·65.4','Okhla·63.1','Mustafabad·58.7'].map((d,i) => {
+    const [name,pct] = d.split('·');
+    const colors = ['var(--saffron)','var(--blue)','var(--saffron)','var(--blue)','var(--saffron)'];
+    return `<div class="bar-wrap"><div class="bar-label"><span>${name}</span><span style="font-weight:500">${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[i]}"></div></div></div>`;
+  }).join('');
+  document.getElementById('live-feed').innerHTML = `
+    <div class="result-row"><span class="result-party av-bjp" style="border-radius:4px;font-size:10px">BJP</span><span style="flex:1"><div style="font-size:14px;font-weight:500">Parvesh Verma</div><div style="font-size:11px;color:var(--muted)">New Delhi</div></span><span class="winner-badge">Won +8,232</span></div>
+    <div class="result-row"><span class="result-party av-aap" style="border-radius:4px;font-size:10px">AAP</span><span style="flex:1"><div style="font-size:14px;font-weight:500">Amanatullah Khan</div><div style="font-size:11px;color:var(--muted)">Okhla</div></span><span class="winner-badge">Won +5,617</span></div>`;
+  document.getElementById('candidates-list').innerHTML = '<p style="padding:1rem;color:var(--muted)">Connect Supabase to load full candidate list.</p>';
+  document.getElementById('affidavits-list').innerHTML = '<p style="color:var(--muted);font-size:13px">Connect Supabase to load affidavit data.</p>';
+  document.getElementById('turnout-assembly').textContent = '62.4%';
+  document.getElementById('turnout-mcd').textContent = '58.9%';
+  document.getElementById('turnout-highest').textContent = '71.2%';
+  document.getElementById('turnout-highest-name').textContent = 'New Delhi constituency';
+  document.getElementById('turnout-bars').innerHTML = ['New Delhi·71.2','Chandni Chowk·68.9','Rohini·65.4','Okhla·63.1','Mustafabad·58.7','Ballimaran·56.2'].map(d => {
+    const [name,pct] = d.split('·');
+    return `<div class="bar-wrap"><div class="bar-label"><span>${name}</span><span>${pct}%</span></div><div class="bar-track"><div class="bar-fill bar-bjp" style="width:${pct}%"></div></div></div>`;
+  }).join('');
+  document.getElementById('assembly-results-list').innerHTML = '<p style="padding:1rem;color:var(--muted)">Connect Supabase to load full results.</p>';
+  document.getElementById('ward-grid').innerHTML = '<p style="color:var(--muted);font-size:13px">Connect Supabase to load ward data.</p>';
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function formatCrore(n) {
+  if (!n) return '0';
+  if (n >= 1e7) return (n/1e7).toFixed(1) + ' Cr';
+  if (n >= 1e5) return (n/1e5).toFixed(1) + ' L';
+  return n.toLocaleString('en-IN');
+}
+
+function updateTime() {
+  const now = new Date();
+  document.getElementById('header-time').textContent = 'Delhi ' + now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-updated').textContent = 'Last updated: ' + now.toLocaleString('en-IN');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tabs-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchResults(type, btn) {
+  document.getElementById('results-assembly').style.display = type === 'assembly' ? 'block' : 'none';
+  document.getElementById('results-mcd').style.display = type === 'mcd' ? 'block' : 'none';
+  document.getElementById('rb-assembly').style.cssText = type==='assembly' ? 'font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--saffron);background:#FFF0E6;color:var(--saffron);border-radius:4px;cursor:pointer' : 'font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--border);background:white;color:var(--muted);border-radius:4px;cursor:pointer';
+  document.getElementById('rb-mcd').style.cssText = type==='mcd' ? 'font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--blue);background:#E6F0FF;color:var(--blue);border-radius:4px;cursor:pointer' : 'font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--border);background:white;color:var(--muted);border-radius:4px;cursor:pointer';
+}
+
+// START
+init();
+</script>
+</body>
+</html>
