@@ -1300,7 +1300,7 @@ function shareWAChat(){window.open('https://wa.me/?text='+encodeURIComponent('�
 function shareWA(){
   const m=M[cur]||{};const iss=getIss();
   window.open('https://wa.me/?text='+encodeURIComponent('📍 '+cur+' Civic Dashboard\n🏛 MLA: '+(m.n||'—')+' ('+(m.p||'')+')\nOpen Issues: '+iss.filter(i=>i.s==='open').length+' | Resolved: '+iss.filter(i=>i.s==='resolved').length+'\nwww.everyvotematter.com'),'_blank');
-}
+} 
 
 // ── BOOT ──
 init();
