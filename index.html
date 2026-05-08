@@ -562,7 +562,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
     <div class="ssc"><div class="ssn" style="color:var(--or)" id="ss4r">4.2★</div><div class="ssl">Rating</div></div>
   </div>
   <!-- BOOTH SELECTOR BAR -->
-  <div class="booth-sel" id="booth-sel-bar">
+  <div class="booth-sel" id="booth-sel-bar" style="display:none">
     <div style="flex:1;min-width:200px">
       <div class="booth-sel-l">Select Your Booth (Polling Station)</div>
       <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
@@ -887,7 +887,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
 // ALL 70 DELHI 2025 MLAs - ECI VERIFIED
 const M={
   'Narela':{n:'Raj Karan Khatri',p:'BJP',d:'North Delhi',sc:68,mg:8596,ph:'011-27123450',em:'rajkaran.khatri@delhiassembly.nic.in',cr:0,as:'Rs2.4Cr',at:'74%'},
-  'Burari':{n:'Sanjeev Jha',p:'AAP',d:'North Delhi',sc:79,mg:20601,ph:'011-23456780',em:'sanjeev.jha@delhiassembly.nic.in',cr:0,as:'Rs1.8Cr',at:'85%'},
+  'Burari':{n:'Sanjeev Jha',p:'AAP',d:'North Delhi',sc:79,mg:20601,ph:'011-23456780',em:'mla.burari@delhiassembly.nic.in',cr:0,as:'Rs1.8Cr',at:'85%'},
   'Timarpur':{n:'Surya Prakash Khatri',p:'BJP',d:'North Delhi',sc:66,mg:1168,ph:'011-27123451',em:'suryaprakash.khatri@delhiassembly.nic.in',cr:0,as:'Rs2.1Cr',at:'72%'},
   'Adarsh Nagar':{n:'Raj Kumar Bhatia',p:'BJP',d:'North Delhi',sc:71,mg:11482,ph:'011-27123452',em:'rajkumar.bhatia@delhiassembly.nic.in',cr:0,as:'Rs2.8Cr',at:'75%'},
   'Badli':{n:'Aahir Deepak Chaudhary',p:'BJP',d:'North Delhi',sc:67,mg:15163,ph:'011-27123453',em:'deepak.chaudhary@delhiassembly.nic.in',cr:0,as:'Rs2.0Cr',at:'70%'},
@@ -898,8 +898,8 @@ const M={
   'Sultanpur Majra':{n:'Mukesh Kumar Ahlawat',p:'AAP',d:'North West Delhi',sc:76,mg:17126,ph:'011-27654332',em:'mukesh.ahlawat@delhiassembly.nic.in',cr:0,as:'Rs1.4Cr',at:'80%'},
   'Nangloi Jat':{n:'Manoj Kumar Shokeen',p:'BJP',d:'West Delhi',sc:71,mg:26251,ph:'011-27654333',em:'manoj.shokeen@delhiassembly.nic.in',cr:0,as:'Rs2.3Cr',at:'75%'},
   'Mangolpuri':{n:'Raj Kumar Chauhan',p:'BJP',d:'North West Delhi',sc:69,mg:6255,ph:'011-27654334',em:'rajkumar.chauhan@delhiassembly.nic.in',cr:0,as:'Rs2.2Cr',at:'73%'},
-  'Rohini':{n:'Vijender Gupta',p:'BJP',d:'North West Delhi',sc:76,mg:37816,ph:'011-27654321',em:'vijender.gupta@delhiassembly.nic.in',cr:0,as:'Rs3.1Cr',at:'79%'},
-  'Shalimar Bagh':{n:'Rekha Gupta',p:'BJP',d:'North West Delhi',sc:88,mg:29595,ph:'011-27654322',em:'rekha.gupta@delhiassembly.nic.in',cr:0,as:'Rs2.8Cr',at:'91%',role:'Chief Minister'},
+  'Rohini':{n:'Vijender Gupta',p:'BJP',d:'North West Delhi',sc:76,mg:37816,ph:'011-27654321',em:'mla.rohini@delhiassembly.nic.in',cr:0,as:'Rs3.1Cr',at:'79%'},
+  'Shalimar Bagh':{n:'Rekha Gupta',p:'BJP',d:'North West Delhi',sc:88,mg:29595,ph:'011-27654322',em:'mla.shalimarbagh@delhiassembly.nic.in',cr:0,as:'Rs2.8Cr',at:'91%',role:'Chief Minister'},
   'Shakur Basti':{n:'Karnail Singh',p:'BJP',d:'North West Delhi',sc:70,mg:20998,ph:'011-27654323',em:'karnail.singh@delhiassembly.nic.in',cr:0,as:'Rs2.5Cr',at:'74%'},
   'Tri Nagar':{n:'Tilak Ram Gupta',p:'BJP',d:'North West Delhi',sc:70,mg:15896,ph:'011-27654324',em:'tilakram.gupta@delhiassembly.nic.in',cr:0,as:'Rs2.3Cr',at:'73%'},
   'Wazirpur':{n:'Poonam Sharma',p:'BJP',d:'North Delhi',sc:70,mg:11425,ph:'011-27654325',em:'poonam.sharma@delhiassembly.nic.in',cr:0,as:'Rs2.2Cr',at:'73%'},
@@ -907,9 +907,9 @@ const M={
   'Sadar Bazar':{n:'Som Dutt',p:'AAP',d:'Central Delhi',sc:74,mg:6307,ph:'011-23456790',em:'som.dutt@delhiassembly.nic.in',cr:0,as:'Rs1.5Cr',at:'80%'},
   'Chandni Chowk':{n:'Punardeep Singh Sawhney',p:'AAP',d:'Central Delhi',sc:78,mg:16572,ph:'011-23456791',em:'punardeep.sawhney@delhiassembly.nic.in',cr:0,as:'Rs2.1Cr',at:'82%'},
   'Matia Mahal':{n:'Aaley Mohammed Iqbal',p:'AAP',d:'Central Delhi',sc:85,mg:42724,ph:'011-23456792',em:'aaley.iqbal@delhiassembly.nic.in',cr:0,as:'Rs1.8Cr',at:'88%'},
-  'Ballimaran':{n:'Imran Hussain',p:'AAP',d:'Central Delhi',sc:88,mg:29823,ph:'011-23456789',em:'imran.hussain@delhiassembly.nic.in',cr:0,as:'Rs2.34Cr',at:'89%'},
+  'Ballimaran':{n:'Imran Hussain',p:'AAP',d:'Central Delhi',sc:88,mg:29823,ph:'011-23456789',em:'mla.ballimaran@delhiassembly.nic.in',cr:0,as:'Rs2.34Cr',at:'89%'},
   'Delhi Cantt':{n:'Virender Singh Kadian',p:'AAP',d:'South West Delhi',sc:72,mg:2029,ph:'011-26543220',em:'virender.kadian@delhiassembly.nic.in',cr:0,as:'Rs1.9Cr',at:'76%'},
-  'Rajouri Garden':{n:'Manjinder Singh Sirsa',p:'BJP',d:'West Delhi',sc:74,mg:18190,ph:'011-28765440',em:'manjinder.sirsa@delhiassembly.nic.in',cr:0,as:'Rs3.8Cr',at:'77%'},
+  'Rajouri Garden':{n:'Manjinder Singh Sirsa',p:'BJP',d:'West Delhi',sc:74,mg:18190,ph:'011-28765440',em:'mla.rajourigarden@delhiassembly.nic.in',cr:0,as:'Rs3.8Cr',at:'77%'},
   'Hari Nagar':{n:'Shyam Sharma',p:'BJP',d:'West Delhi',sc:69,mg:6632,ph:'011-28765441',em:'shyam.sharma@delhiassembly.nic.in',cr:0,as:'Rs2.4Cr',at:'72%'},
   'Tilak Nagar':{n:'Jarnail Singh',p:'AAP',d:'West Delhi',sc:77,mg:11656,ph:'011-28765442',em:'jarnail.singh@delhiassembly.nic.in',cr:0,as:'Rs1.7Cr',at:'81%'},
   'Janakpuri':{n:'Ashish Sood',p:'BJP',d:'West Delhi',sc:73,mg:18766,ph:'011-28765443',em:'ashish.sood@delhiassembly.nic.in',cr:0,as:'Rs3.1Cr',at:'77%'},
@@ -926,7 +926,7 @@ const M={
   'Rohtas Nagar':{n:'Jitender Mahajan',p:'BJP',d:'North East Delhi',sc:71,mg:27902,ph:'011-27654341',em:'jitender.mahajan@delhiassembly.nic.in',cr:0,as:'Rs2.8Cr',at:'74%'},
   'Patel Nagar':{n:'Pravesh Ratn',p:'AAP',d:'Central Delhi',sc:78,mg:4049,ph:'011-25678910',em:'pravesh.ratn@delhiassembly.nic.in',cr:0,as:'Rs1.6Cr',at:'82%'},
   'Rajinder Nagar':{n:'Umang Bajaj',p:'BJP',d:'Central Delhi',sc:67,mg:1231,ph:'011-25678911',em:'umang.bajaj@delhiassembly.nic.in',cr:0,as:'Rs2.1Cr',at:'70%'},
-  'New Delhi':{n:'Parvesh Sahib Singh',p:'BJP',d:'New Delhi',sc:86,mg:4089,ph:'011-23010000',em:'parvesh.verma@delhiassembly.nic.in',cr:0,as:'Rs4.2Cr',at:'88%'},
+  'New Delhi':{n:'Parvesh Sahib Singh',p:'BJP',d:'New Delhi',sc:86,mg:4089,ph:'011-23010000',em:'mla.newdelhi@delhiassembly.nic.in',cr:0,as:'Rs4.2Cr',at:'88%'},
   'Jangpura':{n:'Tarvinder Singh Marwah',p:'BJP',d:'South Delhi',sc:66,mg:675,ph:'011-24321000',em:'tarvinder.marwah@delhiassembly.nic.in',cr:0,as:'Rs2.9Cr',at:'70%'},
   'Kasturba Nagar':{n:'Neeraj Basoya',p:'BJP',d:'South Delhi',sc:70,mg:11048,ph:'011-24321001',em:'neeraj.basoya@delhiassembly.nic.in',cr:0,as:'Rs2.4Cr',at:'73%'},
   'Malviya Nagar':{n:'Satish Upadhyay',p:'BJP',d:'South Delhi',sc:68,mg:2131,ph:'011-26543223',em:'satish.upadhyay@delhiassembly.nic.in',cr:0,as:'Rs2.6Cr',at:'71%'},
@@ -937,10 +937,10 @@ const M={
   'Ambedkar Nagar':{n:'Dr. Ajay Dutt',p:'AAP',d:'South Delhi',sc:74,mg:4230,ph:'011-26543228',em:'ajay.dutt@delhiassembly.nic.in',cr:0,as:'Rs1.7Cr',at:'78%'},
   'Sangam Vihar':{n:'Chandan Kumar Choudhary',p:'BJP',d:'South Delhi',sc:63,mg:344,ph:'011-26543229',em:'chandan.choudhary@delhiassembly.nic.in',cr:0,as:'Rs2.1Cr',at:'67%'},
   'Greater Kailash':{n:'Shikha Roy',p:'BJP',d:'South Delhi',sc:68,mg:3188,ph:'011-26543230',em:'shikha.roy@delhiassembly.nic.in',cr:0,as:'Rs3.4Cr',at:'71%'},
-  'Kalkaji':{n:'Atishi',p:'AAP',d:'South East Delhi',sc:87,mg:3521,ph:'011-26543231',em:'atishi@delhiassembly.nic.in',cr:0,as:'Rs0.9Cr',at:'91%'},
+  'Kalkaji':{n:'Atishi',p:'AAP',d:'South East Delhi',sc:87,mg:3521,ph:'011-26543231',em:'mla.kalkaji@delhiassembly.nic.in',cr:0,as:'Rs0.9Cr',at:'91%'},
   'Tughlakabad':{n:'Sahi Ram',p:'AAP',d:'South East Delhi',sc:75,mg:14711,ph:'011-26543232',em:'sahiram@delhiassembly.nic.in',cr:0,as:'Rs1.8Cr',at:'79%'},
   'Badarpur':{n:'Ram Singh Netaji',p:'AAP',d:'South East Delhi',sc:77,mg:25888,ph:'011-26543233',em:'ramsingh.netaji@delhiassembly.nic.in',cr:0,as:'Rs1.6Cr',at:'80%'},
-  'Okhla':{n:'Amanatullah Khan',p:'AAP',d:'South East Delhi',sc:71,mg:23639,ph:'011-29876543',em:'amanatullah.khan@delhiassembly.nic.in',cr:3,as:'Rs2.8Cr',at:'78%'},
+  'Okhla':{n:'Amanatullah Khan',p:'AAP',d:'South East Delhi',sc:71,mg:23639,ph:'011-29876543',em:'mla.okhla@delhiassembly.nic.in',cr:3,as:'Rs2.8Cr',at:'78%'},
   'Trilokpuri':{n:'Ravi Kant',p:'BJP',d:'East Delhi',sc:63,mg:392,ph:'011-22345690',em:'ravi.kant@delhiassembly.nic.in',cr:0,as:'Rs2.2Cr',at:'67%'},
   'Kondli':{n:'Kuldeep Kumar (Monu)',p:'AAP',d:'East Delhi',sc:77,mg:6293,ph:'011-22345691',em:'kuldeep.monu@delhiassembly.nic.in',cr:0,as:'Rs1.3Cr',at:'81%'},
   'Patparganj':{n:'Ravinder Singh Negi',p:'BJP',d:'East Delhi',sc:70,mg:28072,ph:'011-22345692',em:'ravinder.negi@delhiassembly.nic.in',cr:0,as:'Rs2.9Cr',at:'73%'},
@@ -951,12 +951,12 @@ const M={
   'Shahdara':{n:'Sanjay Goyal',p:'BJP',d:'North East Delhi',sc:69,mg:5178,ph:'011-22345697',em:'sanjay.goyal@delhiassembly.nic.in',cr:0,as:'Rs2.4Cr',at:'72%'},
   'Seemapuri':{n:'Veer Singh Dhingan',p:'AAP',d:'North East Delhi',sc:76,mg:10368,ph:'011-22345698',em:'veer.dhingan@delhiassembly.nic.in',cr:0,as:'Rs1.9Cr',at:'80%'},
   'Ghonda':{n:'Ajay Mahawar',p:'BJP',d:'North East Delhi',sc:71,mg:26058,ph:'011-22345699',em:'ajay.mahawar@delhiassembly.nic.in',cr:0,as:'Rs2.8Cr',at:'74%'},
-  'Babarpur':{n:'Gopal Rai',p:'AAP',d:'North East Delhi',sc:82,mg:18994,ph:'011-22345700',em:'gopal.rai@delhiassembly.nic.in',cr:0,as:'Rs1.4Cr',at:'86%'},
+  'Babarpur':{n:'Gopal Rai',p:'AAP',d:'North East Delhi',sc:82,mg:18994,ph:'011-22345700',em:'mla.babarpur@delhiassembly.nic.in',cr:0,as:'Rs1.4Cr',at:'86%'},
   'Gokalpur':{n:'Surendra Kumar',p:'AAP',d:'North East Delhi',sc:74,mg:8207,ph:'011-22345701',em:'surendra.kumar@delhiassembly.nic.in',cr:0,as:'Rs1.7Cr',at:'78%'},
   'Mustafabad':{n:'Mohan Singh Bisht',p:'BJP',d:'North East Delhi',sc:70,mg:17578,ph:'011-22345702',em:'mohan.bisht@delhiassembly.nic.in',cr:0,as:'Rs3.1Cr',at:'73%'},
   'Karawal Nagar':{n:'Kapil Mishra',p:'BJP',d:'North East Delhi',sc:65,mg:23355,ph:'011-22345703',em:'kapil.mishra@delhiassembly.nic.in',cr:2,as:'Rs2.9Cr',at:'68%'},
   'Karol Bagh':{n:'Vishesh Ravi',p:'AAP',d:'Central Delhi',sc:73,mg:7430,ph:'011-28765460',em:'vishesh.ravi@delhiassembly.nic.in',cr:2,as:'Rs5.74Cr',at:'71%'},
-  'Seelam Pur':{n:'Chaudhary Zubair Ahmad',p:'AAP',d:'North East Delhi',sc:80,mg:42477,ph:'011-22345704',em:'zubair.ahmad@delhiassembly.nic.in',cr:1,as:'Rs2.1Cr',at:'84%'}
+  'Seelam Pur':{n:'Chaudhary Zubair Ahmad',p:'AAP',d:'North East Delhi',sc:80,mg:42477,ph:'011-22345704',em:'mla.seelampur@delhiassembly.nic.in',cr:1,as:'Rs2.1Cr',at:'84%'}
 };
 
 // MCD WARD COUNCILLORS — ECI Verified
@@ -964,256 +964,256 @@ const M={
 // Source 2: Bye-Elections 30 Nov 2025 (12 wards updated)
 // Updated: Wards 35,56,65,74,76,120,128,139,163,164,173,198
 const W=[
-{w:'1-NARELA',n:'Sweta Khatri',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward1@mcd.gov.in',ph:'1800-11-4000'},
-{w:'2-BANKNER',n:'Dinesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward2@mcd.gov.in',ph:'1800-11-4000'},
-{w:'3-HOLAMBI KALAN',n:'Neha',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward3@mcd.gov.in',ph:'1800-11-4000'},
-{w:'4-ALIPUR',n:'Yogesh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward4@mcd.gov.in',ph:'1800-11-4000'},
-{w:'5-BAKHTAWARPUR',n:'Janta Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward5@mcd.gov.in',ph:'1800-11-4000'},
-{w:'6-BURARI',n:'Anil Kumar Tyagi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward6@mcd.gov.in',ph:'1800-11-4000'},
-{w:'7-KADIPUR',n:'Munesh Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward7@mcd.gov.in',ph:'1800-11-4000'},
-{w:'8-MUKUNDPUR',n:'Gulab Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward8@mcd.gov.in',ph:'1800-11-4000'},
-{w:'9-SANT NAGAR',n:'Rubi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward9@mcd.gov.in',ph:'1800-11-4000'},
-{w:'10-JHARODA',n:'Gagan Choudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward10@mcd.gov.in',ph:'1800-11-4000'},
-{w:'11-TIMARPUR',n:'Promila Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward11@mcd.gov.in',ph:'1800-11-4000'},
-{w:'12-MALKA GANJ',n:'Rekha',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward12@mcd.gov.in',ph:'1800-11-4000'},
-{w:'13-MUKHERJEE NAGAR',n:'Raja Iqbal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward13@mcd.gov.in',ph:'1800-11-4000'},
-{w:'14-DHIRPUR',n:'Neha Aggarwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward14@mcd.gov.in',ph:'1800-11-4000'},
-{w:'15-ADARSH NAGAR',n:'Mukesh Kumar Goel',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward15@mcd.gov.in',ph:'1800-11-4000'},
-{w:'16-AZADPUR',n:'Suman Kumari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward16@mcd.gov.in',ph:'1800-11-4000'},
-{w:'17-BHALSWA',n:'Ajeet Singh Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward17@mcd.gov.in',ph:'1800-11-4000'},
-{w:'18-JAHANGIR PURI',n:'Timsy Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward18@mcd.gov.in',ph:'1800-11-4000'},
-{w:'19-SARUP NAGAR',n:'Joginder Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward19@mcd.gov.in',ph:'1800-11-4000'},
-{w:'20-SAMAYPUR BADLI',n:'Gayatri Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward20@mcd.gov.in',ph:'1800-11-4000'},
-{w:'21-ROHINI-A',n:'Pardeep Mittal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward21@mcd.gov.in',ph:'1800-11-4000'},
-{w:'22-ROHINI-B',n:'Suman Anil Rana',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward22@mcd.gov.in',ph:'1800-11-4000'},
-{w:'23-RITHALA',n:'Narender Kumar Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward23@mcd.gov.in',ph:'1800-11-4000'},
-{w:'24-VIJAY VIHAR',n:'Pushpa',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward24@mcd.gov.in',ph:'1800-11-4000'},
-{w:'25-BUDH VIHAR',n:'Amrit Jain',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward25@mcd.gov.in',ph:'1800-11-4000'},
-{w:'26-POOTH KALAN',n:'Ritu Mukesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward26@mcd.gov.in',ph:'1800-11-4000'},
-{w:'27-BEGUMPUR',n:'Jai Bhagwan Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward27@mcd.gov.in',ph:'1800-11-4000'},
-{w:'28-SHAHBAAD DAIRY',n:'Ram Chander',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward28@mcd.gov.in',ph:'1800-11-4000'},
-{w:'29-POOTH KHURD',n:'Anju Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward29@mcd.gov.in',ph:'1800-11-4000'},
-{w:'30-BAWANA',n:'Pawan Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward30@mcd.gov.in',ph:'1800-11-4000'},
-{w:'31-NANGAL THAKRAN',n:'Babita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward31@mcd.gov.in',ph:'1800-11-4000'},
-{w:'32-KANJHAWALA',n:'Sandeep',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward32@mcd.gov.in',ph:'1800-11-4000'},
-{w:'33-RANI KHERA',n:'Manisha Jasbir Karala',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward33@mcd.gov.in',ph:'1800-11-4000'},
-{w:'34-NANGLOI',n:'Hemlata',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward34@mcd.gov.in',ph:'1800-11-4000'},
-{w:'35-MUNDKA',n:'Anil',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward35@mcd.gov.in',ph:'1800-11-4000'},
-{w:'36-NILOTHI',n:'Babina Shokeen',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward36@mcd.gov.in',ph:'1800-11-4000'},
-{w:'37-KIRARI',n:'Ramesh Chand',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward37@mcd.gov.in',ph:'1800-11-4000'},
-{w:'38-PREM NAGAR',n:'Neela Kumari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward38@mcd.gov.in',ph:'1800-11-4000'},
-{w:'39-MUBARIKPUR',n:'Rajesh Kumar Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward39@mcd.gov.in',ph:'1800-11-4000'},
-{w:'40-NITHARI',n:'Mamta Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward40@mcd.gov.in',ph:'1800-11-4000'},
-{w:'41-AMAN VIHAR',n:'Ravinder Bhardwaj',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward41@mcd.gov.in',ph:'1800-11-4000'},
-{w:'42-MANGOL PURI',n:'Rajesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward42@mcd.gov.in',ph:'1800-11-4000'},
-{w:'43-SULTANPURI-A',n:'Bobi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward43@mcd.gov.in',ph:'1800-11-4000'},
-{w:'44-SULTANPURI-B',n:'Daulat',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward44@mcd.gov.in',ph:'1800-11-4000'},
-{w:'45-JAWALAPURI',n:'Santosh Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward45@mcd.gov.in',ph:'1800-11-4000'},
-{w:'46-NANGLOI JAT',n:'Poonam Saini',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward46@mcd.gov.in',ph:'1800-11-4000'},
-{w:'47-NIHAL VIHAR',n:'Mandeep Singh',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward47@mcd.gov.in',ph:'1800-11-4000'},
-{w:'48-GURU HARKISHAN NAGAR',n:'Monika Goyal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward48@mcd.gov.in',ph:'1800-11-4000'},
-{w:'49-MANGOLPURI-A',n:'Dharam Rakshak',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward49@mcd.gov.in',ph:'1800-11-4000'},
-{w:'50-MANGOLPURI-B',n:'Suman',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward50@mcd.gov.in',ph:'1800-11-4000'},
-{w:'51-ROHINI-C',n:'Dharambir Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward51@mcd.gov.in',ph:'1800-11-4000'},
-{w:'52-ROHINI-F',n:'Ritu Goel',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward52@mcd.gov.in',ph:'1800-11-4000'},
-{w:'53-ROHINI-E',n:'Pravesh Wahi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward53@mcd.gov.in',ph:'1800-11-4000'},
-{w:'54-ROHINI-D',n:'Smita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward54@mcd.gov.in',ph:'1800-11-4000'},
-{w:'55-SHALIMAR BAGH-A',n:'Jalaj Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward55@mcd.gov.in',ph:'1800-11-4000'},
-{w:'56-SHALIMAR BAGH-B',n:'Anita Jain',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward56@mcd.gov.in',ph:'1800-11-4000'},
-{w:'57-PITAM PURA',n:'Amit Nagpal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward57@mcd.gov.in',ph:'1800-11-4000'},
-{w:'58-SARASWATI VIHAR',n:'Shikha Bhardwaj',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward58@mcd.gov.in',ph:'1800-11-4000'},
-{w:'59-PASCHIM VIHAR',n:'Vineet Vohra',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward59@mcd.gov.in',ph:'1800-11-4000'},
-{w:'60-RANI BAGH',n:'Jyoti Aggarwal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward60@mcd.gov.in',ph:'1800-11-4000'},
-{w:'61-KOHAT ENCLAVE',n:'Ajay Ravi Hans',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward61@mcd.gov.in',ph:'1800-11-4000'},
-{w:'62-SHAKUR PUR',n:'Kishan Lal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward62@mcd.gov.in',ph:'1800-11-4000'},
-{w:'63-TRI NAGAR',n:'Meenu Goel',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward63@mcd.gov.in',ph:'1800-11-4000'},
-{w:'64-KESHAV PURAM',n:'Yogesh Verma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward64@mcd.gov.in',ph:'1800-11-4000'},
-{w:'65-ASHOK VIHAR',n:'Veena Asija',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward65@mcd.gov.in',ph:'1800-11-4000'},
-{w:'66-WAZIR PUR',n:'Chitra Vidyarthi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward66@mcd.gov.in',ph:'1800-11-4000'},
-{w:'67-SANGAM PARK',n:'Sushil',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward67@mcd.gov.in',ph:'1800-11-4000'},
-{w:'68-MODEL TOWN',n:'Vikesh Sethi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward68@mcd.gov.in',ph:'1800-11-4000'},
-{w:'69-KAMLA NAGAR',n:'Renu Aggarwal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward69@mcd.gov.in',ph:'1800-11-4000'},
-{w:'70-SHASTRI NAGAR',n:'Manoj Kumar Jindal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward70@mcd.gov.in',ph:'1800-11-4000'},
-{w:'71-KISHAN GANJ',n:'Pooja',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward71@mcd.gov.in',ph:'1800-11-4000'},
-{w:'72-SADAR BAZAR',n:'Usha Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward72@mcd.gov.in',ph:'1800-11-4000'},
-{w:'73-CIVIL LINES',n:'Vikas',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward73@mcd.gov.in',ph:'1800-11-4000'},
-{w:'74-CHANDNI CHOWK',n:'Suman Kumar Gupta',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward74@mcd.gov.in',ph:'1800-11-4000'},
-{w:'75-JAMA MASJID',n:'Sultana Abad',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward75@mcd.gov.in',ph:'1800-11-4000'},
-{w:'76-CHANDANI MAHAL',n:'Mohd Imran',p:'AIFB',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward76@mcd.gov.in',ph:'1800-11-4000'},
-{w:'77-DELHI GATE',n:'Kiran Bala',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward77@mcd.gov.in',ph:'1800-11-4000'},
-{w:'78-BAZAR SITA RAM',n:'Rafia Mahir',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward78@mcd.gov.in',ph:'1800-11-4000'},
-{w:'79-BALLIMARAN',n:'Mohd Sadiq',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward79@mcd.gov.in',ph:'1800-11-4000'},
-{w:'80-RAM NAGAR',n:'Kamal Bagri',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward80@mcd.gov.in',ph:'1800-11-4000'},
-{w:'81-QURAISH NAGAR',n:'Shamim Bano',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward81@mcd.gov.in',ph:'1800-11-4000'},
-{w:'82-PAHAR GANJ',n:'Manish Chadda',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward82@mcd.gov.in',ph:'1800-11-4000'},
-{w:'83-KAROL BAGH',n:'Urmila Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward83@mcd.gov.in',ph:'1800-11-4000'},
-{w:'84-DEV NAGAR',n:'Mahesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward84@mcd.gov.in',ph:'1800-11-4000'},
-{w:'85-WEST PATEL NAGAR',n:'Kavita Chauhan',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward85@mcd.gov.in',ph:'1800-11-4000'},
-{w:'86-EAST PATEL NAGAR',n:'Shelly Oberoi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward86@mcd.gov.in',ph:'1800-11-4000'},
-{w:'87-RANJEET NAGAR',n:'Ankush Narang',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward87@mcd.gov.in',ph:'1800-11-4000'},
-{w:'88-BALJEET NAGAR',n:'Runakshi Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward88@mcd.gov.in',ph:'1800-11-4000'},
-{w:'89-KARAM PURA',n:'Rakesh Joshi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward89@mcd.gov.in',ph:'1800-11-4000'},
-{w:'90-MOTI NAGAR',n:'Alka Dhingra',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward90@mcd.gov.in',ph:'1800-11-4000'},
-{w:'91-RAMESH NAGAR',n:'Puneet Rai',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward91@mcd.gov.in',ph:'1800-11-4000'},
-{w:'92-PUNJABI BAGH',n:'Suman Tyagi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward92@mcd.gov.in',ph:'1800-11-4000'},
-{w:'93-MADIPUR',n:'Sahil Gangwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward93@mcd.gov.in',ph:'1800-11-4000'},
-{w:'94-RAGHUBIR NAGAR',n:'Urmila Gangwal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward94@mcd.gov.in',ph:'1800-11-4000'},
-{w:'95-VISHNU GARDEN',n:'Meenakshi Chandela',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward95@mcd.gov.in',ph:'1800-11-4000'},
-{w:'96-RAJOURI GARDEN',n:'Shashi Talwar',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward96@mcd.gov.in',ph:'1800-11-4000'},
-{w:'97-CHAUKHANDI NAGAR',n:'Sunil Kumar Chadha',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward97@mcd.gov.in',ph:'1800-11-4000'},
-{w:'98-SUBHASH NAGAR',n:'Manju Setia',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward98@mcd.gov.in',ph:'1800-11-4000'},
-{w:'99-HARI NAGAR',n:'Rajesh Kumar Ladi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward99@mcd.gov.in',ph:'1800-11-4000'},
-{w:'100-FATEH NAGAR',n:'Raminder Kaur',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward100@mcd.gov.in',ph:'1800-11-4000'},
-{w:'101-TILAK NAGAR',n:'Ashok Kumar Maanu',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward101@mcd.gov.in',ph:'1800-11-4000'},
-{w:'102-KHYALA',n:'Shilpa Kaur',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward102@mcd.gov.in',ph:'1800-11-4000'},
-{w:'103-KESHOPUR',n:'Harish Oberoi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward103@mcd.gov.in',ph:'1800-11-4000'},
-{w:'104-JANAK PURI SOUTH',n:'Dimple Ahuja',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward104@mcd.gov.in',ph:'1800-11-4000'},
-{w:'105-MAHAVEER ENCLAVE',n:'Parveen Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward105@mcd.gov.in',ph:'1800-11-4000'},
-{w:'106-JANAK PURI WEST',n:'Urmila Chawla',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward106@mcd.gov.in',ph:'1800-11-4000'},
-{w:'107-VIKAS PURI',n:'Sahib Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward107@mcd.gov.in',ph:'1800-11-4000'},
-{w:'108-HASTSAL',n:'Rakhi Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward108@mcd.gov.in',ph:'1800-11-4000'},
-{w:'109-VIKAS NAGAR',n:'Ashok Pandey',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward109@mcd.gov.in',ph:'1800-11-4000'},
-{w:'110-KUNWAR SINGH NAGAR',n:'Raj Bala',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward110@mcd.gov.in',ph:'1800-11-4000'},
-{w:'111-BAPROLA',n:'Ravinder',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward111@mcd.gov.in',ph:'1800-11-4000'},
-{w:'112-SAINIK ENCLAVE',n:'Nirmala Kumari',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward112@mcd.gov.in',ph:'1800-11-4000'},
-{w:'113-MOHAN GARDEN',n:'Surender Kaushik',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward113@mcd.gov.in',ph:'1800-11-4000'},
-{w:'114-NAWADA',n:'Nirmla Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward114@mcd.gov.in',ph:'1800-11-4000'},
-{w:'115-UTTAM NAGAR',n:'Deepak Vohra',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward115@mcd.gov.in',ph:'1800-11-4000'},
-{w:'116-BINDA PUR',n:'Krishna Devi Raghav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward116@mcd.gov.in',ph:'1800-11-4000'},
-{w:'117-DABRI',n:'Tilotma Choudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward117@mcd.gov.in',ph:'1800-11-4000'},
-{w:'118-SAGARPUR',n:'Simmi Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward118@mcd.gov.in',ph:'1800-11-4000'},
-{w:'119-MANGLAPURI',n:'Narender Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward119@mcd.gov.in',ph:'1800-11-4000'},
-{w:'120-DWARKA-B',n:'Manisha Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward120@mcd.gov.in',ph:'1800-11-4000'},
-{w:'121-DWARKA-A',n:'Ram Niwas',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward121@mcd.gov.in',ph:'1800-11-4000'},
-{w:'122-MATIALA',n:'Anuradha Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward122@mcd.gov.in',ph:'1800-11-4000'},
-{w:'123-KAKROLA',n:'Sudesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward123@mcd.gov.in',ph:'1800-11-4000'},
-{w:'124-NANGLI SAKRAWATI',n:'Savita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward124@mcd.gov.in',ph:'1800-11-4000'},
-{w:'125-CHHAWALA',n:'Shashi Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward125@mcd.gov.in',ph:'1800-11-4000'},
-{w:'126-ISAPUR',n:'Meena Devi',p:'IND',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward126@mcd.gov.in',ph:'1800-11-4000'},
-{w:'127-NAJAFGARH',n:'Amit Kharkhari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward127@mcd.gov.in',ph:'1800-11-4000'},
-{w:'128-DICHAON KALAN',n:'Rekha Rani',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward128@mcd.gov.in',ph:'1800-11-4000'},
-{w:'129-ROSHAN PURA',n:'Devender',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward129@mcd.gov.in',ph:'1800-11-4000'},
-{w:'130-DWARKA-C',n:'Sunita',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward130@mcd.gov.in',ph:'1800-11-4000'},
-{w:'131-BIJWASAN',n:'Jaivir Singh Rana',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward131@mcd.gov.in',ph:'1800-11-4000'},
-{w:'132-KAPASHERA',n:'Aarti Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward132@mcd.gov.in',ph:'1800-11-4000'},
-{w:'133-MAHIPALPUR',n:'Inderjeet Sehrawat',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward133@mcd.gov.in',ph:'1800-11-4000'},
-{w:'134-RAJ NAGAR',n:'Poonam Bhardwaj',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward134@mcd.gov.in',ph:'1800-11-4000'},
-{w:'135-PALAM',n:'Seema Pandit',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward135@mcd.gov.in',ph:'1800-11-4000'},
-{w:'136-MADHU VIHAR',n:'Sushma Rathee',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward136@mcd.gov.in',ph:'1800-11-4000'},
-{w:'137-MAHAVIR ENCLAVE',n:'Ajay Kumar Rai',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward137@mcd.gov.in',ph:'1800-11-4000'},
-{w:'138-SADH NAGAR',n:'Inder Kaur',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward138@mcd.gov.in',ph:'1800-11-4000'},
-{w:'139-NARAINA',n:'Rajan Arora',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward139@mcd.gov.in',ph:'1800-11-4000'},
-{w:'140-INDER PURI',n:'Jyoti Gautam',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward140@mcd.gov.in',ph:'1800-11-4000'},
-{w:'141-RAJINDER NAGAR',n:'Arti Chawla',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward141@mcd.gov.in',ph:'1800-11-4000'},
-{w:'142-DARYAGANJ',n:'Sarika Chaudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward142@mcd.gov.in',ph:'1800-11-4000'},
-{w:'143-SIDHARTHA NAGAR',n:'Sonali',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward143@mcd.gov.in',ph:'1800-11-4000'},
-{w:'144-LAJPAT NAGAR',n:'Arjun Pal Singh Marwah',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward144@mcd.gov.in',ph:'1800-11-4000'},
-{w:'145-ANDREWS GANJ',n:'Anita Baisoya',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward145@mcd.gov.in',ph:'1800-11-4000'},
-{w:'146-AMAR COLONY',n:'Sharad Kapoor',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward146@mcd.gov.in',ph:'1800-11-4000'},
-{w:'147-KOTLA MUBARAKPUR',n:'Kusum Lata',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward147@mcd.gov.in',ph:'1800-11-4000'},
-{w:'148-HAUZ KHAS',n:'Kamal Bhardwaj',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward148@mcd.gov.in',ph:'1800-11-4000'},
-{w:'149-MALVIYA NAGAR',n:'Leena Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward149@mcd.gov.in',ph:'1800-11-4000'},
-{w:'150-GREEN PARK',n:'Sarita Phogaat',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward150@mcd.gov.in',ph:'1800-11-4000'},
-{w:'151-MUNIRKA',n:'Raj Bala Tokas',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward151@mcd.gov.in',ph:'1800-11-4000'},
-{w:'152-R.K. PURAM',n:'Dharamvir Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward152@mcd.gov.in',ph:'1800-11-4000'},
-{w:'153-VASANT VIHAR',n:'Himani Jain',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward153@mcd.gov.in',ph:'1800-11-4000'},
-{w:'154-LADO SARAI',n:'Rajeev Sansanwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward154@mcd.gov.in',ph:'1800-11-4000'},
-{w:'155-MEHRAULI',n:'Rekha Mahender Chaudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward155@mcd.gov.in',ph:'1800-11-4000'},
-{w:'156-VASANT KUNJ',n:'Jagmohan Mehlawat',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward156@mcd.gov.in',ph:'1800-11-4000'},
-{w:'157-AYA NAGAR',n:'Ved Pal Sheetal Chaudhary',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward157@mcd.gov.in',ph:'1800-11-4000'},
-{w:'158-BHATI',n:'Sunder Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward158@mcd.gov.in',ph:'1800-11-4000'},
-{w:'159-CHHATARPUR',n:'Pinky Tyagi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward159@mcd.gov.in',ph:'1800-11-4000'},
-{w:'160-SAID-UL-AJAIB',n:'Umed Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward160@mcd.gov.in',ph:'1800-11-4000'},
-{w:'161-DEOLI',n:'Anita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward161@mcd.gov.in',ph:'1800-11-4000'},
-{w:'162-TIGRI',n:'Jyoti Prakash Jarwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward162@mcd.gov.in',ph:'1800-11-4000'},
-{w:'163-SANGAM VIHAR-A',n:'Suresh Choudhary',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward163@mcd.gov.in',ph:'1800-11-4000'},
-{w:'164-DAKSHIN PURI',n:'Ram Swaroop Kanojia',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward164@mcd.gov.in',ph:'1800-11-4000'},
-{w:'165-MADANGIR',n:'Geeta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward165@mcd.gov.in',ph:'1800-11-4000'},
-{w:'166-PUSHP VIHAR',n:'Arun Navariya',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward166@mcd.gov.in',ph:'1800-11-4000'},
-{w:'167-KHANPUR',n:'Mamta Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward167@mcd.gov.in',ph:'1800-11-4000'},
-{w:'168-SANGAM VIHAR-C',n:'Pankaj Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward168@mcd.gov.in',ph:'1800-11-4000'},
-{w:'169-SANGAM VIHAR-B',n:'Kajal Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward169@mcd.gov.in',ph:'1800-11-4000'},
-{w:'170-TUGHLAKABAD EXT',n:'Bhagbir',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward170@mcd.gov.in',ph:'1800-11-4000'},
-{w:'171-CHITARANJAN PARK',n:'Ashu Thakur',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward171@mcd.gov.in',ph:'1800-11-4000'},
-{w:'172-CHIRAG DELHI',n:'Krishan Jakhar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward172@mcd.gov.in',ph:'1800-11-4000'},
-{w:'173-GREATER KAILASH',n:'Anjum Mandal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward173@mcd.gov.in',ph:'1800-11-4000'},
-{w:'174-SRI NIWAS PURI',n:'Rajpal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward174@mcd.gov.in',ph:'1800-11-4000'},
-{w:'175-KALKAJI',n:'Yogita Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward175@mcd.gov.in',ph:'1800-11-4000'},
-{w:'176-GOVIND PURI',n:'Chander Prakash',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward176@mcd.gov.in',ph:'1800-11-4000'},
-{w:'177-HARKESH NAGAR',n:'Mamta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward177@mcd.gov.in',ph:'1800-11-4000'},
-{w:'178-TUGHLAKABAD',n:'Sugandha',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward178@mcd.gov.in',ph:'1800-11-4000'},
-{w:'179-PUL PEHLADPUR',n:'Rakesh Lohia',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward179@mcd.gov.in',ph:'1800-11-4000'},
-{w:'180-BADARPUR',n:'Manju Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward180@mcd.gov.in',ph:'1800-11-4000'},
-{w:'181-MOLARBAND',n:'Hemchand Goel',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward181@mcd.gov.in',ph:'1800-11-4000'},
-{w:'182-MEETHAPUR',n:'Guddi Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward182@mcd.gov.in',ph:'1800-11-4000'},
-{w:'183-HARI NAGAR EXT',n:'Nikhil Chaprana',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward183@mcd.gov.in',ph:'1800-11-4000'},
-{w:'184-JAITPUR',n:'Hema',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward184@mcd.gov.in',ph:'1800-11-4000'},
-{w:'185-MADANPUR KHADAR EAST',n:'Praveen Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward185@mcd.gov.in',ph:'1800-11-4000'},
-{w:'186-MADANPUR KHADAR WEST',n:'Braham Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward186@mcd.gov.in',ph:'1800-11-4000'},
-{w:'187-SARITA VIHAR',n:'Neetu',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward187@mcd.gov.in',ph:'1800-11-4000'},
-{w:'188-ABUL FAZAL ENCLAVE',n:'Ariba Khan',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward188@mcd.gov.in',ph:'1800-11-4000'},
-{w:'189-ZAKIR NAGAR',n:'Naziya Danish',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward189@mcd.gov.in',ph:'1800-11-4000'},
-{w:'190-NEW ASHOK NAGAR',n:'Sanjeev Kumar Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward190@mcd.gov.in',ph:'1800-11-4000'},
-{w:'191-MAYUR VIHAR PH-I',n:'Beena',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward191@mcd.gov.in',ph:'1800-11-4000'},
-{w:'192-TRILOKPURI',n:'Vijay Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward192@mcd.gov.in',ph:'1800-11-4000'},
-{w:'193-KONDLI',n:'Munesh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward193@mcd.gov.in',ph:'1800-11-4000'},
-{w:'194-GHAROLI',n:'Priyanka Gautam',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward194@mcd.gov.in',ph:'1800-11-4000'},
-{w:'195-KALYANPURI',n:'Dhirender Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward195@mcd.gov.in',ph:'1800-11-4000'},
-{w:'196-MAYUR VIHAR PH-II',n:'Devendra Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward196@mcd.gov.in',ph:'1800-11-4000'},
-{w:'197-PATPAR GANJ',n:'Renu Chaudhary',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward197@mcd.gov.in',ph:'1800-11-4000'},
-{w:'198-VINOD NAGAR',n:'Sarala Chaudhari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward198@mcd.gov.in',ph:'1800-11-4000'},
-{w:'199-MANDAWALI',n:'Shashi Chandna',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward199@mcd.gov.in',ph:'1800-11-4000'},
-{w:'200-PANDAV NAGAR',n:'Yashpal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward200@mcd.gov.in',ph:'1800-11-4000'},
-{w:'201-LALITA PARK',n:'Shweta Nigam',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward201@mcd.gov.in',ph:'1800-11-4000'},
-{w:'202-SHAKARPUR',n:'Ram Kishor Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward202@mcd.gov.in',ph:'1800-11-4000'},
-{w:'203-LAXMI NAGAR',n:'Alka Raghav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward203@mcd.gov.in',ph:'1800-11-4000'},
-{w:'204-PREET VIHAR',n:'Ramesh Kumar Garg',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward204@mcd.gov.in',ph:'1800-11-4000'},
-{w:'205-I.P. EXTENSION',n:'Rachna',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward205@mcd.gov.in',ph:'1800-11-4000'},
-{w:'206-ANAND VIHAR',n:'Monika Pant',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward206@mcd.gov.in',ph:'1800-11-4000'},
-{w:'207-VISHWAS NAGAR',n:'Jyoti Rani',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward207@mcd.gov.in',ph:'1800-11-4000'},
-{w:'208-ANARKALI',n:'Meenakshi Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward208@mcd.gov.in',ph:'1800-11-4000'},
-{w:'209-JAGAT PURI',n:'Raju Sachdeva',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward209@mcd.gov.in',ph:'1800-11-4000'},
-{w:'210-GEETA COLONY',n:'Neemaa Bhagat',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward210@mcd.gov.in',ph:'1800-11-4000'},
-{w:'211-KRISHNA NAGAR',n:'Sandeep Kapoor',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward211@mcd.gov.in',ph:'1800-11-4000'},
-{w:'212-GANDHI NAGAR',n:'Priya Kamboj',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward212@mcd.gov.in',ph:'1800-11-4000'},
-{w:'213-SHASTRI PARK',n:'Sameer Ahmad',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward213@mcd.gov.in',ph:'1800-11-4000'},
-{w:'214-AZAD NAGAR',n:'Neelam',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward214@mcd.gov.in',ph:'1800-11-4000'},
-{w:'215-SHAHDARA',n:'Bharat Gautam',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward215@mcd.gov.in',ph:'1800-11-4000'},
-{w:'216-JHILMIL',n:'Pankaj Luthra',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward216@mcd.gov.in',ph:'1800-11-4000'},
-{w:'217-DILSHAD COLONY',n:'Preeti',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward217@mcd.gov.in',ph:'1800-11-4000'},
-{w:'218-SUNDAR NAGRI',n:'Mohini',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward218@mcd.gov.in',ph:'1800-11-4000'},
-{w:'219-DILSHAD GARDEN',n:'B S Panwar',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward219@mcd.gov.in',ph:'1800-11-4000'},
-{w:'220-NAND NAGRI',n:'Ramesh Kumar Bisaiya',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward220@mcd.gov.in',ph:'1800-11-4000'},
-{w:'221-ASHOK NAGAR',n:'Reena Maheshwari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward221@mcd.gov.in',ph:'1800-11-4000'},
-{w:'222-RAM NAGAR EAST',n:'Chander Prakash Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward222@mcd.gov.in',ph:'1800-11-4000'},
-{w:'223-ROHTASH NAGAR',n:'Shivani Panchal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward223@mcd.gov.in',ph:'1800-11-4000'},
-{w:'224-WELCOME COLONY',n:'Ritesh Suji',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward224@mcd.gov.in',ph:'1800-11-4000'},
-{w:'225-SEELAMPUR',n:'Shakila Begum',p:'IND',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward225@mcd.gov.in',ph:'1800-11-4000'},
-{w:'226-GAUTAM PURI',n:'Satya Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward226@mcd.gov.in',ph:'1800-11-4000'},
-{w:'227-CHAUHAN BANGER',n:'Shagufta Chaudhary Zubair',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward227@mcd.gov.in',ph:'1800-11-4000'},
-{w:'228-MAUJPUR',n:'Anil Kumar Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward228@mcd.gov.in',ph:'1800-11-4000'},
-{w:'229-BRAHAM PURI',n:'Chhaya Gaurav Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward229@mcd.gov.in',ph:'1800-11-4000'},
-{w:'230-BHAJANPURA',n:'Rekha Rani',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward230@mcd.gov.in',ph:'1800-11-4000'},
-{w:'231-GHONDA',n:'Preeti Gupta',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward231@mcd.gov.in',ph:'1800-11-4000'},
-{w:'232-YAMUNA VIHAR',n:'Pramod Gupta',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward232@mcd.gov.in',ph:'1800-11-4000'},
-{w:'233-SUBHASH MOHALLA',n:'Manisha Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward233@mcd.gov.in',ph:'1800-11-4000'},
-{w:'234-KABIR NAGAR',n:'Zarif',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward234@mcd.gov.in',ph:'1800-11-4000'},
-{w:'235-GORAKH PARK',n:'Priyanka Saxena',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward235@mcd.gov.in',ph:'1800-11-4000'},
-{w:'236-KARDAM PURI',n:'Mukesh Kumar Bansal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward236@mcd.gov.in',ph:'1800-11-4000'},
-{w:'237-HARSH VIHAR',n:'Poonam Nirmal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward237@mcd.gov.in',ph:'1800-11-4000'},
-{w:'238-SABOLI',n:'Jaswant Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward238@mcd.gov.in',ph:'1800-11-4000'},
-{w:'239-GOKAL PURI',n:'Somwati Chaudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward239@mcd.gov.in',ph:'1800-11-4000'},
-{w:'240-JOHARIPUR',n:'Roshan Lal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward240@mcd.gov.in',ph:'1800-11-4000'},
-{w:'241-KARAWAL NAGAR-EAST',n:'Shimla Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward241@mcd.gov.in',ph:'1800-11-4000'},
-{w:'242-DAYALPUR',n:'Puneet Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward242@mcd.gov.in',ph:'1800-11-4000'},
-{w:'243-MUSTAFABAD',n:'Sabila Begum',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward243@mcd.gov.in',ph:'1800-11-4000'},
-{w:'244-NEHRU VIHAR',n:'Arun Singh Bhati',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward244@mcd.gov.in',ph:'1800-11-4000'},
-{w:'245-BRIJ PURI',n:'Nazia Khatoon',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward245@mcd.gov.in',ph:'1800-11-4000'},
-{w:'246-SRI RAM COLONY',n:'Mohammad Aamil Malik',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward246@mcd.gov.in',ph:'1800-11-4000'},
-{w:'247-SADATPUR',n:'Neeta Bisht',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward247@mcd.gov.in',ph:'1800-11-4000'},
-{w:'248-KARAWAL NAGAR-WEST',n:'Satya Pal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward248@mcd.gov.in',ph:'1800-11-4000'},
-{w:'249-SONIA VIHAR',n:'Soni Pandey',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward249@mcd.gov.in',ph:'1800-11-4000'},
-{w:'250-SABAPUR',n:'Brijesh Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'ward250@mcd.gov.in',ph:'1800-11-4000'}
+{w:'1-NARELA',n:'Sweta Khatri',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'2-BANKNER',n:'Dinesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'3-HOLAMBI KALAN',n:'Neha',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'4-ALIPUR',n:'Yogesh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'5-BAKHTAWARPUR',n:'Janta Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'6-BURARI',n:'Anil Kumar Tyagi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'7-KADIPUR',n:'Munesh Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'8-MUKUNDPUR',n:'Gulab Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'9-SANT NAGAR',n:'Rubi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'10-JHARODA',n:'Gagan Choudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'11-TIMARPUR',n:'Promila Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'12-MALKA GANJ',n:'Rekha',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'13-MUKHERJEE NAGAR',n:'Raja Iqbal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'14-DHIRPUR',n:'Neha Aggarwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'15-ADARSH NAGAR',n:'Mukesh Kumar Goel',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'16-AZADPUR',n:'Suman Kumari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'17-BHALSWA',n:'Ajeet Singh Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'18-JAHANGIR PURI',n:'Timsy Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'19-SARUP NAGAR',n:'Joginder Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'20-SAMAYPUR BADLI',n:'Gayatri Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'21-ROHINI-A',n:'Pardeep Mittal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'22-ROHINI-B',n:'Suman Anil Rana',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'23-RITHALA',n:'Narender Kumar Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'24-VIJAY VIHAR',n:'Pushpa',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'25-BUDH VIHAR',n:'Amrit Jain',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'26-POOTH KALAN',n:'Ritu Mukesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'27-BEGUMPUR',n:'Jai Bhagwan Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'28-SHAHBAAD DAIRY',n:'Ram Chander',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'29-POOTH KHURD',n:'Anju Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'30-BAWANA',n:'Pawan Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'31-NANGAL THAKRAN',n:'Babita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'32-KANJHAWALA',n:'Sandeep',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'33-RANI KHERA',n:'Manisha Jasbir Karala',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'34-NANGLOI',n:'Hemlata',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'35-MUNDKA',n:'Anil',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'36-NILOTHI',n:'Babina Shokeen',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'37-KIRARI',n:'Ramesh Chand',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'38-PREM NAGAR',n:'Neela Kumari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'39-MUBARIKPUR',n:'Rajesh Kumar Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'40-NITHARI',n:'Mamta Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'41-AMAN VIHAR',n:'Ravinder Bhardwaj',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'42-MANGOL PURI',n:'Rajesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'43-SULTANPURI-A',n:'Bobi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'44-SULTANPURI-B',n:'Daulat',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'45-JAWALAPURI',n:'Santosh Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'46-NANGLOI JAT',n:'Poonam Saini',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'47-NIHAL VIHAR',n:'Mandeep Singh',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'48-GURU HARKISHAN NAGAR',n:'Monika Goyal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'49-MANGOLPURI-A',n:'Dharam Rakshak',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'50-MANGOLPURI-B',n:'Suman',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'51-ROHINI-C',n:'Dharambir Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'52-ROHINI-F',n:'Ritu Goel',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'53-ROHINI-E',n:'Pravesh Wahi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'54-ROHINI-D',n:'Smita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'55-SHALIMAR BAGH-A',n:'Jalaj Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'56-SHALIMAR BAGH-B',n:'Anita Jain',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'57-PITAM PURA',n:'Amit Nagpal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'58-SARASWATI VIHAR',n:'Shikha Bhardwaj',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'59-PASCHIM VIHAR',n:'Vineet Vohra',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'60-RANI BAGH',n:'Jyoti Aggarwal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'61-KOHAT ENCLAVE',n:'Ajay Ravi Hans',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'62-SHAKUR PUR',n:'Kishan Lal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'63-TRI NAGAR',n:'Meenu Goel',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'64-KESHAV PURAM',n:'Yogesh Verma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'65-ASHOK VIHAR',n:'Veena Asija',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'66-WAZIR PUR',n:'Chitra Vidyarthi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'67-SANGAM PARK',n:'Sushil',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'68-MODEL TOWN',n:'Vikesh Sethi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'69-KAMLA NAGAR',n:'Renu Aggarwal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'70-SHASTRI NAGAR',n:'Manoj Kumar Jindal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'71-KISHAN GANJ',n:'Pooja',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'72-SADAR BAZAR',n:'Usha Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'73-CIVIL LINES',n:'Vikas',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'74-CHANDNI CHOWK',n:'Suman Kumar Gupta',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'75-JAMA MASJID',n:'Sultana Abad',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'76-CHANDANI MAHAL',n:'Mohd Imran',p:'AIFB',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'77-DELHI GATE',n:'Kiran Bala',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'78-BAZAR SITA RAM',n:'Rafia Mahir',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'79-BALLIMARAN',n:'Mohd Sadiq',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'80-RAM NAGAR',n:'Kamal Bagri',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'81-QURAISH NAGAR',n:'Shamim Bano',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'82-PAHAR GANJ',n:'Manish Chadda',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'83-KAROL BAGH',n:'Urmila Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'84-DEV NAGAR',n:'Mahesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'85-WEST PATEL NAGAR',n:'Kavita Chauhan',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'86-EAST PATEL NAGAR',n:'Shelly Oberoi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'87-RANJEET NAGAR',n:'Ankush Narang',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'88-BALJEET NAGAR',n:'Runakshi Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'89-KARAM PURA',n:'Rakesh Joshi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'90-MOTI NAGAR',n:'Alka Dhingra',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'91-RAMESH NAGAR',n:'Puneet Rai',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'92-PUNJABI BAGH',n:'Suman Tyagi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'93-MADIPUR',n:'Sahil Gangwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'94-RAGHUBIR NAGAR',n:'Urmila Gangwal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'95-VISHNU GARDEN',n:'Meenakshi Chandela',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'96-RAJOURI GARDEN',n:'Shashi Talwar',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'97-CHAUKHANDI NAGAR',n:'Sunil Kumar Chadha',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'98-SUBHASH NAGAR',n:'Manju Setia',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'99-HARI NAGAR',n:'Rajesh Kumar Ladi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'100-FATEH NAGAR',n:'Raminder Kaur',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'101-TILAK NAGAR',n:'Ashok Kumar Maanu',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'102-KHYALA',n:'Shilpa Kaur',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'103-KESHOPUR',n:'Harish Oberoi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'104-JANAK PURI SOUTH',n:'Dimple Ahuja',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'105-MAHAVEER ENCLAVE',n:'Parveen Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'106-JANAK PURI WEST',n:'Urmila Chawla',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'107-VIKAS PURI',n:'Sahib Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'108-HASTSAL',n:'Rakhi Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'109-VIKAS NAGAR',n:'Ashok Pandey',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'110-KUNWAR SINGH NAGAR',n:'Raj Bala',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'111-BAPROLA',n:'Ravinder',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'112-SAINIK ENCLAVE',n:'Nirmala Kumari',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'113-MOHAN GARDEN',n:'Surender Kaushik',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'114-NAWADA',n:'Nirmla Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'115-UTTAM NAGAR',n:'Deepak Vohra',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'116-BINDA PUR',n:'Krishna Devi Raghav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'117-DABRI',n:'Tilotma Choudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'118-SAGARPUR',n:'Simmi Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'119-MANGLAPURI',n:'Narender Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'120-DWARKA-B',n:'Manisha Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'121-DWARKA-A',n:'Ram Niwas',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'122-MATIALA',n:'Anuradha Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'123-KAKROLA',n:'Sudesh Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'124-NANGLI SAKRAWATI',n:'Savita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'125-CHHAWALA',n:'Shashi Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'126-ISAPUR',n:'Meena Devi',p:'IND',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'127-NAJAFGARH',n:'Amit Kharkhari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'128-DICHAON KALAN',n:'Rekha Rani',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'129-ROSHAN PURA',n:'Devender',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'130-DWARKA-C',n:'Sunita',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'131-BIJWASAN',n:'Jaivir Singh Rana',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'132-KAPASHERA',n:'Aarti Yadav',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'133-MAHIPALPUR',n:'Inderjeet Sehrawat',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'134-RAJ NAGAR',n:'Poonam Bhardwaj',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'135-PALAM',n:'Seema Pandit',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'136-MADHU VIHAR',n:'Sushma Rathee',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'137-MAHAVIR ENCLAVE',n:'Ajay Kumar Rai',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'138-SADH NAGAR',n:'Inder Kaur',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'139-NARAINA',n:'Rajan Arora',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'140-INDER PURI',n:'Jyoti Gautam',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'141-RAJINDER NAGAR',n:'Arti Chawla',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'142-DARYAGANJ',n:'Sarika Chaudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'143-SIDHARTHA NAGAR',n:'Sonali',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'144-LAJPAT NAGAR',n:'Arjun Pal Singh Marwah',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'145-ANDREWS GANJ',n:'Anita Baisoya',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'146-AMAR COLONY',n:'Sharad Kapoor',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'147-KOTLA MUBARAKPUR',n:'Kusum Lata',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'148-HAUZ KHAS',n:'Kamal Bhardwaj',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'149-MALVIYA NAGAR',n:'Leena Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'150-GREEN PARK',n:'Sarita Phogaat',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'151-MUNIRKA',n:'Raj Bala Tokas',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'152-R.K. PURAM',n:'Dharamvir Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'153-VASANT VIHAR',n:'Himani Jain',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'154-LADO SARAI',n:'Rajeev Sansanwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'155-MEHRAULI',n:'Rekha Mahender Chaudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'156-VASANT KUNJ',n:'Jagmohan Mehlawat',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'157-AYA NAGAR',n:'Ved Pal Sheetal Chaudhary',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'158-BHATI',n:'Sunder Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'159-CHHATARPUR',n:'Pinky Tyagi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'160-SAID-UL-AJAIB',n:'Umed Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'161-DEOLI',n:'Anita',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'162-TIGRI',n:'Jyoti Prakash Jarwal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'163-SANGAM VIHAR-A',n:'Suresh Choudhary',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'164-DAKSHIN PURI',n:'Ram Swaroop Kanojia',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'165-MADANGIR',n:'Geeta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'166-PUSHP VIHAR',n:'Arun Navariya',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'167-KHANPUR',n:'Mamta Yadav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'168-SANGAM VIHAR-C',n:'Pankaj Gupta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'169-SANGAM VIHAR-B',n:'Kajal Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'170-TUGHLAKABAD EXT',n:'Bhagbir',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'171-CHITARANJAN PARK',n:'Ashu Thakur',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'172-CHIRAG DELHI',n:'Krishan Jakhar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'173-GREATER KAILASH',n:'Anjum Mandal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'174-SRI NIWAS PURI',n:'Rajpal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'175-KALKAJI',n:'Yogita Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'176-GOVIND PURI',n:'Chander Prakash',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'177-HARKESH NAGAR',n:'Mamta',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'178-TUGHLAKABAD',n:'Sugandha',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'179-PUL PEHLADPUR',n:'Rakesh Lohia',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'180-BADARPUR',n:'Manju Devi',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'181-MOLARBAND',n:'Hemchand Goel',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'182-MEETHAPUR',n:'Guddi Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'183-HARI NAGAR EXT',n:'Nikhil Chaprana',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'184-JAITPUR',n:'Hema',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'185-MADANPUR KHADAR EAST',n:'Praveen Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'186-MADANPUR KHADAR WEST',n:'Braham Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'187-SARITA VIHAR',n:'Neetu',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'188-ABUL FAZAL ENCLAVE',n:'Ariba Khan',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'189-ZAKIR NAGAR',n:'Naziya Danish',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'190-NEW ASHOK NAGAR',n:'Sanjeev Kumar Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'191-MAYUR VIHAR PH-I',n:'Beena',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'192-TRILOKPURI',n:'Vijay Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'193-KONDLI',n:'Munesh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'194-GHAROLI',n:'Priyanka Gautam',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'195-KALYANPURI',n:'Dhirender Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'196-MAYUR VIHAR PH-II',n:'Devendra Kumar',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'197-PATPAR GANJ',n:'Renu Chaudhary',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'198-VINOD NAGAR',n:'Sarala Chaudhari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'199-MANDAWALI',n:'Shashi Chandna',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'200-PANDAV NAGAR',n:'Yashpal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'201-LALITA PARK',n:'Shweta Nigam',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'202-SHAKARPUR',n:'Ram Kishor Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'203-LAXMI NAGAR',n:'Alka Raghav',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'204-PREET VIHAR',n:'Ramesh Kumar Garg',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'205-I.P. EXTENSION',n:'Rachna',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'206-ANAND VIHAR',n:'Monika Pant',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'207-VISHWAS NAGAR',n:'Jyoti Rani',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'208-ANARKALI',n:'Meenakshi Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'209-JAGAT PURI',n:'Raju Sachdeva',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'210-GEETA COLONY',n:'Neemaa Bhagat',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'211-KRISHNA NAGAR',n:'Sandeep Kapoor',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'212-GANDHI NAGAR',n:'Priya Kamboj',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'213-SHASTRI PARK',n:'Sameer Ahmad',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'214-AZAD NAGAR',n:'Neelam',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'215-SHAHDARA',n:'Bharat Gautam',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'216-JHILMIL',n:'Pankaj Luthra',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'217-DILSHAD COLONY',n:'Preeti',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'218-SUNDAR NAGRI',n:'Mohini',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'219-DILSHAD GARDEN',n:'B S Panwar',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'220-NAND NAGRI',n:'Ramesh Kumar Bisaiya',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'221-ASHOK NAGAR',n:'Reena Maheshwari',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'222-RAM NAGAR EAST',n:'Chander Prakash Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'223-ROHTASH NAGAR',n:'Shivani Panchal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'224-WELCOME COLONY',n:'Ritesh Suji',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'225-SEELAMPUR',n:'Shakila Begum',p:'IND',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'226-GAUTAM PURI',n:'Satya Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'227-CHAUHAN BANGER',n:'Shagufta Chaudhary Zubair',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'228-MAUJPUR',n:'Anil Kumar Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'229-BRAHAM PURI',n:'Chhaya Gaurav Sharma',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'230-BHAJANPURA',n:'Rekha Rani',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'231-GHONDA',n:'Preeti Gupta',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'232-YAMUNA VIHAR',n:'Pramod Gupta',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'233-SUBHASH MOHALLA',n:'Manisha Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'234-KABIR NAGAR',n:'Zarif',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'235-GORAKH PARK',n:'Priyanka Saxena',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'236-KARDAM PURI',n:'Mukesh Kumar Bansal',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'237-HARSH VIHAR',n:'Poonam Nirmal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'238-SABOLI',n:'Jaswant Singh',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'239-GOKAL PURI',n:'Somwati Chaudhary',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'240-JOHARIPUR',n:'Roshan Lal',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'241-KARAWAL NAGAR-EAST',n:'Shimla Devi',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'242-DAYALPUR',n:'Puneet Sharma',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'243-MUSTAFABAD',n:'Sabila Begum',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'244-NEHRU VIHAR',n:'Arun Singh Bhati',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'245-BRIJ PURI',n:'Nazia Khatoon',p:'INC',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'246-SRI RAM COLONY',n:'Mohammad Aamil Malik',p:'AAP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'247-SADATPUR',n:'Neeta Bisht',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'248-KARAWAL NAGAR-WEST',n:'Satya Pal Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'249-SONIA VIHAR',n:'Soni Pandey',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'},
+{w:'250-SABAPUR',n:'Brijesh Singh',p:'BJP',d:'Delhi MCD',sc:68,cr:0,as:'--',em:'complaints@mcdonline.nic.in',ph:'1800-11-0314'}
 ];
 
 // HELPER DATA
@@ -1316,7 +1316,56 @@ function scC(s){return s>=80?'var(--gn)':s>=60?'var(--am)':'var(--rd)';}
 function toast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.transform='translateX(-50%) translateY(0)';clearTimeout(t._tt);t._tt=setTimeout(()=>{t.style.transform='translateX(-50%) translateY(100px)';},3800);}
 function animN(id,target){const el=document.getElementById(id);if(!el)return;let v=0;const step=target/60;const iv=setInterval(()=>{v=Math.min(v+step,target);el.textContent=Math.floor(v).toLocaleString('en-IN');if(v>=target)clearInterval(iv);},25);}
 function showPg(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('on');window.scrollTo(0,0);if(id==='area')loadArea();if(id==='polls')renderPollsPage();return false;}
-function getCoun(c){const k=c.toLowerCase().split(' ')[0];return W.find(w=>w.w.toLowerCase().includes(k))||{n:'MCD Councillor 2022',p:'--',sc:65,ph:'1800-11-4000',em:'helpdesk@mcd.gov.in',as:'--',cr:0,w:'--',d:'--'};}
+function getCoun(c){
+  const MAP={
+    'Narela':'1-NARELA','Bankner':'2-BANKNER','Burari':'6-BURARI',
+    'Timarpur':'11-TIMARPUR','Adarsh Nagar':'15-ADARSH NAGAR',
+    'Badli':'16-AZADPUR','Rithala':'23-RITHALA','Bawana':'9-BAWANA',
+    'Mundka':'35-MUNDKA','Kirari':'37-KIRARI',
+    'Sultanpur Majra':'43-SULTANPURI-A','Nangloi Jat':'46-NANGLOI JAT',
+    'Mangolpuri':'50-MANGOLPURI-B','Rohini':'54-ROHINI-D',
+    'Shalimar Bagh':'56-SHALIMAR BAGH-B','Shakur Basti':'62-SHAKUR PUR',
+    'Tri Nagar':'63-TRI NAGAR','Wazirpur':'66-WAZIR PUR',
+    'Model Town':'68-MODEL TOWN','Sadar Bazar':'72-SADAR BAZAR',
+    'Chandni Chowk':'74-CHANDNI CHOWK','Matia Mahal':'76-CHANDANI MAHAL',
+    'Ballimaran':'79-BALLIMARAN','Delhi Cantt':'152-R.K. PURAM',
+    'Rajouri Garden':'96-RAJOURI GARDEN','Hari Nagar':'99-HARI NAGAR',
+    'Tilak Nagar':'101-TILAK NAGAR','Janakpuri':'104-JANAK PURI SOUTH',
+    'Vikaspuri':'107-VIKAS PURI','Uttam Nagar':'115-UTTAM NAGAR',
+    'Dwarka':'121-DWARKA-A','Matiala':'122-MATIALA',
+    'Najafgarh':'127-NAJAFGARH','Bijwasan':'131-BIJWASAN',
+    'Palam':'135-PALAM','Moti Nagar':'90-MOTI NAGAR',
+    'Madipur':'93-MADIPUR','Pitampura':'91-RAMESH NAGAR',
+    'Rohtas Nagar':'222-RAM NAGAR EAST','Patel Nagar':'85-WEST PATEL NAGAR',
+    'Rajinder Nagar':'141-RAJINDER NAGAR','New Delhi':'142-DARYAGANJ',
+    'Jangpura':'144-LAJPAT NAGAR','Kasturba Nagar':'145-ANDREWS GANJ',
+    'Malviya Nagar':'149-MALVIYA NAGAR','R K Puram':'151-MUNIRKA',
+    'Mehrauli':'155-MEHRAULI','Chhatarpur':'159-CHHATARPUR',
+    'Deoli':'164-DAKSHIN PURI','Ambedkar Nagar':'165-MADANGIR',
+    'Sangam Vihar':'168-SANGAM VIHAR-C','Greater Kailash':'173-GREATER KAILASH',
+    'Kalkaji':'175-KALKAJI','Tughlakabad':'178-TUGHLAKABAD',
+    'Badarpur':'180-BADARPUR','Okhla':'170-TUGHLAKABAD EXT',
+    'Trilokpuri':'192-TRILOKPURI','Kondli':'193-KONDLI',
+    'Patparganj':'197-PATPAR GANJ','Laxmi Nagar':'203-LAXMI NAGAR',
+    'Vishwas Nagar':'207-VISHWAS NAGAR','Krishna Nagar':'211-KRISHNA NAGAR',
+    'Gandhi Nagar':'212-GANDHI NAGAR','Shahdara':'215-SHAHDARA',
+    'Seemapuri':'220-NAND NAGRI','Ghonda':'231-GHONDA',
+    'Babarpur':'229-BRAHAM PURI','Gokalpur':'235-GORAKH PARK',
+    'Mustafabad':'243-MUSTAFABAD','Karawal Nagar':'248-KARAWAL NAGAR-WEST',
+    'Karol Bagh':'83-KAROL BAGH','Seelam Pur':'225-SEELAMPUR',
+  };
+  const wardKey = MAP[c];
+  if(wardKey){
+    const found = W.find(w=>w.w===wardKey);
+    if(found) return found;
+  }
+  // Fallback: search by name
+  const k = c.toLowerCase().split(' ')[0];
+  return W.find(w=>w.w.toLowerCase().includes(k)) ||
+    {n:'MCD Councillor (2022)',p:'--',sc:65,ph:'1800-11-0314',
+     em:'complaints@mcdonline.nic.in',as:'--',cr:0,w:'--',d:'--'};
+}
+
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ── INIT ──
@@ -1711,8 +1760,8 @@ function postIssueToChat(id){const iss=getIss().find(i=>i.id===id);if(!iss)retur
 function sendOTP(){const m=document.getElementById('otp-mob').value.trim();if(!m||m.length<10){toast('⚠ Enter a valid mobile number');return;}document.getElementById('otp-vrow').style.display='block';document.getElementById('otp-send').textContent='Resend OTP';toast('📱 OTP sent to '+m+' (Demo: enter any 6 digits)');}
 function verifyOTP(){const code=document.getElementById('otp-code').value.trim();if(code.length<6){toast('⚠ Enter the 6-digit OTP');return;}otpOK=true;const mob=document.getElementById('otp-mob').value;document.getElementById('otp-vrow').style.display='none';document.getElementById('otp-ok').classList.add('show');document.getElementById('otp-num').textContent=mob;document.getElementById('rpt-body').style.display='block';toast('✅ Identity verified! Fill in your complaint.');}
 function submitReport(){
-  if(!requireAuth('🚨 Sign in to file a complaint — prevents fake reports and notifies your MLA directly.', submitReport)) return;
-  if(!otpOK){toast('⚠ Verify mobile number first');return;}
+  // No mandatory login - complaint saved to database and admin notified
+  // Login is optional (improves tracking if logged in)
   if(!document.getElementById('r-title').value.trim()||!document.getElementById('r-addr').value.trim()||!document.getElementById('r-cat').value){toast('⚠ Fill all required fields');return;}
   const m=M[cur],c=getCoun(cur);
   const cid='EVM-'+Math.floor(Math.random()*9000+1000)+'-2025';
@@ -1721,7 +1770,7 @@ function submitReport(){
   uIss.push({id:Date.now(),area:cur,booth:curBooth?('Booth '+curBooth.no+' · '+curBooth.area):'Untagged',t:title,cat:'other',s:'open',desc:document.getElementById('r-desc').value||'Newly reported.',dt:'Today',rep:'You',v:1,photo:false,ward:c.w||'Ward'});
   document.getElementById('rfw').style.display='none';
   document.getElementById('rpt-success').style.display='block';
-  const successHTML = `<div class="sbox"><div style="font-size:2rem;margin-bottom:.4rem">✅</div><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--gn);margin-bottom:.3rem">Complaint Submitted!</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--w);padding:.35rem .75rem;border-radius:6px;color:var(--gn);display:inline-block;margin-bottom:.6rem">${cid}</div><div style="font-size:.78rem;color:var(--m);line-height:1.7;margin-bottom:.8rem"><strong style="color:var(--gn)">Notified:</strong><br>📧 ${esc(m.n)} (MLA)<br>📧 ${esc(c.n)} (Councillor)</div><div id="email-status" style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-bottom:.6rem">📤 Sending emails to representatives…</div><div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap"><button class="btn" onclick="document.getElementById('rfw').style.display='block';document.getElementById('rpt-success').style.display='none';otpOK=false;document.getElementById('otp-ok').classList.remove('show');document.getElementById('otp-vrow').style.display='none';document.getElementById('rpt-body').style.display='none';stab('issues');renderIssues()">View Issues</button><button class="btn-out" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🚨 Complaint filed: ${esc(title)} ID: ${cid} www.everyvotematter.com'),'_blank')">📱 WhatsApp</button></div></div>`;
+  const successHTML = `<div class="sbox"><div style="font-size:2rem;margin-bottom:.4rem">✅</div><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--gn);margin-bottom:.3rem">Complaint Submitted!</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--w);padding:.35rem .75rem;border-radius:6px;color:var(--gn);display:inline-block;margin-bottom:.6rem">${cid}</div><div style="font-size:.78rem;color:var(--m);line-height:1.7;margin-bottom:.8rem"><strong style="color:var(--gn)">Notified:</strong><br>📧 ${esc(m.n)} (MLA)<br>📧 ${esc(c.n)} (Councillor)</div><div id="email-status" style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-bottom:.6rem">📤 Sending emails to representatives…</div><div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap"><button class="btn" onclick="document.getElementById('rfw').style.display='block';document.getElementById('rpt-success').style.display='none';otpOK=false;document.getElementById('otp-ok').classList.remove('show');document.getElementById('otp-vrow').style.display='none';document.getElementById('rpt-body').style.display='none';stab('issues');renderIssues()">📋 View Issues</button><button class="btn-out" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🚨 I filed a complaint in ${esc(cur)} area. ID: ${cid}. MLA needs to take action! Track: everyvotematter.com'),'_blank')">📱 Share on WhatsApp</button></div></div>`;
   document.getElementById('rpt-success').innerHTML = successHTML;
 
   // Add to local issues immediately
@@ -1780,9 +1829,31 @@ function renderQA(){
   const el=document.getElementById('qa-list');if(!el)return;
   el.innerHTML=qa.length?qa.map(q=>`<div style="background:var(--w);border:1px solid var(--br);border-radius:8px;overflow:hidden;margin-bottom:7px"><div style="padding:.82rem .95rem;font-size:.82rem;font-weight:500;border-bottom:1px solid var(--br2);display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;line-height:1.5"><div><div>${esc(q.q)}</div><div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-top:3px">Asked by ${q.a} · ${q.dt}</div></div>${!q.done?'<span class="bdg ba_">Pending</span>':''}</div>${q.done?`<div style="padding:.82rem .95rem;background:var(--gb);font-size:.78rem;color:var(--ink);line-height:1.65"><div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gn);margin-bottom:.3rem">✅ Rep Response</div>${esc(q.ans)}</div>`:'<div style="padding:.82rem .95rem;background:var(--bg);font-size:.76rem;color:var(--m);font-style:italic">⏳ Awaiting response.</div>'}</div>`).join(''):'<div style="text-align:center;padding:2rem;color:var(--m);font-size:.82rem;font-style:italic">No questions yet. Be the first to ask!</div>';
 }
-function submitQ(){const inp=document.getElementById('qa-in');if(!inp.value.trim())return;uQs.push({q:inp.value.trim(),a:'You',dt:'Just now',ans:null,done:false,area:cur});renderQA();inp.value='';toast('✅ Question submitted to your representative!');}
-
-// ── PROMISES ──
+function submitQ(){
+  var inp=document.getElementById('qa-in');
+  if(!inp.value.trim()){toast('Please type your question');return;}
+  var question=inp.value.trim();
+  var m=M[cur]||{};
+  var c=getCoun(cur);
+  uQs.push({q:question,a:currentUser?currentUser.name:'Citizen',dt:'Just now',ans:null,done:false,area:cur});
+  renderQA();
+  inp.value='';
+  var sub=encodeURIComponent('Question from Constituent - '+cur+' | Every Vote Matters');
+  var bdy=encodeURIComponent(
+    'Dear '+(m.n||'Representative')+',\n\n'+
+    'A constituent from '+cur+' has sent you a question:\n\n'+
+    question+'\n\n'+
+    'From: '+(currentUser?currentUser.name:'Citizen')+'\n'+
+    'Phone: '+(currentUser?currentUser.phone||'Not provided':'Not provided')+'\n\n'+
+    'Please respond at: https://everyvotematter.com\n\n'+
+    'Every Vote Matters | Delhi Civic Platform'
+  );
+  var mailto='mailto:'+(m.em||'')+'?cc='+(c.em||'')+'&subject='+sub+'&bdy='+bdy;
+  toast('Question added! Sending to your representative...');
+  setTimeout(function(){
+    try{window.open(mailto,'_blank');}catch(e){window.location.href=mailto;}
+  },600);
+}
 function renderProm(){
   const p=PROM[cur]||[];
   const sB={kept:'bg_',progress:'ba_',broken:'br_'};
@@ -1957,7 +2028,7 @@ function renderPetitions(){
       return`<div class="pet-card"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.4rem"><span class="bdg bm">${p.ward}</span><span class="bdg" style="background:${p.urgency==='high'?'var(--rb)':'var(--ab)'};color:${uc};border-color:${p.urgency==='high'?'var(--re)':'var(--ae)'}">${p.urgency==='high'?'🔴 Urgent':'🟡 Active'}</span></div><div style="font-size:.84rem;font-weight:700;margin-bottom:.3rem;line-height:1.4">${esc(p.title)}</div><div style="font-size:.74rem;color:var(--m);line-height:1.55;margin-bottom:.5rem">${esc(p.desc)}</div><div class="pet-prog"><div class="pet-fill" style="width:${pct}%"></div></div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--m);margin-bottom:.6rem"><span>By ${p.creator}</span><span style="font-weight:700;color:${uc}">${p.signed.toLocaleString('en-IN')} / ${p.target.toLocaleString('en-IN')}</span></div><div style="display:flex;gap:6px"><button class="pet-sign-btn${p.mySign?' signed':''}" id="psign-${p.id}" onclick="signPetition('${p.id}')">${p.mySign?'✅ Signed':'✍️ Sign Petition'}</button><button class="btn-out" style="font-size:.74rem;padding:7px 12px" onclick="window.open('https://wa.me/?text='+encodeURIComponent('📜 Sign this petition: ${esc(p.title).replace(/'/g,"'")} — ${p.signed} people already signed. www.everyvotematter.com'),'_blank')">📱 Share</button><span style="font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--m);margin-left:auto;align-self:center">${pct}% of goal</span></div></div>`;
     }).join('');
 }
-function signPetition(id){if(!requireAuth('📜 Sign in to sign this petition — your identity validates the petition count.', ()=>signPetition(id))) return;const p=PETITIONS.find(x=>x.id===id);if(!p)return;if(p.mySign){toast('You already signed this petition.');return;}p.mySign=true;p.signed++;tagBoothAction('petitions');renderPetitions();toast('✍️ Petition signed! Share to get more supporters.');}
+function signPetition(id){if(!currentUser && !requireAuth('📜 Sign in to sign this petition — your identity validates the petition count.', ()=>signPetition(id))) return;const p=PETITIONS.find(x=>x.id===id);if(!p)return;if(p.mySign){toast('You already signed this petition.');return;}p.mySign=true;p.signed++;tagBoothAction('petitions');renderPetitions();toast('✍️ Petition signed! Share to get more supporters.');}
 function createPetition(){
   if(!requireAuth('📜 Sign in to create a petition — verified petitions carry more weight with MLAs.', createPetition)) return;const t=document.getElementById('pet-title')?.value.trim();if(!t){toast('⚠ Enter a petition title');return;}PETITIONS.unshift({id:'u'+Date.now(),title:t,desc:document.getElementById('pet-desc')?.value.trim()||'Community petition.',target:parseInt(document.getElementById('pet-target')?.value)||500,signed:1,mySign:true,creator:'You',ward:getCoun(cur).w||'Ward',urgency:'medium'});renderPetitions();toast('🚀 Petition launched!');}
 
@@ -1976,7 +2047,7 @@ function buildPollsHTML(){
     return`<div class="poll-wrap"><div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.6rem"><span class="bdg bm">${p.cat}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--m)">${p.votes.toLocaleString('en-IN')} votes</span></div><div class="poll-q-big">${esc(p.q)}</div>${p.opts.map((opt,i)=>{const pct=Math.round((opt.v/total)*100);const winner=p.voted!==null&&opt.v===Math.max(...p.opts.map(x=>x.v));return`<div class="poll-opt-row${p.voted===i?' voted':''}${p.voted!==null&&winner?' winner':''}" onclick="votePoll('${p.id}',${i})"><div class="poll-bg-bar" style="width:${p.voted!==null?pct:0}%"></div><span class="poll-opt-txt">${esc(opt.t)}</span>${p.voted!==null?`<span class="poll-opt-pct" style="color:${winner?'var(--gn)':'var(--m)'}">${pct}%</span>`:''}</div>`;}).join('')}<div style="display:flex;align-items:center;justify-content:flex-end;margin-top:.6rem"><button class="btn-out" style="font-size:.7rem;padding:5px 11px" onclick="window.open('https://wa.me/?text='+encodeURIComponent('📊 Delhi Poll: ${esc(p.q).replace(/'/g,"'")} — Vote on www.everyvotematter.com'),'_blank')">📱 Share</button></div></div>`;
   }).join('');
 }
-function votePoll(pid,idx){if(!requireAuth('📊 Sign in to vote in polls — one verified vote per person.', ()=>votePoll(pid,idx))) return;const p=POLLS.find(x=>x.id===pid);if(!p||p.voted!==null)return;p.voted=idx;p.opts[idx].v++;p.votes++;tagBoothAction('votes');renderAreaPolls();renderPollsPage();toast('✅ Vote recorded! Your opinion reaches your MLA.');}
+function votePoll(pid,idx){if(!currentUser && !requireAuth('📊 Sign in to vote in polls — one verified vote per person.', ()=>votePoll(pid,idx))) return;const p=POLLS.find(x=>x.id===pid);if(!p||p.voted!==null)return;p.voted=idx;p.opts[idx].v++;p.votes++;tagBoothAction('votes');renderAreaPolls();renderPollsPage();toast('✅ Vote recorded! Your opinion reaches your MLA.');}
 
 // ── CIVIC SCORE ──
 function renderCivicScore(){
@@ -2125,7 +2196,18 @@ function sendComplaintEmail(params){
     '&body=' + body;
 
   // Open citizen's Gmail with complaint pre-filled
-  window.open(mlaMailto, '_blank');
+  // Try window.open first, fallback to location
+  // Only open Gmail if MLA has a verified real email
+  const isRealEmail = params.mla_email && 
+    params.mla_email.includes('@') && 
+    !params.mla_email.includes('placeholder') &&
+    params.mla_email.length > 10;
+  if(isRealEmail){
+    try { window.open(mlaMailto, '_blank'); } 
+    catch(e) { window.location.href = mlaMailto; }
+  } else {
+    console.log('Complaint saved to DB - admin will raise to MLA');
+  }
 
 
   return Promise.resolve();
@@ -2303,35 +2385,41 @@ function stringToColor(str){
 // ── GOOGLE SIGN IN ──
 function signInWithGoogle(){
   if(DEMO_MODE){
-    // Demo: simulate Google login
-    currentUser={
-      name:'Praveer Singh',
-      email:'user@gmail.com',
-      photo:'',
-      uid:'demo_'+Date.now()
-    };
+    currentUser={name:'Damanpreet Singh',email:'nagpaldamanpreet@gmail.com',photo:'',uid:'demo_'+Date.now()};
     localStorage.setItem('evm_user', JSON.stringify(currentUser));
     hideAuthAndShowApp();
-    toast('✅ Welcome, Praveer! You are now signed in.');
+    toast('✅ Signed in successfully!');
     return;
   }
-  const provider = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({prompt:'select_account'});
-  firebase.auth().signInWithPopup(provider)
-    .then(result => {
-      currentUser = {
-        name: result.user.displayName,
-        email: result.user.email,
-        photo: result.user.photoURL,
-        uid: result.user.uid
-      };
-      localStorage.setItem('evm_user', JSON.stringify(currentUser));
-      hideAuthAndShowApp();
-      toast('✅ Welcome, '+currentUser.name.split(' ')[0]+'! You are now signed in.');
-    })
-    .catch(err => {
-      showAuthErr('Google sign-in failed: '+err.message);
-    });
+  try {
+    if(typeof firebase==='undefined'||!firebase.auth){showAuthErr('Firebase not loaded. Please refresh.');return;}
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({prompt:'select_account'});
+    firebase.auth().signInWithPopup(provider)
+      .then(result => {
+        currentUser = {
+          name: result.user.displayName||'Citizen',
+          email: result.user.email||'',
+          photo: result.user.photoURL||'',
+          uid: result.user.uid
+        };
+        localStorage.setItem('evm_user', JSON.stringify(currentUser));
+        hideAuthAndShowApp();
+        toast('✅ Welcome '+currentUser.name.split(' ')[0]+'!');
+      })
+      .catch(err => {
+        console.warn('Google error:', err.code, err.message);
+        if(err.code==='auth/unauthorized-domain'){
+          showAuthErr('⚠ Domain not authorized. Add everyvotematter.netlify.app to Firebase → Authentication → Settings → Authorized domains');
+        } else if(err.code==='auth/popup-blocked'){
+          showAuthErr('⚠ Popup blocked by browser. Allow popups for this site and try again.');
+        } else {
+          showAuthErr('Sign-in error: '+err.message);
+        }
+      });
+  } catch(e){
+    showAuthErr('Firebase error: '+e.message);
+  }
 }
 
 // ── PHONE OTP ──
