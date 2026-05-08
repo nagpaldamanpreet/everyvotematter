@@ -283,7 +283,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
 #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:var(--bg);font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;font-size:.79rem;padding:10px 22px;border-radius:9px;z-index:9999;transition:transform .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(17,17,16,.15);max-width:90vw}
 
 /* ══ AUTHENTICATION ══ */
-#auth-overlay{position:fixed;inset:0;background:rgba(13,21,32,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
+#auth-overlay{position:fixed;inset:0;background:rgba(13,21,32,.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 .auth-box{background:rgba(13,21,32,.98);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;backdrop-filter:blur(10px);position:relative}
 .auth-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1.5rem}
 .auth-flag{width:36px;height:36px;border-radius:50%;overflow:hidden;display:flex;flex-direction:column;border:2px solid rgba(255,255,255,.2);flex-shrink:0}
@@ -341,9 +341,10 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
 .bth-box{background:var(--w);border-radius:14px;padding:1.6rem;max-width:460px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
 </style>
 
-  <!-- Firebase Authentication -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -454,11 +455,12 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
     <button class="hn" onclick="showPg('epic')">🗳️ Voter ID</button>
     <button class="hn" onclick="showPg('polls')">📊 Daily Poll</button>
     <button class="hn hn-red" onclick="showPg('area');setTimeout(()=>stab('report'),100)">🚨 Report</button>
+    <button class="hn" id="admin-nav-btn" style="display:none;border:1.5px solid var(--or);color:var(--or)" onclick="openAdminPanel()">⚙️ Admin</button>
     <div class="user-pill" id="user-pill" style="display:none" onclick="showUserMenu()">
       <div class="user-av" id="user-av-hdr" style="background:var(--or)">U</div>
       <span class="user-nm" id="user-nm-hdr">User</span>
     </div>
-    <button id="signin-btn" class="hn" onclick="requireAuth('Sign in to access your profile')" style="border:1.5px solid var(--br);border-radius:7px;font-weight:600">👤 Sign In</button>
+
   </nav>
 </header>
 
@@ -828,7 +830,59 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
 <div class="ov" id="rep-modal" onclick="if(event.target===this)closeM('rep-modal')">
   <div class="modal"><button class="mclose" onclick="closeM('rep-modal')">✕</button><div id="rep-mc"></div></div>
 </div>
+
+<!-- ADMIN DASHBOARD PAGE -->
+<div id="pg-admin" class="pg">
+  <div style="background:linear-gradient(135deg,#0D1520,#1A2840);padding:1.4rem clamp(1rem,4vw,2rem);border-bottom:3px solid var(--or)">
+    <div style="max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.3rem">🔐 Admin Panel · Every Vote Matters</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.7rem);color:#fff;margin-bottom:.2rem">Complaint Management Dashboard</h2>
+        <p style="font-size:.8rem;color:rgba(255,255,255,.5)">View, manage and raise complaints to representatives</p>
+      </div>
+      <button class="btn-out" onclick="showPg('home')" style="font-size:.74rem;color:#fff;border-color:rgba(255,255,255,.2)">← Back</button>
+    </div>
+  </div>
+  <div style="padding:1.3rem clamp(1rem,4vw,2rem);max-width:980px;margin:0 auto">
+    <!-- Stats row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem" id="admin-stats">
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--rd)" id="adm-total">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Total</div></div>
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--rd)" id="adm-open">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Open</div></div>
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--am)" id="adm-raised">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Raised</div></div>
+      <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--gn)" id="adm-resolved">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Resolved</div></div>
+    </div>
+    <!-- Filters -->
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:.9rem;align-items:center">
+      <select class="fi" id="adm-filter-area" style="font-size:.8rem;padding:7px 10px;flex:1;min-width:140px" onchange="loadAdminComplaints()">
+        <option value="">All Areas</option>
+      </select>
+      <select class="fi" id="adm-filter-status" style="font-size:.8rem;padding:7px 10px" onchange="loadAdminComplaints()">
+        <option value="">All Status</option>
+        <option value="open">🔴 Open</option>
+        <option value="raised">🟡 Raised to Rep</option>
+        <option value="resolved">✅ Resolved</option>
+      </select>
+      <button class="btn" onclick="loadAdminComplaints()" style="font-size:.78rem;padding:8px 16px">🔄 Refresh</button>
+      <button class="btn-out" onclick="exportComplaintsCSV()" style="font-size:.75rem;padding:8px 14px">📥 Export CSV</button>
+    </div>
+    <!-- Complaints list -->
+    <div id="admin-complaints-list">
+      <div style="text-align:center;padding:3rem;color:var(--m);font-size:.84rem">Loading complaints…</div>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
+
+<!-- Hidden Netlify Form — Admin gets email copy of every complaint automatically -->
+<form name="complaint-notification" netlify netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="complaint-notification"/>
+  <input name="bot-field"/>
+  <input name="complaint_id"/><input name="area"/><input name="category"/>
+  <input name="address"/><input name="complaint_desc"/><input name="from_name"/>
+  <input name="from_phone"/><input name="mla_name"/><input name="mla_email"/>
+  <input name="councillor_name"/><input name="booth_info"/>
+</form>
 <script>
 // ALL 70 DELHI 2025 MLAs - ECI VERIFIED
 const M={
@@ -1580,6 +1634,7 @@ function loadArea(){
   if(cmc)cmc.textContent=mems.length+' members, '+mems.filter(m=>m.online).length+' online';
   populateBoothDropdown(cur);
   renderAll();
+  loadComplaintsFromDB();
   toast('📍 '+cur+' · MLA: '+m.n+' ('+m.p+')');
   setTimeout(()=>document.querySelectorAll('.scbf').forEach(b=>{const w=b.style.width;b.style.width='0';requestAnimationFrame(()=>{b.style.width=w;});}),200);
 }
@@ -1666,7 +1721,57 @@ function submitReport(){
   uIss.push({id:Date.now(),area:cur,booth:curBooth?('Booth '+curBooth.no+' · '+curBooth.area):'Untagged',t:title,cat:'other',s:'open',desc:document.getElementById('r-desc').value||'Newly reported.',dt:'Today',rep:'You',v:1,photo:false,ward:c.w||'Ward'});
   document.getElementById('rfw').style.display='none';
   document.getElementById('rpt-success').style.display='block';
-  document.getElementById('rpt-success').innerHTML=`<div class="sbox"><div style="font-size:2rem;margin-bottom:.4rem">✅</div><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--gn);margin-bottom:.3rem">Complaint Submitted!</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--w);padding:.35rem .75rem;border-radius:6px;color:var(--gn);display:inline-block;margin-bottom:.6rem">${cid}</div><div style="font-size:.78rem;color:var(--m);line-height:1.7;margin-bottom:.8rem"><strong style="color:var(--gn)">Notified:</strong><br>📧 ${esc(m.n)} (MLA)<br>📧 ${esc(c.n)} (Councillor)</div><div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap"><button class="btn" onclick="document.getElementById('rfw').style.display='block';document.getElementById('rpt-success').style.display='none';otpOK=false;document.getElementById('otp-ok').classList.remove('show');document.getElementById('otp-vrow').style.display='none';document.getElementById('rpt-body').style.display='none';stab('issues');renderIssues()">View Issues</button><button class="btn-out" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🚨 Complaint filed: ${esc(title)} ID: ${cid} www.everyvotematter.com'),'_blank')">📱 WhatsApp</button></div></div>`;
+  const successHTML = `<div class="sbox"><div style="font-size:2rem;margin-bottom:.4rem">✅</div><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--gn);margin-bottom:.3rem">Complaint Submitted!</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--w);padding:.35rem .75rem;border-radius:6px;color:var(--gn);display:inline-block;margin-bottom:.6rem">${cid}</div><div style="font-size:.78rem;color:var(--m);line-height:1.7;margin-bottom:.8rem"><strong style="color:var(--gn)">Notified:</strong><br>📧 ${esc(m.n)} (MLA)<br>📧 ${esc(c.n)} (Councillor)</div><div id="email-status" style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-bottom:.6rem">📤 Sending emails to representatives…</div><div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap"><button class="btn" onclick="document.getElementById('rfw').style.display='block';document.getElementById('rpt-success').style.display='none';otpOK=false;document.getElementById('otp-ok').classList.remove('show');document.getElementById('otp-vrow').style.display='none';document.getElementById('rpt-body').style.display='none';stab('issues');renderIssues()">View Issues</button><button class="btn-out" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🚨 Complaint filed: ${esc(title)} ID: ${cid} www.everyvotematter.com'),'_blank')">📱 WhatsApp</button></div></div>`;
+  document.getElementById('rpt-success').innerHTML = successHTML;
+
+  // Add to local issues immediately
+  const newIssue = {
+    id: Date.now(), area: cur,
+    booth: boothInfo, t: title, cat: 'other', s: 'open',
+    desc: desc||'Newly reported.', dt: 'Today', rep: currentUser?.name||'You',
+    v: 1, photo: false, ward: c.w||'Ward'
+  };
+  uIss.unshift(newIssue);
+
+  // Save to Firestore
+  const complaintData = {
+    cid, title, addr, cat, desc, area: cur,
+    mlaName: m.n, mlaEmail: m.em, mlaPhone: m.ph,
+    councillorName: c.n, councillorEmail: c.em,
+    boothInfo, status: 'open', upvotes: 1,
+    ward: c.w||'Ward', dt: new Date().toLocaleDateString('en-IN')
+  };
+  saveComplaintToDB(complaintData);
+  notifyAdmin(emailParams); // Admin gets email automatically via Netlify
+
+  // Send email via EmailJS
+  const emailParams = {
+    complaint_id: cid,
+    from_name: currentUser?.name || 'Citizen',
+    from_phone: currentUser?.phone || 'Not provided',
+    from_email: currentUser?.email || 'Not provided',
+    area: cur,
+    address: addr,
+    category: cat,
+    complaint_title: title,
+    complaint_desc: desc || 'No additional details',
+    booth_info: boothInfo,
+    mla_name: m.n,
+    mla_email: m.em,
+    mla_phone: m.ph,
+    councillor_name: c.n,
+    councillor_email: c.em,
+    platform_url: 'https://everyvotematter.com'
+  };
+
+  sendComplaintEmail(emailParams)
+    .then(() => {
+      const st = document.getElementById('email-status');
+      if(st) st.innerHTML = '✅ Gmail opened — send to MLA directly from your email!';
+    })
+    .catch(e => {
+      console.warn('Email open error:', e);
+    });
 }
 
 // ── Q&A ──
@@ -1952,26 +2057,143 @@ function shareWA(){
 // Replace these values with YOUR Firebase project config
 // Get from: console.firebase.google.com → Your Project → Settings → Web App
 const firebaseConfig = {
-  apiKey: "AIzaSyDEMO-REPLACE-WITH-YOUR-KEY",
+  apiKey: "AIzaSyA5U4uoiX_O6vcDP0zqqOqAGKc4bVPzYO4",
   authDomain: "everyvotematter.firebaseapp.com",
   projectId: "everyvotematter",
-  storageBucket: "everyvotematter.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef123456"
+  storageBucket: "everyvotematter.firebasestorage.app",
+  messagingSenderId: "651318407285",
+  appId: "1:651318407285:web:9ef7e153e14f15f90ec83c",
+  measurementId: "G-20LFF25S45"
 };
 
-// Demo mode - works without real Firebase config
-let DEMO_MODE = true;
+// Firebase initialized with real config
+let DEMO_MODE = false;
 let currentUser = null;
 let confirmationResult = null;
 
-// Try to init Firebase (will use demo mode if config is placeholder)
 try {
-  if(firebaseConfig.apiKey !== "AIzaSyDEMO-REPLACE-WITH-YOUR-KEY"){
-    firebase.initializeApp(firebaseConfig);
-    DEMO_MODE = false;
-  }
-} catch(e){ DEMO_MODE = true; }
+  firebase.initializeApp(firebaseConfig);
+} catch(e){ 
+  console.warn('Firebase init error — running in demo mode:', e);
+  DEMO_MODE = true;
+}
+// Always run init immediately — site is open to everyone
+if(typeof init === 'function') setTimeout(init, 100);
+
+// ── ADMIN CREDENTIALS ──
+const ADMIN_UID = 'nagpaldamanpreet@gmail.com'; // Admin Google login email
+
+// ── FIRESTORE (complaint database) ──
+let db = null;
+try { db = firebase.firestore(); } catch(e){ console.warn('Firestore not available'); }
+
+// ── SEND EMAIL via MAILTO (works without any service) ──
+// Opens citizen's own Gmail with complaint pre-filled to MLA
+// MLA gets email directly from citizen — more authentic!
+function sendComplaintEmail(params){
+  const subject = encodeURIComponent(
+    '🚨 Complaint ' + params.complaint_id + 
+    ' from ' + params.area + ' | Every Vote Matters'
+  );
+  const body = encodeURIComponent(
+    'Dear ' + params.mla_name + ',\n\n' +
+    'A complaint has been filed in your constituency via Every Vote Matters platform.\n\n' +
+    '📋 COMPLAINT DETAILS\n' +
+    '─────────────────────\n' +
+    'Complaint ID : ' + params.complaint_id + '\n' +
+    'Area         : ' + params.area + '\n' +
+    'Category     : ' + params.category + '\n' +
+    'Address      : ' + params.address + '\n' +
+    'Details      : ' + params.complaint_desc + '\n' +
+    'Booth        : ' + params.booth_info + '\n\n' +
+    '👤 FILED BY\n' +
+    '─────────────────────\n' +
+    'Name  : ' + params.from_name + '\n' +
+    'Phone : ' + params.from_phone + '\n\n' +
+    '⚡ Citizens expect a response within 48 hours.\n' +
+    'Track this complaint at: https://everyvotematter.com\n\n' +
+    'This complaint is publicly visible on Every Vote Matters platform.\n' +
+    '─────────────────────\n' +
+    'Every Vote Matters | Delhi Civic Platform\n' +
+    'everyvotematter.com'
+  );
+
+  // Send to MLA — CC councillor + admin (you get a copy of every complaint)
+  const mlaMailto = 'mailto:' + params.mla_email +
+    '?cc=' + encodeURIComponent(params.councillor_email) +
+    '&subject=' + subject +
+    '&body=' + body;
+
+  // Open citizen's Gmail with complaint pre-filled
+  window.open(mlaMailto, '_blank');
+
+
+  return Promise.resolve();
+}
+
+// ── SAVE COMPLAINT TO FIRESTORE ──
+function saveComplaintToDB(complaint){
+  if(!db){ console.log('Firestore not ready'); return Promise.resolve(); }
+  return db.collection('complaints').add({
+    ...complaint,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    userId: currentUser ? currentUser.uid : 'anonymous',
+    userName: currentUser ? currentUser.name : 'Anonymous',
+    userPhone: currentUser ? (currentUser.phone||'') : ''
+  }).then(ref => {
+    console.log('Complaint saved to DB:', ref.id);
+    return ref.id;
+  }).catch(e => console.warn('DB save error:', e));
+}
+
+// ── NETLIFY FORMS — Admin notification (reliable backup) ──
+function notifyAdmin(params){
+  // Submits to Netlify Forms → Netlify emails nagpaldamanpreet@gmail.com automatically
+  const formData = new FormData();
+  formData.append('form-name', 'complaint-notification');
+  formData.append('complaint_id', params.complaint_id || '');
+  formData.append('area', params.area || '');
+  formData.append('category', params.category || '');
+  formData.append('address', params.address || '');
+  formData.append('complaint_desc', params.complaint_desc || '');
+  formData.append('from_name', params.from_name || '');
+  formData.append('from_phone', params.from_phone || '');
+  formData.append('mla_name', params.mla_name || '');
+  formData.append('mla_email', params.mla_email || '');
+  formData.append('councillor_name', params.councillor_name || '');
+  formData.append('booth_info', params.booth_info || '');
+
+  fetch('/', { method: 'POST', body: formData })
+    .then(() => console.log('✅ Admin notified via Netlify Forms'))
+    .catch(e => console.warn('Admin notify error:', e));
+}
+
+// ── LOAD COMPLAINTS FROM FIRESTORE ──
+function loadComplaintsFromDB(){
+  if(!db) return;
+  db.collection('complaints')
+    .where('area','==',cur)
+    .orderBy('timestamp','desc')
+    .limit(20)
+    .get()
+    .then(snap => {
+      const dbIss = [];
+      snap.forEach(doc => {
+        const d = doc.data();
+        dbIss.push({
+          id: doc.id, t: d.title||d.t, cat: d.cat||'other',
+          s: d.status||'open', desc: d.desc||'', dt: d.dt||'Recently',
+          rep: d.userName||'Citizen', v: d.upvotes||1,
+          photo: false, ward: d.ward||'', area: d.area, fromDB: true
+        });
+      });
+      // Merge with local issues (avoid duplicates)
+      uIss = uIss.filter(i=>!i.fromDB);
+      uIss = [...dbIss, ...uIss];
+      renderIssues();
+    })
+    .catch(e => console.warn('Load complaints error:', e));
+}
 
 // ── CHECK IF USER ALREADY LOGGED IN ──
 // ── PENDING ACTION after login ──
@@ -1997,11 +2219,18 @@ window.addEventListener('load', () => {
         };
         localStorage.setItem('evm_user', JSON.stringify(currentUser));
         updateUserUI();
+        // Save/update user profile in Firestore
+        if(db) db.collection('users').doc(user.uid).set({
+          name: currentUser.name,
+          phone: currentUser.phone,
+          email: currentUser.email,
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+          area: cur || 'Delhi'
+        }, {merge: true}).catch(e=>console.warn('User save error:',e));
       }
     });
   }
-  // Always call init - site is open to all
-  if(typeof init === 'function') init();
+  // Init already called above — just update UI if user found
 });
 
 // requireAuth - call this before any protected action
@@ -2020,7 +2249,7 @@ function requireAuth(reason, callback){
 
 function showAuth(){
   const ov = document.getElementById('auth-overlay');
-  if(ov) ov.style.display='flex';
+  if(ov){ ov.style.display='flex'; ov.style.alignItems='center'; ov.style.justifyContent='center'; }
   // Reset OTP form
   document.getElementById('phone-step').style.display='block';
   document.getElementById('otp-step').style.display='none';
@@ -2044,7 +2273,6 @@ function hideAuthAndShowApp(){
 
 function updateUserUI(){
   const pill = document.getElementById('user-pill');
-  const signinBtn = document.getElementById('signin-btn');
   const av = document.getElementById('user-av-hdr');
   const nm = document.getElementById('user-nm-hdr');
   if(!currentUser){
@@ -2063,6 +2291,7 @@ function updateUserUI(){
     }
   }
   if(nm) nm.textContent=currentUser.name.split(' ')[0]||'User';
+  checkAdminAccess();
 }
 
 function stringToColor(str){
@@ -2236,6 +2465,234 @@ function signOut(){
   const menu = document.getElementById('user-menu-popup');
   if(menu) menu.remove();
   toast('👋 Signed out successfully.');
+}
+
+
+/* ══════════════════════════════════════
+   ADMIN PANEL FUNCTIONS
+   ══════════════════════════════════════ */
+
+// Admin email — only this user sees Admin button
+const ADMIN_EMAIL_ID = 'nagpaldamanpreet@gmail.com';
+
+function checkAdminAccess(){
+  const btn = document.getElementById('admin-nav-btn');
+  if(btn && currentUser && 
+    (currentUser.email === ADMIN_EMAIL_ID || 
+     currentUser.uid === ADMIN_EMAIL_ID)){
+    btn.style.display = 'flex';
+  }
+}
+
+function openAdminPanel(){
+  if(!currentUser){
+    requireAuth('🔐 Admin login required', openAdminPanel);
+    return;
+  }
+  showPg('admin');
+  // Populate area filter
+  const sel = document.getElementById('adm-filter-area');
+  if(sel && sel.options.length <= 1){
+    Object.keys(M).forEach(c=>{
+      const o = document.createElement('option');
+      o.value = c; o.textContent = c;
+      sel.appendChild(o);
+    });
+  }
+  loadAdminComplaints();
+}
+
+let allAdminComplaints = [];
+
+function loadAdminComplaints(){
+  const list = document.getElementById('admin-complaints-list');
+  if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--m)"><span class="spnr"></span> Loading from database…</div>';
+
+  if(!db){
+    // No Firestore - show local complaints
+    renderAdminComplaints([...ISS[cur]||[], ...uIss]);
+    return;
+  }
+
+  const area = document.getElementById('adm-filter-area')?.value || '';
+  const status = document.getElementById('adm-filter-status')?.value || '';
+
+  let query = db.collection('complaints').orderBy('timestamp','desc').limit(100);
+  if(area) query = query.where('area','==',area);
+  if(status) query = query.where('status','==',status);
+
+  query.get()
+    .then(snap => {
+      allAdminComplaints = [];
+      snap.forEach(doc => {
+        allAdminComplaints.push({id: doc.id, ...doc.data()});
+      });
+      // Also add local/seed complaints
+      const localIss = [...(ISS[cur]||[]), ...uIss];
+      renderAdminComplaints([...allAdminComplaints, ...localIss]);
+    })
+    .catch(e => {
+      console.warn('Load admin complaints error:', e);
+      renderAdminComplaints([...uIss]);
+    });
+}
+
+function renderAdminComplaints(complaints){
+  // Update stats
+  const total = complaints.length;
+  const open = complaints.filter(c=>c.status==='open'||c.s==='open').length;
+  const raised = complaints.filter(c=>c.status==='raised'||c.adminRaised).length;
+  const resolved = complaints.filter(c=>c.status==='resolved'||c.s==='resolved').length;
+  document.getElementById('adm-total').textContent = total;
+  document.getElementById('adm-open').textContent = open;
+  document.getElementById('adm-raised').textContent = raised;
+  document.getElementById('adm-resolved').textContent = resolved;
+
+  const list = document.getElementById('admin-complaints-list');
+  if(!list) return;
+
+  if(!complaints.length){
+    list.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--m);font-size:.84rem">No complaints found. Citizens are happy! 🎉</div>';
+    return;
+  }
+
+  const sC = {open:'var(--rd)',raised:'var(--am)',resolved:'var(--gn)',progress:'var(--am)'};
+
+  list.innerHTML = complaints.map((c,i) => {
+    const status = c.status || c.s || 'open';
+    const title = c.title || c.t || 'Untitled complaint';
+    const area = c.area || cur;
+    const mlaData = M[area] || M[cur] || {};
+    const coun = getCoun(area);
+    const desc = c.desc || c.complaint_desc || '';
+    const phone = c.from_phone || c.userPhone || '—';
+    const userName = c.userName || c.from_name || c.rep || 'Citizen';
+    const dt = c.dt || 'Recently';
+    const cid = c.cid || c.id || ('LOCAL-'+(i+1));
+    const addr = c.addr || c.address || '—';
+    const cat = c.cat || c.category || 'other';
+    const booth = c.boothInfo || c.booth || '—';
+
+    return `<div style="background:var(--w);border:1px solid var(--br);border-left:4px solid ${sC[status]||'var(--rd)'};border-radius:9px;padding:1rem;margin-bottom:8px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--m);margin-bottom:2px">${cid} · ${area} · ${dt}</div>
+          <div style="font-size:.88rem;font-weight:700;line-height:1.4">${esc(title)}</div>
+          <div style="font-size:.74rem;color:var(--m);margin-top:2px">${cat} · ${esc(addr)}</div>
+        </div>
+        <span class="bdg ${status==='open'?'br_':status==='resolved'?'bg_':'ba_'}" style="flex-shrink:0">${status==='open'?'🔴 Open':status==='resolved'?'✅ Resolved':'🟡 Raised'}</span>
+      </div>
+      ${desc?`<div style="font-size:.78rem;color:var(--m);line-height:1.6;margin-bottom:.5rem;padding:.5rem;background:var(--bg);border-radius:6px">${esc(desc)}</div>`:''}
+      <div style="display:flex;gap:.75rem;font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-bottom:.6rem;flex-wrap:wrap">
+        <span>👤 ${esc(userName)}</span>
+        <span>📞 ${esc(phone)}</span>
+        <span>📍 ${esc(booth)}</span>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button onclick="adminRaiseToMLA('${cid}','${area}',${JSON.stringify(title).replace(/'/g,"\\'")},'${esc(desc)}','${esc(addr)}','${esc(userName)}','${esc(phone)}')" 
+          style="background:var(--or);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:700;padding:7px 14px;border-radius:7px;cursor:pointer">
+          📧 Raise to MLA
+        </button>
+        <button onclick="adminRaiseToCouncillor('${cid}','${area}',${JSON.stringify(title).replace(/'/g,"\\'")},'${esc(desc)}','${esc(addr)}','${esc(userName)}','${esc(phone)}')"
+          style="background:var(--bl);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:700;padding:7px 14px;border-radius:7px;cursor:pointer">
+          🏘 Raise to Councillor
+        </button>
+        <button onclick="adminMarkResolved('${c.id||''}')"
+          style="background:var(--gn);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer">
+          ✅ Mark Resolved
+        </button>
+        <button onclick="adminWhatsApp('${area}',${JSON.stringify(title).replace(/'/g,"\\'")},'${esc(phone)}')"
+          style="background:#25D366;color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer">
+          💬 WhatsApp Citizen
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function adminRaiseToMLA(cid, area, title, desc, addr, userName, phone){
+  const m = M[area] || M[cur] || {};
+  const subject = encodeURIComponent('🚨 [Every Vote Matters] Complaint ' + cid + ' — ' + area + ' · Requires Your Attention');
+  const body = encodeURIComponent(
+    'Dear ' + (m.n||'Representative') + ',\n\n' +
+    'This complaint has been escalated by the Every Vote Matters platform admin on behalf of a citizen in your constituency.\n\n' +
+    '📋 COMPLAINT: ' + title + '\n' +
+    '📍 Area: ' + area + '\n' +
+    '📬 Address: ' + addr + '\n' +
+    '📝 Details: ' + desc + '\n\n' +
+    '👤 Filed by: ' + userName + '\n' +
+    '📞 Contact: ' + phone + '\n\n' +
+    'Complaint ID: ' + cid + '\n\n' +
+    '⚡ Citizens are tracking this complaint on Every Vote Matters platform.\n' +
+    'Please take action and update the status.\n\n' +
+    'View platform: https://everyvotematter.com\n' +
+    '─────────────────\n' +
+    'Every Vote Matters | Delhi Civic Platform'
+  );
+  window.open('mailto:' + (m.em||'') + '?subject=' + subject + '&body=' + body, '_blank');
+  toast('📧 Email drafted to MLA ' + (m.n||'') + ' — please send from your Gmail');
+  // Mark as raised in DB
+  if(db) db.collection('complaints').doc(cid).update({status:'raised',raisedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+}
+
+function adminRaiseToCouncillor(cid, area, title, desc, addr, userName, phone){
+  const c = getCoun(area);
+  const subject = encodeURIComponent('🚨 [Every Vote Matters] Complaint ' + cid + ' — ' + area);
+  const body = encodeURIComponent(
+    'Dear ' + (c.n||'Councillor') + ',\n\n' +
+    'A complaint has been escalated in your ward.\n\n' +
+    '📋 COMPLAINT: ' + title + '\n' +
+    '📬 Address: ' + addr + '\n' +
+    '📝 Details: ' + desc + '\n' +
+    '👤 Filed by: ' + userName + ' · ' + phone + '\n\n' +
+    'Complaint ID: ' + cid + '\n' +
+    'Please take immediate action.\n\n' +
+    'Every Vote Matters | everyvotematter.com'
+  );
+  window.open('mailto:' + (c.em||'') + '?subject=' + subject + '&body=' + body, '_blank');
+  toast('📧 Email drafted to Councillor ' + (c.n||'') + ' — please send!');
+}
+
+function adminMarkResolved(docId){
+  if(docId && db){
+    db.collection('complaints').doc(docId).update({
+      status:'resolved',
+      resolvedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(()=>{ toast('✅ Marked as resolved!'); loadAdminComplaints(); })
+    .catch(e=>toast('Could not update: '+e.message));
+  } else {
+    toast('✅ Marked as resolved (local)');
+  }
+}
+
+function adminWhatsApp(area, title, phone){
+  if(!phone || phone==='—'){ toast('No phone number available'); return; }
+  const clean = phone.replace(/[^0-9]/g,'');
+  const msg = encodeURIComponent(
+    '🙏 Namaskar! Every Vote Matters platform ke admin bol rahe hain.\n\n' +
+    'Aapki complaint "' + title + '" (' + area + ') hamare record mein hai.\n\n' +
+    'Hum ne aapke MLA ko personally raise kar diya hai.\n' +
+    'Jald hi response milega. Update ke liye: everyvotematter.com'
+  );
+  window.open('https://wa.me/91' + clean + '?text=' + msg, '_blank');
+}
+
+function exportComplaintsCSV(){
+  if(!allAdminComplaints.length){ toast('No complaints to export'); return; }
+  const headers = ['ID','Area','Category','Title','Address','Description','Filed By','Phone','MLA','Status','Date'];
+  const rows = allAdminComplaints.map(c => [
+    c.cid||c.id, c.area, c.category||c.cat, c.title||c.t,
+    c.address||c.addr, c.desc||c.complaint_desc||'',
+    c.userName||c.from_name, c.userPhone||c.from_phone||'',
+    c.mlaName||'', c.status||c.s||'open', c.dt||''
+  ].map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'evm-complaints-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  toast('📥 CSV exported!');
 }
 
 // ── BOOT ──
