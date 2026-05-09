@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Every Vote Matters — Delhi Civic Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<!-- Firebase Firestore only -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
+
 :root{--bg:#F7F4EF;--bg2:#EDE9E1;--bg3:#E3DED4;--w:#FFF;--ink:#111110;--m:#7A786F;--m2:#B0ADA4;--or:#D4500A;--or2:#E8651C;--og:rgba(212,80,10,.09);--gn:#1C6E3D;--gb:rgba(28,110,61,.09);--ge:rgba(28,110,61,.22);--rd:#B83232;--rb:rgba(184,50,50,.09);--re:rgba(184,50,50,.22);--am:#9A6008;--ab:rgba(154,96,8,.09);--ae:rgba(154,96,8,.22);--bl:#1A4E8A;--bb:rgba(26,78,138,.09);--be:rgba(26,78,138,.22);--br:#DDD9D0;--br2:#E8E4DC}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:15px;scroll-behavior:smooth}
@@ -282,36 +286,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
 /* TOAST */
 #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:var(--bg);font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;font-size:.79rem;padding:10px 22px;border-radius:9px;z-index:9999;transition:transform .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(17,17,16,.15);max-width:90vw}
 
-/* ══ AUTHENTICATION ══ */
-#auth-overlay{position:fixed;inset:0;background:rgba(13,21,32,.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
-.auth-box{background:rgba(13,21,32,.98);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;backdrop-filter:blur(10px);position:relative}
-.auth-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:1.5rem}
-.auth-flag{width:36px;height:36px;border-radius:50%;overflow:hidden;display:flex;flex-direction:column;border:2px solid rgba(255,255,255,.2);flex-shrink:0}
-.auth-flag .f1{flex:1;background:#FF9933}.auth-flag .f2{flex:1;background:#fff;display:flex;align-items:center;justify-content:center;font-size:8px;color:#000080}.auth-flag .f3{flex:1;background:#138808}
-.auth-title{font-family:"Fraunces",serif;font-weight:700;font-size:1.8rem;color:#fff;margin-bottom:.3rem}
-.auth-title span{color:var(--or)}
-.auth-sub{font-family:"JetBrains Mono",monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.5rem}
-.auth-desc{font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:2rem;font-weight:300}
-.auth-divider{display:flex;align-items:center;gap:.75rem;margin:1.2rem 0;color:rgba(255,255,255,.3);font-size:.75rem}
-.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.15)}
-.google-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;color:#333;border:none;font-family:"Plus Jakarta Sans",sans-serif;font-weight:600;font-size:.88rem;padding:12px 20px;border-radius:10px;cursor:pointer;transition:all .18s;margin-bottom:.75rem}
-.google-btn:hover{background:#f5f5f5;transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,255,255,.15)}
-.google-icon{width:20px;height:20px;flex-shrink:0}
-.phone-input-wrap{display:flex;gap:8px;margin-bottom:.75rem}
-.phone-flag-select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-family:"JetBrains Mono",monospace;font-size:.82rem;padding:10px 8px;border-radius:8px;cursor:pointer;flex-shrink:0;width:70px}
-.auth-inp{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-family:"Plus Jakarta Sans",sans-serif;font-size:.88rem;padding:12px 14px;border-radius:10px;outline:none;transition:border .14s;width:100%}
-.auth-inp:focus{border-color:var(--or);background:rgba(255,255,255,.1)}
-.auth-inp::placeholder{color:rgba(255,255,255,.35)}
-.auth-btn{width:100%;background:var(--or);color:#fff;border:none;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:.88rem;padding:13px;border-radius:10px;cursor:pointer;transition:all .18s;margin-top:.5rem}
-.auth-btn:hover{background:var(--or2);transform:translateY(-2px)}
-.auth-btn:disabled{background:rgba(212,80,10,.4);cursor:not-allowed;transform:none}
-.otp-wrap{display:none}
-.otp-inputs{display:flex;gap:8px;justify-content:center;margin-bottom:.75rem}
-.otp-digit{width:48px;height:56px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-family:"JetBrains Mono",monospace;font-size:1.4rem;text-align:center;border-radius:10px;outline:none;transition:border .14s}
-.otp-digit:focus{border-color:var(--or);background:rgba(255,255,255,.12)}
-.auth-err{color:#ff6b6b;font-size:.76rem;margin-top:.4rem;display:none}
-.auth-err.show{display:block}
-.auth-note{font-size:.68rem;color:rgba(255,255,255,.3);margin-top:1rem;line-height:1.6}
+
 /* User profile in header */
 .user-pill{display:flex;align-items:center;gap:6px;background:rgba(212,80,10,.12);border:1px solid rgba(212,80,10,.25);border-radius:20px;padding:4px 10px 4px 4px;cursor:pointer;transition:all .16s}
 .user-pill:hover{background:rgba(212,80,10,.2)}
@@ -339,109 +314,10 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
 .bth-modal{position:fixed;inset:0;background:rgba(17,17,16,.5);z-index:600;display:none;align-items:center;justify-content:center;padding:1rem}
 .bth-modal.on{display:flex}
 .bth-box{background:var(--w);border-radius:14px;padding:1.6rem;max-width:460px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
-</style>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</style>
 </head>
 <body>
-
-<!-- ═══ AUTH MODAL (shows only when action requires login) ═══ -->
-<div id="auth-overlay" style="display:none">
-  <div class="auth-box">
-    <button onclick="closeAuthModal()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem">✕</button>
-    <div class="auth-logo">
-      <div class="auth-flag"><div class="f1"></div><div class="f2">☸</div><div class="f3"></div></div>
-      <div>
-        <div class="auth-title">Every<span>Vote</span>Matters</div>
-        <div class="auth-sub">India Civic Platform · Delhi</div>
-      </div>
-    </div>
-    <div class="auth-desc" id="auth-reason">Sign in to continue with this action.</div>
-
-    <button class="google-btn" onclick="signInWithGoogle()">
-      <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Continue with Google
-    </button>
-
-    <div class="auth-divider">or use mobile number</div>
-
-    <div id="phone-step">
-      <div class="phone-input-wrap">
-        <select class="phone-flag-select" id="country-code">
-          <option value="+91">🇮🇳 +91</option>
-          <option value="+1">🇺🇸 +1</option>
-          <option value="+44">🇬🇧 +44</option>
-        </select>
-        <input class="auth-inp" type="tel" id="auth-phone" placeholder="98XXX XXXXX" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/>
-      </div>
-      <div id="recaptcha-container"></div>
-      <button class="auth-btn" id="send-otp-btn" onclick="sendPhoneOTP()">Send OTP →</button>
-    </div>
-
-    <div class="otp-wrap" id="otp-step">
-      <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-bottom:.9rem" id="otp-sent-msg">OTP sent to your number</div>
-      <div class="otp-inputs">
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,1)" id="d1"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,2)" id="d2"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,3)" id="d3"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,4)" id="d4"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,5)" id="d5"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,6)" id="d6"/>
-      </div>
-      <button class="auth-btn" onclick="verifyPhoneOTP()">Verify & Enter →</button>
-      <button onclick="document.getElementById('otp-step').style.display='none';document.getElementById('phone-step').style.display='block'" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:.76rem;margin-top:.5rem;cursor:pointer">← Change number</button>
-    </div>
-
-    <div class="auth-err" id="auth-err">Something went wrong. Please try again.</div>
-    <div class="auth-note">🔒 Your data is private. We never share your information.</div>
-  </div>
-</div>
-
-    <!-- GOOGLE SIGN IN -->
-    <button class="google-btn" onclick="signInWithGoogle()">
-      <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Continue with Google
-    </button>
-
-    <div class="auth-divider">or use mobile number</div>
-
-    <!-- PHONE OTP -->
-    <div id="phone-step">
-      <div class="phone-input-wrap">
-        <select class="phone-flag-select" id="country-code">
-          <option value="+91">🇮🇳 +91</option>
-          <option value="+1">🇺🇸 +1</option>
-          <option value="+44">🇬🇧 +44</option>
-        </select>
-        <input class="auth-inp" type="tel" id="auth-phone" placeholder="98XXX XXXXX" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/>
-      </div>
-      <div id="recaptcha-container"></div>
-      <button class="auth-btn" id="send-otp-btn" onclick="sendPhoneOTP()">Send OTP →</button>
-    </div>
-
-    <!-- OTP VERIFY -->
-    <div class="otp-wrap" id="otp-step">
-      <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin-bottom:.9rem" id="otp-sent-msg">OTP sent to your number</div>
-      <div class="otp-inputs">
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,1)" id="d1"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,2)" id="d2"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,3)" id="d3"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,4)" id="d4"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,5)" id="d5"/>
-        <input class="otp-digit" type="text" maxlength="1" oninput="otpMove(this,6)" id="d6"/>
-      </div>
-      <button class="auth-btn" onclick="verifyPhoneOTP()">Verify & Enter →</button>
-      <button onclick="document.getElementById('otp-step').style.display='none';document.getElementById('phone-step').style.display='block'" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:.76rem;margin-top:.5rem;cursor:pointer">← Change number</button>
-    </div>
-
-    <div class="auth-err" id="auth-err">Something went wrong. Please try again.</div>
-    <div class="auth-note">🔒 Your data is private and secure. We never share your personal information. By signing in you agree to use this platform for civic purposes only.</div>
-  </div>
-</div>
-
 
 <!-- HEADER -->
 <header class="hdr">
@@ -455,12 +331,11 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
     <button class="hn" onclick="showPg('epic')">🗳️ Voter ID</button>
     <button class="hn" onclick="showPg('polls')">📊 Daily Poll</button>
     <button class="hn hn-red" onclick="showPg('area');setTimeout(()=>stab('report'),100)">🚨 Report</button>
-    <button class="hn" id="admin-nav-btn" style="display:none;border:1.5px solid var(--or);color:var(--or)" onclick="openAdminPanel()">⚙️ Admin</button>
     <div class="user-pill" id="user-pill" style="display:none" onclick="showUserMenu()">
       <div class="user-av" id="user-av-hdr" style="background:var(--or)">U</div>
       <span class="user-nm" id="user-nm-hdr">User</span>
     </div>
-
+    <button id="admin-nav-btn" style="display:none;border:1.5px solid var(--or);color:var(--or)" class="hn" onclick="openAdminPanel()">⚙️ Admin</button>
   </nav>
 </header>
 
@@ -476,7 +351,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
           <div class="opt-num">01</div><div class="opt-ico">📍</div>
           <span class="opt-tag tag-or">Live Dashboard</span>
           <div class="opt-title">My Area</div>
-          <div class="opt-desc">Your MLA's scorecard. Report broken roads, garbage, water issues directly to them.</div>
+          <div class="opt-desc">Your MLA scorecard. Report broken roads, garbage, water issues directly to them.</div>
           <div class="opt-go">Go to My Area <span>→</span></div>
         </div>
         <div class="opt o2" onclick="showPg('kyc')">
@@ -497,7 +372,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
           <div class="opt-num">04</div><div class="opt-ico">⚖️</div>
           <span class="opt-tag tag-pu">24 Schemes</span>
           <div class="opt-title">My Rights</div>
-          <div class="opt-desc">Delhi Govt schemes you qualify for — women, seniors, education, housing, health, business.</div>
+          <div class="opt-desc">Delhi Govt schemes you qualify for — women, seniors, education, housing, health.</div>
           <div class="opt-go">Check Eligibility <span>→</span></div>
         </div>
         <div class="opt o5" onclick="showPg('polls')">
@@ -549,8 +424,8 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
         <div style="text-align:right;flex-shrink:0"><div class="rscn" id="mla-sc" style="color:var(--gn)">88</div><div class="rscl">Score</div></div>
       </div>
       <div class="rc" onclick="showRM('coun')">
-        <div class="rav" id="coun-av">S</div>
-        <div class="ri"><div class="rtype">🏘 Councillor · MCD Ward 2022</div><div class="rnm" id="coun-nm">Shagufta Chaudhary</div><span class="rpty p-aap" id="coun-pty">AAP</span></div>
+        <div class="rav" id="coun-av">M</div>
+        <div class="ri"><div class="rtype">🏘 Councillor · MCD Ward 2022</div><div class="rnm" id="coun-nm">Mohd Sadiq</div><span class="rpty p-aap" id="coun-pty">AAP</span></div>
         <div style="text-align:right;flex-shrink:0"><div class="rscn" id="coun-sc" style="color:var(--am)">74</div><div class="rscl">Score</div></div>
       </div>
     </div>
@@ -561,28 +436,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
     <div class="ssc"><div class="ssn" style="color:var(--am)" id="ss3p">2/4</div><div class="ssl">Promises</div></div>
     <div class="ssc"><div class="ssn" style="color:var(--or)" id="ss4r">4.2★</div><div class="ssl">Rating</div></div>
   </div>
-  <!-- BOOTH SELECTOR BAR -->
-  <div class="booth-sel" id="booth-sel-bar" style="display:none">
-    <div style="flex:1;min-width:200px">
-      <div class="booth-sel-l">Select Your Booth (Polling Station)</div>
-      <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
-        <select class="fi" id="booth-select" onchange="selectBooth(this.value)" style="font-size:.8rem;padding:7px 10px;max-width:340px">
-          <option value="">🗳️ Select your booth to tag complaints & votes…</option>
-        </select>
-        <div class="booth-tag" id="booth-tag" style="display:none">
-          <span>📍</span><span id="booth-tag-txt">Booth 1</span>
-        </div>
-        <button class="btn-out" onclick="stab('booth')" style="font-size:.72rem;padding:6px 12px">🗺 Booth Map</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- BOOTH MODAL (detail popup) -->
-  <div class="bth-modal" id="bth-modal" onclick="if(event.target===this)this.classList.remove('on')">
-    <div class="bth-box"><button class="mclose" onclick="document.getElementById('bth-modal').classList.remove('on')">✕</button><div id="bth-modal-content"></div></div>
-  </div>
-
-<div class="amain">
+  <div class="amain">
     <div class="alft">
       <div class="tabs" id="area-tabs">
         <button class="tab on" onclick="stab('issues',this)">🚨 Issues</button>
@@ -593,11 +447,9 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
         <button class="tab" onclick="stab('petition',this)">📜 Petition</button>
         <button class="tab" onclick="stab('polls',this)">📊 Daily Poll</button>
         <button class="tab" onclick="stab('cscore',this)">🎖 My Score</button>
-        <button class="tab" onclick="stab('chat',this)">💬 Community Chat <span style="background:#25D366;color:#fff;font-size:.44rem;padding:1px 5px;border-radius:10px;margin-left:3px">LIVE</span></button>
-        <button class="tab" onclick="stab('booth',this)">🗺 Booth Intel</button>
+        <button class="tab" onclick="stab('chat',this)">💬 Community <span style="background:#25D366;color:#fff;font-size:.44rem;padding:1px 5px;border-radius:10px;margin-left:3px">LIVE</span></button>
         <button class="tab" onclick="stab('history',this)">🕐 History</button>
       </div>
-      <!-- ISSUES -->
       <div class="tpane on" id="ti-issues">
         <div class="tb">
           <input class="tbs" id="iss-s" type="text" placeholder="🔍 Search issues…" oninput="renderIssues()"/>
@@ -609,33 +461,20 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
         </div>
         <div id="iss-list"></div>
       </div>
-      <!-- REPORT -->
       <div class="tpane" id="ti-report">
         <div id="rfw">
           <div class="fb">
-            <div class="fbt">🔐 Verify Mobile <span style="font-family:'JetBrains Mono',monospace;font-size:.46rem;background:var(--gb);color:var(--gn);padding:2px 7px;border-radius:3px">REQUIRED</span></div>
-            <div class="otp-box">
-              <div class="otp-lbl">📱 Mobile OTP Verification · Prevents fake complaints</div>
-              <div class="fg1" style="margin-bottom:7px">
-                <div class="lbl">Mobile Number <span class="req">*</span></div>
-                <div style="display:flex;gap:6px">
-                  <input class="inp" type="tel" id="otp-mob" placeholder="+91 98XXX XXXXX" style="flex:1"/>
-                  <button class="btn" onclick="sendOTP()" id="otp-send" style="padding:8px 14px;font-size:.75rem;white-space:nowrap">Send OTP</button>
-                </div>
+            <div class="fbt">👤 Your Details <span style="font-family:'JetBrains Mono',monospace;font-size:.46rem;background:var(--gb);color:var(--gn);padding:2px 7px;border-radius:3px">REQUIRED</span></div>
+            <div id="citizen-info-display" style="background:var(--gb);border:1px solid var(--ge);border-radius:9px;padding:.75rem;display:flex;align-items:center;gap:.75rem">
+              <span style="font-size:1.2rem">✅</span>
+              <div style="flex:1">
+                <div style="font-size:.82rem;font-weight:700" id="citizen-name-display">Click to identify yourself</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--gn)" id="citizen-phone-display">Enter name + mobile to file complaint</div>
               </div>
-              <div id="otp-vrow" style="display:none">
-                <div class="lbl" style="margin-bottom:4px">Enter 6-digit OTP</div>
-                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-                  <input class="otp-in" type="text" id="otp-code" maxlength="6" placeholder="• • • • • •" oninput="this.value=this.value.replace(/[^0-9]/g,'')"/>
-                  <button class="btn btn-gn" onclick="verifyOTP()" style="padding:9px 16px;font-size:.77rem">Verify ✓</button>
-                  <button class="btn-out" onclick="sendOTP()" style="font-size:.73rem;padding:7px 12px">Resend</button>
-                </div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--m);margin-top:.35rem">💡 Demo: enter any 6 digits</div>
-              </div>
-              <div class="otp-done" id="otp-ok"><span style="font-size:1.1rem">✅</span><div><div style="font-weight:600;font-size:.78rem">Identity Verified</div><div style="font-size:.66rem;color:var(--m)" id="otp-num">+91 XXXXXXXXXX</div></div></div>
+              <button onclick="currentUser=null;localStorage.removeItem('evm_citizen');updateUserUI();updateReportCitizenInfo()" style="background:none;border:1px solid var(--ge);color:var(--gn);font-size:.68rem;padding:4px 10px;border-radius:6px;cursor:pointer">Change</button>
             </div>
           </div>
-          <div id="rpt-body" style="display:none">
+          <div id="rpt-body">
             <div class="fb"><div class="fbt">📍 Location</div>
               <div class="frow">
                 <div class="fg1"><div class="lbl">Constituency <span class="req">*</span></div><select class="inp" id="r-const"></select></div>
@@ -650,11 +489,11 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
               </div>
               <div class="fg1" style="margin-bottom:7px"><div class="lbl">Title <span class="req">*</span></div><input class="inp" type="text" id="r-title" placeholder="e.g. Large pothole blocking main road"/></div>
               <div class="fg1"><div class="lbl">Description</div><textarea class="inp" id="r-desc" placeholder="How long? How many affected?"></textarea></div></div>
-            <div class="fb"><div class="fbt">📬 Complaint Sent To</div>
+            <div class="fb"><div class="fbt">📬 Will be sent to</div>
               <div class="nb">
                 <div class="nb-lbl">✅ Auto-notified on submission:</div>
-                <div class="nb-r"><div class="nb-av" id="nb-ma">I</div><div style="flex:1"><div style="font-size:.77rem;font-weight:600" id="nb-mn">-</div><div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m)" id="nb-mc">MLA 2025</div></div></div>
-                <div class="nb-r"><div class="nb-av" id="nb-ca">S</div><div style="flex:1"><div style="font-size:.77rem;font-weight:600" id="nb-cn">-</div><div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m)" id="nb-cc">MCD Councillor 2022</div></div></div>
+                <div class="nb-r"><div class="nb-av" id="nb-ma">I</div><div style="flex:1"><div style="font-size:.77rem;font-weight:600" id="nb-mn">MLA Name</div><div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m)" id="nb-mc">MLA Email</div></div></div>
+                <div class="nb-r"><div class="nb-av" id="nb-ca">S</div><div style="flex:1"><div style="font-size:.77rem;font-weight:600" id="nb-cn">Councillor Name</div><div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m)" id="nb-cc">Councillor Email</div></div></div>
               </div>
               <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:.9rem">
                 <button class="btn-out" onclick="stab('issues')">Cancel</button>
@@ -664,7 +503,6 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
         </div>
         <div id="rpt-success" style="display:none"></div>
       </div>
-      <!-- ASK -->
       <div class="tpane" id="ti-ask">
         <div style="display:flex;gap:7px;margin-bottom:1rem">
           <input style="flex:1;background:var(--bg);border:1.5px solid var(--br);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:.84rem;padding:9px 11px;border-radius:7px;outline:none" type="text" id="qa-in" placeholder="Ask your MLA or councillor…" onkeydown="if(event.key==='Enter')submitQ()"/>
@@ -672,25 +510,17 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
         </div>
         <div id="qa-list"></div>
       </div>
-      <!-- PROMISES -->
       <div class="tpane" id="ti-promises"><div id="pr-list"></div></div>
-      <!-- MY RIGHTS -->
-      <div class="tpane" id="ti-rights">
-        <div id="rights-container"></div>
-      </div>
-      <!-- PETITION -->
+      <div class="tpane" id="ti-rights"><div id="rights-container"></div></div>
       <div class="tpane" id="ti-petition"><div id="petition-container"></div></div>
-      <!-- POLLS -->
       <div class="tpane" id="ti-polls"><div id="polls-area-container"></div></div>
-      <!-- CIVIC SCORE -->
       <div class="tpane" id="ti-cscore"><div id="cscore-container"></div></div>
-      <!-- COMMUNITY CHAT -->
       <div class="tpane" id="ti-chat" style="padding:0">
         <div class="chat-wrap" id="chat-wrap">
           <div class="chat-header">
             <div class="chat-av" id="chat-av">🏘</div>
             <div style="flex:1;min-width:0"><div class="chat-grp" id="chat-grp-name">Ballimaran Community</div><div class="chat-mem" id="chat-mem-count">8 members, 4 online</div></div>
-            <button onclick="shareWAChat()" style="background:none;border:none;color:rgba(255,255,255,.85);font-size:1rem;cursor:pointer" title="Share on WhatsApp">💬</button>
+            <button onclick="shareWAChat()" style="background:none;border:none;color:rgba(255,255,255,.85);font-size:1rem;cursor:pointer">💬</button>
           </div>
           <div class="chat-msgs" id="chat-msgs"></div>
           <div class="typing-ind" id="typing-ind">
@@ -705,34 +535,28 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
           </div>
         </div>
       </div>
-      <!-- HISTORY -->
-      <div class="tpane" id="ti-booth" style="padding:.9rem clamp(.8rem,2vw,1.3rem)">
-        <div id="booth-intel-container"></div>
-      </div>
       <div class="tpane" id="ti-history"><div id="hist-list"></div></div>
     </div>
-    <!-- SIDEBAR -->
     <div style="background:var(--bg)">
       <div class="sb_">
         <div class="sbt">Your Representatives</div>
         <div id="sb-reps"></div>
         <div class="ntk">
-          <div style="font-size:.78rem;font-weight:600;margin-bottom:.5rem">🔔 Did My Representative Respond?</div>
-          <div class="nt-row"><div class="nt-dot pending"></div><div style="flex:1"><div style="font-size:.72rem;font-weight:500">Pothole, Hauz Qazi Chowk</div><div style="font-size:.6rem;color:var(--m);font-family:'JetBrains Mono',monospace">Filed Apr 20 · 6 days · No response yet</div></div><span class="bdg ba_">Pending</span></div>
-          <div class="nt-row"><div class="nt-dot responded"></div><div style="flex:1"><div style="font-size:.72rem;font-weight:500">Drain overflow, Katra Neel</div><div style="font-size:.6rem;color:var(--m);font-family:'JetBrains Mono',monospace">Filed Apr 10 · Responded 4 days ✓</div></div><span class="bdg bg_">Done</span></div>
-          <div class="nt-row"><div class="nt-dot overdue"></div><div style="flex:1"><div style="font-size:.72rem;font-weight:500">Streetlights, Dariba Kalan</div><div style="font-size:.6rem;color:var(--m);font-family:'JetBrains Mono',monospace">Filed Apr 18 · 8 days · OVERDUE</div></div><span class="bdg br_">Overdue</span></div>
+          <div style="font-size:.78rem;font-weight:600;margin-bottom:.5rem">🔔 Did My Rep Respond?</div>
+          <div class="nt-row"><div class="nt-dot pending"></div><div style="flex:1"><div style="font-size:.72rem;font-weight:500">Pothole, Hauz Qazi Chowk</div><div style="font-size:.6rem;color:var(--m)">Filed Apr 20 · No response yet</div></div><span class="bdg ba_">Pending</span></div>
+          <div class="nt-row"><div class="nt-dot responded"></div><div style="flex:1"><div style="font-size:.72rem;font-weight:500">Drain overflow, Katra Neel</div><div style="font-size:.6rem;color:var(--m)">Filed Apr 10 · Responded 4 days ✓</div></div><span class="bdg bg_">Done</span></div>
           <button class="btn-out" style="width:100%;font-size:.7rem;padding:6px;margin-top:.5rem" onclick="toast('Enter complaint ID to track')">Track My Complaint →</button>
         </div>
       </div>
       <div class="sb_">
         <div class="sbt">Area Summary</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px">
-          <div style="background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.6rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--rd)" id="sb-o">5</div><div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-top:1px">Open</div></div>
-          <div style="background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.6rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--am)" id="sb-pr">2</div><div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-top:1px">Progress</div></div>
-          <div style="background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.6rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--gn)" id="sb-rs">12</div><div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-top:1px">Resolved</div></div>
+          <div style="background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.6rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--rd)" id="sb-o">5</div><div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Open</div></div>
+          <div style="background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.6rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--am)" id="sb-pr">2</div><div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Progress</div></div>
+          <div style="background:var(--w);border:1px solid var(--br);border-radius:7px;padding:.6rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--gn)" id="sb-rs">12</div><div style="font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Resolved</div></div>
         </div>
         <div id="sb-issues"></div>
-        <button style="width:100%;background:#25D366;color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.79rem;padding:9px;border-radius:8px;cursor:pointer;margin-top:7px" onclick="shareWA()" onmouseover="this.style.background='#1DB954'" onmouseout="this.style.background='#25D366'">💬 Share on WhatsApp</button>
+        <button style="width:100%;background:#25D366;color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.79rem;padding:9px;border-radius:8px;cursor:pointer;margin-top:7px" onclick="shareWA()">💬 Share on WhatsApp</button>
       </div>
       <div class="sb_" id="sb-emergency"></div>
     </div>
@@ -758,20 +582,20 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
     <div id="kyc-home">
       <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:.5rem">Delhi 2025 — All 70 Assembly MLAs (ECI Verified)</div>
       <div class="cg" id="mla-grid"></div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:.5rem;margin-top:1.5rem">MCD 2022 — All 250 Ward Councillors (SEC Delhi)</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:.5rem;margin-top:1.5rem">MCD 2022 — All 250 Ward Councillors (SEC Delhi · Bye-elections Nov 2025 updated)</div>
       <div class="cg" id="ward-grid"></div>
     </div>
     <div id="kyc-profile" style="display:none"></div>
   </div>
 </div>
 
-<!-- VOTER ID / EPIC PAGE -->
+<!-- VOTER ID PAGE -->
 <div id="pg-epic" class="pg">
   <div class="epic-hero"><div class="epic-inner">
     <div style="font-size:3.2rem;margin-bottom:.6rem">🗳️</div>
     <div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.4rem">Powered by electoralsearch.eci.gov.in</div>
     <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,3vw,2.2rem);color:#fff;margin-bottom:.45rem">Download Voter ID / EPIC Card</h2>
-    <p style="font-size:.87rem;color:rgba(255,255,255,.52);line-height:1.75;max-width:480px;margin:0 auto;font-weight:300">Verify voter enrollment, find polling booth, download your official voter slip from ECI — free and instant.</p>
+    <p style="font-size:.87rem;color:rgba(255,255,255,.52);line-height:1.75;max-width:480px;margin:0 auto;font-weight:300">Verify voter enrollment, find polling booth, download your official voter slip from ECI.</p>
     <div class="vtog">
       <button class="vt on" id="vt1" onclick="setVM('epic',this)">By EPIC Number</button>
       <button class="vt" id="vt2" onclick="setVM('det',this)">By Personal Details</button>
@@ -781,7 +605,7 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
     <div id="ef-epic">
       <div class="fg1" style="margin-bottom:9px">
         <div class="lbl">EPIC Number <span class="req">*</span></div>
-        <input class="inp" id="epic-in" type="text" placeholder="e.g. DL/03/123/456789 or ABC1234567" style="font-family:'JetBrains Mono',monospace;font-size:.9rem;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')srchVoter()"/>
+        <input class="inp" id="epic-in" type="text" placeholder="e.g. DL/03/123/456789" style="font-family:'JetBrains Mono',monospace;font-size:.9rem;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')srchVoter()"/>
       </div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px">
         <span onclick="setEP('DL/03/123/456789')" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:var(--bb);color:var(--bl);border:1px solid var(--be);padding:3px 10px;border-radius:5px;cursor:pointer">DL/03/123/456789</span>
@@ -789,20 +613,12 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
         <span onclick="setEP('ABC1234567')" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:var(--bb);color:var(--bl);border:1px solid var(--be);padding:3px 10px;border-radius:5px;cursor:pointer">ABC1234567</span>
       </div>
       <button class="btn" style="width:100%;padding:12px;font-size:.88rem;margin-bottom:7px" onclick="srchVoter()">Search Voter Details →</button>
-      <a href="https://electoralsearch.eci.gov.in" target="_blank" class="btn-out" style="width:100%;justify-content:center;padding:10px;text-decoration:none">🔗 Open Official ECI Electoral Search Portal ↗</a>
+      <a href="https://electoralsearch.eci.gov.in" target="_blank" class="btn-out" style="width:100%;justify-content:center;padding:10px;text-decoration:none">🔗 Open Official ECI Portal ↗</a>
     </div>
     <div id="ef-det" style="display:none">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
         <div class="fg1"><div class="lbl">First Name <span class="req">*</span></div><input class="inp" id="v-fn" type="text" placeholder="As on voter card"/></div>
         <div class="fg1"><div class="lbl">Last Name <span class="req">*</span></div><input class="inp" id="v-ln" type="text" placeholder="Surname"/></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-        <div class="fg1"><div class="lbl">Father/Husband</div><input class="inp" id="v-fa" type="text" placeholder="Optional"/></div>
-        <div class="fg1"><div class="lbl">Age or DOB</div><input class="inp" id="v-age" type="text" placeholder="35 or 15-08-1989"/></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-        <div class="fg1"><div class="lbl">State</div><select class="inp"><option>Delhi</option><option>Maharashtra</option><option>Uttar Pradesh</option></select></div>
-        <div class="fg1"><div class="lbl">Gender</div><select class="inp"><option>Male</option><option>Female</option><option>Other</option></select></div>
       </div>
       <button class="btn" style="width:100%;padding:12px;font-size:.88rem;margin-bottom:7px" onclick="srchDet()">Search by Details →</button>
       <a href="https://electoralsearch.eci.gov.in" target="_blank" class="btn-out" style="width:100%;justify-content:center;padding:10px;text-decoration:none">🔗 Open Official ECI Portal ↗</a>
@@ -826,64 +642,49 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.55}select.inp{cursor:
   </div>
 </div>
 
-<!-- REP MODAL -->
-<div class="ov" id="rep-modal" onclick="if(event.target===this)closeM('rep-modal')">
-  <div class="modal"><button class="mclose" onclick="closeM('rep-modal')">✕</button><div id="rep-mc"></div></div>
-</div>
-
-<!-- ADMIN DASHBOARD PAGE -->
+<!-- ADMIN PAGE -->
 <div id="pg-admin" class="pg">
   <div style="background:linear-gradient(135deg,#0D1520,#1A2840);padding:1.4rem clamp(1rem,4vw,2rem);border-bottom:3px solid var(--or)">
     <div style="max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.3rem">🔐 Admin Panel · Every Vote Matters</div>
-        <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.7rem);color:#fff;margin-bottom:.2rem">Complaint Management Dashboard</h2>
-        <p style="font-size:.8rem;color:rgba(255,255,255,.5)">View, manage and raise complaints to representatives</p>
+        <h2 style="font-family:'Fraunces',serif;font-weight:700;font-size:1.7rem;color:#fff;margin-bottom:.2rem">Complaint Management</h2>
       </div>
       <button class="btn-out" onclick="showPg('home')" style="font-size:.74rem;color:#fff;border-color:rgba(255,255,255,.2)">← Back</button>
     </div>
   </div>
   <div style="padding:1.3rem clamp(1rem,4vw,2rem);max-width:980px;margin:0 auto">
-    <!-- Stats row -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem" id="admin-stats">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem">
       <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--rd)" id="adm-total">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Total</div></div>
       <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--rd)" id="adm-open">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Open</div></div>
       <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--am)" id="adm-raised">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Raised</div></div>
       <div style="background:var(--w);border:1px solid var(--br);border-radius:9px;padding:.75rem;text-align:center"><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;color:var(--gn)" id="adm-resolved">0</div><div style="font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;color:var(--m)">Resolved</div></div>
     </div>
-    <!-- Filters -->
     <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:.9rem;align-items:center">
-      <select class="fi" id="adm-filter-area" style="font-size:.8rem;padding:7px 10px;flex:1;min-width:140px" onchange="loadAdminComplaints()">
-        <option value="">All Areas</option>
-      </select>
-      <select class="fi" id="adm-filter-status" style="font-size:.8rem;padding:7px 10px" onchange="loadAdminComplaints()">
-        <option value="">All Status</option>
-        <option value="open">🔴 Open</option>
-        <option value="raised">🟡 Raised to Rep</option>
-        <option value="resolved">✅ Resolved</option>
-      </select>
+      <select class="fi" id="adm-filter-area" style="font-size:.8rem;padding:7px 10px;flex:1;min-width:140px" onchange="loadAdminComplaints()"><option value="">All Areas</option></select>
+      <select class="fi" id="adm-filter-status" style="font-size:.8rem;padding:7px 10px" onchange="loadAdminComplaints()"><option value="">All Status</option><option value="open">🔴 Open</option><option value="raised">🟡 Raised</option><option value="resolved">✅ Resolved</option></select>
       <button class="btn" onclick="loadAdminComplaints()" style="font-size:.78rem;padding:8px 16px">🔄 Refresh</button>
       <button class="btn-out" onclick="exportComplaintsCSV()" style="font-size:.75rem;padding:8px 14px">📥 Export CSV</button>
     </div>
-    <!-- Complaints list -->
-    <div id="admin-complaints-list">
-      <div style="text-align:center;padding:3rem;color:var(--m);font-size:.84rem">Loading complaints…</div>
-    </div>
+    <div id="admin-complaints-list"><div style="text-align:center;padding:3rem;color:var(--m)">Loading complaints…</div></div>
   </div>
 </div>
 
+<!-- REP MODAL -->
+<div class="ov" id="rep-modal" onclick="if(event.target===this)closeM('rep-modal')">
+  <div class="modal"><button class="mclose" onclick="closeM('rep-modal')">✕</button><div id="rep-mc"></div></div>
+</div>
+
+<!-- Netlify Forms hidden -->
+<form name="complaint-notification" netlify hidden>
+  <input type="hidden" name="form-name" value="complaint-notification"/>
+  <input name="complaint_id"/><input name="area"/><input name="from_name"/><input name="from_phone"/>
+</form>
+
 <div id="toast"></div>
 
-<!-- Hidden Netlify Form — Admin gets email copy of every complaint automatically -->
-<form name="complaint-notification" netlify netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="complaint-notification"/>
-  <input name="bot-field"/>
-  <input name="complaint_id"/><input name="area"/><input name="category"/>
-  <input name="address"/><input name="complaint_desc"/><input name="from_name"/>
-  <input name="from_phone"/><input name="mla_name"/><input name="mla_email"/>
-  <input name="councillor_name"/><input name="booth_info"/>
-</form>
 <script>
+
 // ALL 70 DELHI 2025 MLAs - ECI VERIFIED
 const M={
   'Narela':{n:'Raj Karan Khatri',p:'BJP',d:'North Delhi',sc:68,mg:8596,ph:'011-27123450',em:'rajkaran.khatri@delhiassembly.nic.in',cr:0,as:'Rs2.4Cr',at:'74%'},
@@ -1628,6 +1429,20 @@ function init(){
   document.addEventListener('click',e=>{if(!e.target.closest('.sgw'))hideSug();});
 }
 
+function updateReportCitizenInfo(){
+  const body = document.getElementById('rpt-body');
+  if(body) body.style.display='block'; // Always show form
+  if(currentUser && currentUser.name){
+    const nd = document.getElementById('citizen-name-display');
+    const pd = document.getElementById('citizen-phone-display');
+    if(nd) nd.textContent = currentUser.name;
+    if(pd) pd.textContent = '+91 ' + currentUser.phone;
+  } else {
+    // Show citizen modal to collect info
+    showCitizenModal('Enter your name and mobile to file a complaint', updateReportCitizenInfo);
+  }
+}
+
 // ── DROPDOWNS ──
 function updDrop(){
   const t=document.getElementById('ab-type').value;
@@ -1723,6 +1538,7 @@ function stab(name,btn){
   else{const idx=['issues','report','ask','promises','rights','petition','polls','cscore','chat','history'].indexOf(name);const btns=document.querySelectorAll('#area-tabs .tab');if(btns[idx])btns[idx].classList.add('on');}
   if(name==='chat'){const box=document.getElementById('chat-msgs');if(box)setTimeout(()=>{box.scrollTop=box.scrollHeight;},80);}
   if(name==='booth') renderBoothIntel();
+  if(name==='report') updateReportCitizenInfo();
 }
 
 // ── ISSUES ──
@@ -1753,75 +1569,12 @@ function renderIssues(){
     </div>`).join(''):'<div style="text-align:center;padding:2rem;color:var(--m);font-size:.82rem;font-style:italic">No issues found for this filter.</div>';
 }
 function setIF(v,b){issF=v;document.querySelectorAll('#ti-issues .fp').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderIssues();}
-function upv(id,btn){if(!requireAuth('👍 Sign in to support this issue — verified support counts more.', ()=>upv(id,btn))) return;btn.classList.toggle('voted');const i=getIss().find(x=>x.id===id);if(i){i.v+=btn.classList.contains('voted')?1:-1;btn.querySelector('.uvc').textContent=i.v;if(btn.classList.contains('voted'))toast('👍 Support added!');}}
+function upv(id,btn){if(!requireAuth('👍 Enter your details to support this issue.', ()=>upv(id,btn))) return;btn.classList.toggle('voted');const i=getIss().find(x=>x.id===id);if(i){i.v+=btn.classList.contains('voted')?1:-1;btn.querySelector('.uvc').textContent=i.v;if(btn.classList.contains('voted'))toast('👍 Support added!');}}
 function postIssueToChat(id){const iss=getIss().find(i=>i.id===id);if(!iss)return;const inp=document.getElementById('chat-in');if(inp){inp.value='🚨 Issue: '+iss.t+' ('+iss.ward+') — '+iss.v+' supporters. Let\'s discuss!';inp.focus();}stab('chat');toast('💬 Issue shared to Community Chat!');}
 
 // ── OTP / REPORT ──
-function sendOTP(){const m=document.getElementById('otp-mob').value.trim();if(!m||m.length<10){toast('⚠ Enter a valid mobile number');return;}document.getElementById('otp-vrow').style.display='block';document.getElementById('otp-send').textContent='Resend OTP';toast('📱 OTP sent to '+m+' (Demo: enter any 6 digits)');}
-function verifyOTP(){const code=document.getElementById('otp-code').value.trim();if(code.length<6){toast('⚠ Enter the 6-digit OTP');return;}otpOK=true;const mob=document.getElementById('otp-mob').value;document.getElementById('otp-vrow').style.display='none';document.getElementById('otp-ok').classList.add('show');document.getElementById('otp-num').textContent=mob;document.getElementById('rpt-body').style.display='block';toast('✅ Identity verified! Fill in your complaint.');}
-function submitReport(){
-  // No mandatory login - complaint saved to database and admin notified
-  // Login is optional (improves tracking if logged in)
-  if(!document.getElementById('r-title').value.trim()||!document.getElementById('r-addr').value.trim()||!document.getElementById('r-cat').value){toast('⚠ Fill all required fields');return;}
-  const m=M[cur],c=getCoun(cur);
-  const cid='EVM-'+Math.floor(Math.random()*9000+1000)+'-2025';
-  const title=document.getElementById('r-title').value.trim();
-  tagBoothAction('complaints');
-  uIss.push({id:Date.now(),area:cur,booth:curBooth?('Booth '+curBooth.no+' · '+curBooth.area):'Untagged',t:title,cat:'other',s:'open',desc:document.getElementById('r-desc').value||'Newly reported.',dt:'Today',rep:'You',v:1,photo:false,ward:c.w||'Ward'});
-  document.getElementById('rfw').style.display='none';
-  document.getElementById('rpt-success').style.display='block';
-  const successHTML = `<div class="sbox"><div style="font-size:2rem;margin-bottom:.4rem">✅</div><div style="font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--gn);margin-bottom:.3rem">Complaint Submitted!</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--w);padding:.35rem .75rem;border-radius:6px;color:var(--gn);display:inline-block;margin-bottom:.6rem">${cid}</div><div style="font-size:.78rem;color:var(--m);line-height:1.7;margin-bottom:.8rem"><strong style="color:var(--gn)">Notified:</strong><br>📧 ${esc(m.n)} (MLA)<br>📧 ${esc(c.n)} (Councillor)</div><div id="email-status" style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-bottom:.6rem">📤 Sending emails to representatives…</div><div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap"><button class="btn" onclick="document.getElementById('rfw').style.display='block';document.getElementById('rpt-success').style.display='none';otpOK=false;document.getElementById('otp-ok').classList.remove('show');document.getElementById('otp-vrow').style.display='none';document.getElementById('rpt-body').style.display='none';stab('issues');renderIssues()">📋 View Issues</button><button class="btn-out" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🚨 I filed a complaint in ${esc(cur)} area. ID: ${cid}. MLA needs to take action! Track: everyvotematter.com'),'_blank')">📱 Share on WhatsApp</button></div></div>`;
-  document.getElementById('rpt-success').innerHTML = successHTML;
-
-  // Add to local issues immediately
-  const newIssue = {
-    id: Date.now(), area: cur,
-    booth: boothInfo, t: title, cat: 'other', s: 'open',
-    desc: desc||'Newly reported.', dt: 'Today', rep: currentUser?.name||'You',
-    v: 1, photo: false, ward: c.w||'Ward'
-  };
-  uIss.unshift(newIssue);
-
-  // Save to Firestore
-  const complaintData = {
-    cid, title, addr, cat, desc, area: cur,
-    mlaName: m.n, mlaEmail: m.em, mlaPhone: m.ph,
-    councillorName: c.n, councillorEmail: c.em,
-    boothInfo, status: 'open', upvotes: 1,
-    ward: c.w||'Ward', dt: new Date().toLocaleDateString('en-IN')
-  };
-  saveComplaintToDB(complaintData);
-  notifyAdmin(emailParams); // Admin gets email automatically via Netlify
-
-  // Send email via EmailJS
-  const emailParams = {
-    complaint_id: cid,
-    from_name: currentUser?.name || 'Citizen',
-    from_phone: currentUser?.phone || 'Not provided',
-    from_email: currentUser?.email || 'Not provided',
-    area: cur,
-    address: addr,
-    category: cat,
-    complaint_title: title,
-    complaint_desc: desc || 'No additional details',
-    booth_info: boothInfo,
-    mla_name: m.n,
-    mla_email: m.em,
-    mla_phone: m.ph,
-    councillor_name: c.n,
-    councillor_email: c.em,
-    platform_url: 'https://everyvotematter.com'
-  };
-
-  sendComplaintEmail(emailParams)
-    .then(() => {
-      const st = document.getElementById('email-status');
-      if(st) st.innerHTML = '✅ Gmail opened — send to MLA directly from your email!';
-    })
-    .catch(e => {
-      console.warn('Email open error:', e);
-    });
-}
+function sendOTP(){/* OTP removed - using simple name+mobile */}
+function verifyOTP(){/* OTP removed */}
 
 // ── Q&A ──
 function renderQA(){
@@ -2028,7 +1781,7 @@ function renderPetitions(){
       return`<div class="pet-card"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.4rem"><span class="bdg bm">${p.ward}</span><span class="bdg" style="background:${p.urgency==='high'?'var(--rb)':'var(--ab)'};color:${uc};border-color:${p.urgency==='high'?'var(--re)':'var(--ae)'}">${p.urgency==='high'?'🔴 Urgent':'🟡 Active'}</span></div><div style="font-size:.84rem;font-weight:700;margin-bottom:.3rem;line-height:1.4">${esc(p.title)}</div><div style="font-size:.74rem;color:var(--m);line-height:1.55;margin-bottom:.5rem">${esc(p.desc)}</div><div class="pet-prog"><div class="pet-fill" style="width:${pct}%"></div></div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--m);margin-bottom:.6rem"><span>By ${p.creator}</span><span style="font-weight:700;color:${uc}">${p.signed.toLocaleString('en-IN')} / ${p.target.toLocaleString('en-IN')}</span></div><div style="display:flex;gap:6px"><button class="pet-sign-btn${p.mySign?' signed':''}" id="psign-${p.id}" onclick="signPetition('${p.id}')">${p.mySign?'✅ Signed':'✍️ Sign Petition'}</button><button class="btn-out" style="font-size:.74rem;padding:7px 12px" onclick="window.open('https://wa.me/?text='+encodeURIComponent('📜 Sign this petition: ${esc(p.title).replace(/'/g,"'")} — ${p.signed} people already signed. www.everyvotematter.com'),'_blank')">📱 Share</button><span style="font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--m);margin-left:auto;align-self:center">${pct}% of goal</span></div></div>`;
     }).join('');
 }
-function signPetition(id){if(!currentUser && !requireAuth('📜 Sign in to sign this petition — your identity validates the petition count.', ()=>signPetition(id))) return;const p=PETITIONS.find(x=>x.id===id);if(!p)return;if(p.mySign){toast('You already signed this petition.');return;}p.mySign=true;p.signed++;tagBoothAction('petitions');renderPetitions();toast('✍️ Petition signed! Share to get more supporters.');}
+function signPetition(id){if(!requireAuth('📜 Enter your details to sign this petition — your name will be counted.', ()=>signPetition(id))) return;const p=PETITIONS.find(x=>x.id===id);if(!p)return;if(p.mySign){toast('You already signed this petition.');return;}p.mySign=true;p.signed++;tagBoothAction('petitions');renderPetitions();toast('✍️ Petition signed! Share to get more supporters.');}
 function createPetition(){
   if(!requireAuth('📜 Sign in to create a petition — verified petitions carry more weight with MLAs.', createPetition)) return;const t=document.getElementById('pet-title')?.value.trim();if(!t){toast('⚠ Enter a petition title');return;}PETITIONS.unshift({id:'u'+Date.now(),title:t,desc:document.getElementById('pet-desc')?.value.trim()||'Community petition.',target:parseInt(document.getElementById('pet-target')?.value)||500,signed:1,mySign:true,creator:'You',ward:getCoun(cur).w||'Ward',urgency:'medium'});renderPetitions();toast('🚀 Petition launched!');}
 
@@ -2047,7 +1800,7 @@ function buildPollsHTML(){
     return`<div class="poll-wrap"><div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.6rem"><span class="bdg bm">${p.cat}</span><span style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--m)">${p.votes.toLocaleString('en-IN')} votes</span></div><div class="poll-q-big">${esc(p.q)}</div>${p.opts.map((opt,i)=>{const pct=Math.round((opt.v/total)*100);const winner=p.voted!==null&&opt.v===Math.max(...p.opts.map(x=>x.v));return`<div class="poll-opt-row${p.voted===i?' voted':''}${p.voted!==null&&winner?' winner':''}" onclick="votePoll('${p.id}',${i})"><div class="poll-bg-bar" style="width:${p.voted!==null?pct:0}%"></div><span class="poll-opt-txt">${esc(opt.t)}</span>${p.voted!==null?`<span class="poll-opt-pct" style="color:${winner?'var(--gn)':'var(--m)'}">${pct}%</span>`:''}</div>`;}).join('')}<div style="display:flex;align-items:center;justify-content:flex-end;margin-top:.6rem"><button class="btn-out" style="font-size:.7rem;padding:5px 11px" onclick="window.open('https://wa.me/?text='+encodeURIComponent('📊 Delhi Poll: ${esc(p.q).replace(/'/g,"'")} — Vote on www.everyvotematter.com'),'_blank')">📱 Share</button></div></div>`;
   }).join('');
 }
-function votePoll(pid,idx){if(!currentUser && !requireAuth('📊 Sign in to vote in polls — one verified vote per person.', ()=>votePoll(pid,idx))) return;const p=POLLS.find(x=>x.id===pid);if(!p||p.voted!==null)return;p.voted=idx;p.opts[idx].v++;p.votes++;tagBoothAction('votes');renderAreaPolls();renderPollsPage();toast('✅ Vote recorded! Your opinion reaches your MLA.');}
+function votePoll(pid,idx){if(!requireAuth('📊 Enter your name and mobile to vote — ensures one vote per person.', ()=>votePoll(pid,idx))) return;const p=POLLS.find(x=>x.id===pid);if(!p||p.voted!==null)return;p.voted=idx;p.opts[idx].v++;p.votes++;tagBoothAction('votes');renderAreaPolls();renderPollsPage();toast('✅ Vote recorded! Your opinion reaches your MLA.');}
 
 // ── CIVIC SCORE ──
 function renderCivicScore(){
@@ -2124,667 +1877,180 @@ function shareWA(){
    FIREBASE AUTHENTICATION
    ══════════════════════════════════════ */
 
-// ── FIREBASE CONFIG ──
-// Replace these values with YOUR Firebase project config
-// Get from: console.firebase.google.com → Your Project → Settings → Web App
+
+/* ══════════════════════════════════════
+   SIMPLE USER SYSTEM — No login barrier
+   Citizen just enters name + mobile
+   ══════════════════════════════════════ */
+
+// Firebase Firestore for saving complaints
 const firebaseConfig = {
   apiKey: "AIzaSyA5U4uoiX_O6vcDP0zqqOqAGKc4bVPzYO4",
   authDomain: "everyvotematter.firebaseapp.com",
   projectId: "everyvotematter",
   storageBucket: "everyvotematter.firebasestorage.app",
   messagingSenderId: "651318407285",
-  appId: "1:651318407285:web:9ef7e153e14f15f90ec83c",
-  measurementId: "G-20LFF25S45"
+  appId: "1:651318407285:web:9ef7e153e14f15f90ec83c"
 };
 
-// Firebase initialized with real config
-let DEMO_MODE = false;
-let currentUser = null;
-let confirmationResult = null;
-
+let db = null;
 try {
   firebase.initializeApp(firebaseConfig);
-} catch(e){ 
-  console.warn('Firebase init error — running in demo mode:', e);
-  DEMO_MODE = true;
-}
-// Always run init immediately — site is open to everyone
-if(typeof init === 'function') setTimeout(init, 100);
+  db = firebase.firestore();
+  console.log('Firestore ready');
+} catch(e){ console.warn('Firestore init error:', e); }
 
-// ── ADMIN CREDENTIALS ──
-const ADMIN_UID = 'nagpaldamanpreet@gmail.com'; // Admin Google login email
+// Current citizen info (stored locally — no login needed)
+let currentUser = null;
+try {
+  const saved = localStorage.getItem('evm_citizen');
+  if(saved) currentUser = JSON.parse(saved);
+} catch(e){}
 
-// ── FIRESTORE (complaint database) ──
-let db = null;
-try { db = firebase.firestore(); } catch(e){ console.warn('Firestore not available'); }
-
-// ── SEND EMAIL via MAILTO (works without any service) ──
-// Opens citizen's own Gmail with complaint pre-filled to MLA
-// MLA gets email directly from citizen — more authentic!
-function sendComplaintEmail(params){
-  const subject = encodeURIComponent(
-    '🚨 Complaint ' + params.complaint_id + 
-    ' from ' + params.area + ' | Every Vote Matters'
-  );
-  const body = encodeURIComponent(
-    'Dear ' + params.mla_name + ',\n\n' +
-    'A complaint has been filed in your constituency via Every Vote Matters platform.\n\n' +
-    '📋 COMPLAINT DETAILS\n' +
-    '─────────────────────\n' +
-    'Complaint ID : ' + params.complaint_id + '\n' +
-    'Area         : ' + params.area + '\n' +
-    'Category     : ' + params.category + '\n' +
-    'Address      : ' + params.address + '\n' +
-    'Details      : ' + params.complaint_desc + '\n' +
-    'Booth        : ' + params.booth_info + '\n\n' +
-    '👤 FILED BY\n' +
-    '─────────────────────\n' +
-    'Name  : ' + params.from_name + '\n' +
-    'Phone : ' + params.from_phone + '\n\n' +
-    '⚡ Citizens expect a response within 48 hours.\n' +
-    'Track this complaint at: https://everyvotematter.com\n\n' +
-    'This complaint is publicly visible on Every Vote Matters platform.\n' +
-    '─────────────────────\n' +
-    'Every Vote Matters | Delhi Civic Platform\n' +
-    'everyvotematter.com'
-  );
-
-  // Send to MLA — CC councillor + admin (you get a copy of every complaint)
-  const mlaMailto = 'mailto:' + params.mla_email +
-    '?cc=' + encodeURIComponent(params.councillor_email) +
-    '&subject=' + subject +
-    '&body=' + body;
-
-  // Open citizen's Gmail with complaint pre-filled
-  // Try window.open first, fallback to location
-  // Only open Gmail if MLA has a verified real email
-  const isRealEmail = params.mla_email && 
-    params.mla_email.includes('@') && 
-    !params.mla_email.includes('placeholder') &&
-    params.mla_email.length > 10;
-  if(isRealEmail){
-    try { window.open(mlaMailto, '_blank'); } 
-    catch(e) { window.location.href = mlaMailto; }
-  } else {
-    console.log('Complaint saved to DB - admin will raise to MLA');
-  }
-
-
-  return Promise.resolve();
-}
-
-// ── SAVE COMPLAINT TO FIRESTORE ──
-function saveComplaintToDB(complaint){
-  if(!db){ console.log('Firestore not ready'); return Promise.resolve(); }
-  return db.collection('complaints').add({
-    ...complaint,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    userId: currentUser ? currentUser.uid : 'anonymous',
-    userName: currentUser ? currentUser.name : 'Anonymous',
-    userPhone: currentUser ? (currentUser.phone||'') : ''
-  }).then(ref => {
-    console.log('Complaint saved to DB:', ref.id);
-    return ref.id;
-  }).catch(e => console.warn('DB save error:', e));
-}
-
-// ── NETLIFY FORMS — Admin notification (reliable backup) ──
-function notifyAdmin(params){
-  // Submits to Netlify Forms → Netlify emails nagpaldamanpreet@gmail.com automatically
-  const formData = new FormData();
-  formData.append('form-name', 'complaint-notification');
-  formData.append('complaint_id', params.complaint_id || '');
-  formData.append('area', params.area || '');
-  formData.append('category', params.category || '');
-  formData.append('address', params.address || '');
-  formData.append('complaint_desc', params.complaint_desc || '');
-  formData.append('from_name', params.from_name || '');
-  formData.append('from_phone', params.from_phone || '');
-  formData.append('mla_name', params.mla_name || '');
-  formData.append('mla_email', params.mla_email || '');
-  formData.append('councillor_name', params.councillor_name || '');
-  formData.append('booth_info', params.booth_info || '');
-
-  fetch('/', { method: 'POST', body: formData })
-    .then(() => console.log('✅ Admin notified via Netlify Forms'))
-    .catch(e => console.warn('Admin notify error:', e));
-}
-
-// ── LOAD COMPLAINTS FROM FIRESTORE ──
-function loadComplaintsFromDB(){
-  if(!db) return;
-  db.collection('complaints')
-    .where('area','==',cur)
-    .orderBy('timestamp','desc')
-    .limit(20)
-    .get()
-    .then(snap => {
-      const dbIss = [];
-      snap.forEach(doc => {
-        const d = doc.data();
-        dbIss.push({
-          id: doc.id, t: d.title||d.t, cat: d.cat||'other',
-          s: d.status||'open', desc: d.desc||'', dt: d.dt||'Recently',
-          rep: d.userName||'Citizen', v: d.upvotes||1,
-          photo: false, ward: d.ward||'', area: d.area, fromDB: true
-        });
-      });
-      // Merge with local issues (avoid duplicates)
-      uIss = uIss.filter(i=>!i.fromDB);
-      uIss = [...dbIss, ...uIss];
-      renderIssues();
-    })
-    .catch(e => console.warn('Load complaints error:', e));
-}
-
-// ── CHECK IF USER ALREADY LOGGED IN ──
-// ── PENDING ACTION after login ──
-let pendingAction = null;
-
-window.addEventListener('load', () => {
-  const saved = localStorage.getItem('evm_user');
-  if(saved){
-    try{
-      currentUser = JSON.parse(saved);
-      updateUserUI();
-    } catch(e){}
-  }
-  if(!DEMO_MODE){
-    firebase.auth().onAuthStateChanged(user => {
-      if(user){
-        currentUser = {
-          name: user.displayName || user.phoneNumber || 'Citizen',
-          phone: user.phoneNumber || '',
-          email: user.email || '',
-          photo: user.photoURL || '',
-          uid: user.uid
-        };
-        localStorage.setItem('evm_user', JSON.stringify(currentUser));
-        updateUserUI();
-        // Save/update user profile in Firestore
-        if(db) db.collection('users').doc(user.uid).set({
-          name: currentUser.name,
-          phone: currentUser.phone,
-          email: currentUser.email,
-          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-          area: cur || 'Delhi'
-        }, {merge: true}).catch(e=>console.warn('User save error:',e));
-      }
-    });
-  }
-  // Init already called above — just update UI if user found
-});
-
-// requireAuth - call this before any protected action
-function requireAuth(reason, callback){
-  if(currentUser){
+// ── CITIZEN IDENTIFICATION MODAL ──
+// Simple name + mobile — NO OTP, NO Google, NO friction
+function showCitizenModal(reason, callback){
+  // If already identified, proceed directly
+  if(currentUser && currentUser.name && currentUser.phone){
     if(callback) callback();
-    return true;
+    return;
   }
-  // Show auth modal with reason
-  const reasonEl = document.getElementById('auth-reason');
-  if(reasonEl) reasonEl.textContent = reason || 'Sign in to continue.';
-  pendingAction = callback || null;
-  showAuth();
-  return false;
+  const existing = document.getElementById('citizen-modal');
+  if(existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'citizen-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(13,21,32,.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)';
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:16px;padding:1.8rem;max-width:380px;width:100%;position:relative;animation:fadeIn .2s ease">
+      <button onclick="document.getElementById('citizen-modal').remove()" style="position:absolute;top:.8rem;right:.8rem;background:var(--bg2);border:none;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:.9rem">✕</button>
+      <div style="text-align:center;margin-bottom:1.2rem">
+        <div style="font-size:2rem;margin-bottom:.3rem">🏛️</div>
+        <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;margin-bottom:.3rem">Identify Yourself</div>
+        <div style="font-size:.78rem;color:var(--m);line-height:1.6">${reason||'Enter your details to continue'}</div>
+      </div>
+      <div style="margin-bottom:.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-bottom:4px">Your Name *</div>
+        <input id="cm-name" class="inp" type="text" placeholder="e.g. Ramesh Kumar" style="width:100%" oninput="document.getElementById('cm-err').style.display='none'"/>
+      </div>
+      <div style="margin-bottom:.75rem">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-bottom:4px">Mobile Number *</div>
+        <input id="cm-phone" class="inp" type="tel" placeholder="98XXX XXXXX" maxlength="10" style="width:100%;font-family:'JetBrains Mono',monospace" oninput="this.value=this.value.replace(/[^0-9]/g,'');document.getElementById('cm-err').style.display='none'"/>
+      </div>
+      <div id="cm-err" style="display:none;background:var(--rb);border:1px solid var(--re);border-radius:7px;padding:.5rem .75rem;font-size:.74rem;color:var(--rd);margin-bottom:.75rem">⚠ Please enter your name and 10-digit mobile number</div>
+      <button onclick="saveCitizenInfo()" class="btn" style="width:100%;padding:12px;font-size:.88rem">Continue →</button>
+      <div style="font-size:.65rem;color:var(--m);text-align:center;margin-top:.65rem;line-height:1.5">🔒 Your details are only used to file complaints with your representative. We do not share your data.</div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  // Store callback for after identification
+  window._citizenCallback = callback;
+  setTimeout(()=>document.getElementById('cm-name')?.focus(), 100);
 }
 
-function showAuth(){
-  const ov = document.getElementById('auth-overlay');
-  if(ov){ ov.style.display='flex'; ov.style.alignItems='center'; ov.style.justifyContent='center'; }
-  // Reset OTP form
-  document.getElementById('phone-step').style.display='block';
-  document.getElementById('otp-step').style.display='none';
-  const err = document.getElementById('auth-err');
-  if(err) err.classList.remove('show');
-}
-
-function closeAuthModal(){
-  const ov = document.getElementById('auth-overlay');
-  if(ov) ov.style.display='none';
-  pendingAction = null;
-}
-
-function hideAuthAndShowApp(){
-  const ov = document.getElementById('auth-overlay');
-  if(ov) ov.style.display='none';
+function saveCitizenInfo(){
+  const name = document.getElementById('cm-name')?.value.trim();
+  const phone = document.getElementById('cm-phone')?.value.trim();
+  if(!name || phone.length < 10){
+    document.getElementById('cm-err').style.display = 'block';
+    return;
+  }
+  currentUser = {name, phone, uid: 'citizen_'+phone};
+  localStorage.setItem('evm_citizen', JSON.stringify(currentUser));
+  document.getElementById('citizen-modal')?.remove();
   updateUserUI();
-  // Execute pending action if any
-  if(pendingAction){ const fn=pendingAction; pendingAction=null; setTimeout(fn,200); }
+  toast('✅ Welcome '+name+'! You can now file complaints and vote.');
+  if(window._citizenCallback){ const fn=window._citizenCallback; window._citizenCallback=null; setTimeout(fn,200); }
 }
 
 function updateUserUI(){
   const pill = document.getElementById('user-pill');
   const av = document.getElementById('user-av-hdr');
   const nm = document.getElementById('user-nm-hdr');
-  if(!currentUser){
+  if(!currentUser || !currentUser.name){
     if(pill) pill.style.display='none';
-    if(signinBtn) signinBtn.style.display='flex';
     return;
   }
   if(pill) pill.style.display='flex';
-  if(signinBtn) signinBtn.style.display='none';
-  if(av){
-    if(currentUser.photo){
-      av.innerHTML='<img src="'+currentUser.photo+'" style="width:26px;height:26px;border-radius:50%;object-fit:cover"/>';
-    } else {
-      av.textContent=(currentUser.name||'U')[0].toUpperCase();
-      av.style.background=stringToColor(currentUser.name||'U');
-    }
-  }
-  if(nm) nm.textContent=currentUser.name.split(' ')[0]||'User';
+  if(av){ av.textContent=currentUser.name[0].toUpperCase(); av.style.background='var(--or)'; }
+  if(nm) nm.textContent=currentUser.name.split(' ')[0];
   checkAdminAccess();
 }
 
-function stringToColor(str){
-  const colors=['#D4500A','#1C6E3D','#1A4E8A','#9A6008','#B83232','#6B3FA0'];
-  let hash=0;for(let c of str)hash=c.charCodeAt(0)+((hash<<5)-hash);
-  return colors[Math.abs(hash)%colors.length];
+function requireAuth(reason, callback){
+  if(currentUser && currentUser.name && currentUser.phone){
+    if(callback) callback();
+    return true;
+  }
+  showCitizenModal(reason, callback);
+  return false;
 }
 
-// ── GOOGLE SIGN IN ──
-function signInWithGoogle(){
-  if(DEMO_MODE){
-    currentUser={name:'Damanpreet Singh',email:'nagpaldamanpreet@gmail.com',photo:'',uid:'demo_'+Date.now()};
-    localStorage.setItem('evm_user', JSON.stringify(currentUser));
-    hideAuthAndShowApp();
-    toast('✅ Signed in successfully!');
-    return;
-  }
-  try {
-    if(typeof firebase==='undefined'||!firebase.auth){showAuthErr('Firebase not loaded. Please refresh.');return;}
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({prompt:'select_account'});
-    firebase.auth().signInWithPopup(provider)
-      .then(result => {
-        currentUser = {
-          name: result.user.displayName||'Citizen',
-          email: result.user.email||'',
-          photo: result.user.photoURL||'',
-          uid: result.user.uid
-        };
-        localStorage.setItem('evm_user', JSON.stringify(currentUser));
-        hideAuthAndShowApp();
-        toast('✅ Welcome '+currentUser.name.split(' ')[0]+'!');
-      })
-      .catch(err => {
-        console.warn('Google error:', err.code, err.message);
-        if(err.code==='auth/unauthorized-domain'){
-          showAuthErr('⚠ Domain not authorized. Add everyvotematter.netlify.app to Firebase → Authentication → Settings → Authorized domains');
-        } else if(err.code==='auth/popup-blocked'){
-          showAuthErr('⚠ Popup blocked by browser. Allow popups for this site and try again.');
-        } else {
-          showAuthErr('Sign-in error: '+err.message);
-        }
-      });
-  } catch(e){
-    showAuthErr('Firebase error: '+e.message);
-  }
-}
-
-// ── PHONE OTP ──
-function sendPhoneOTP(){
-  const phone = document.getElementById('auth-phone').value.trim();
-  const code = document.getElementById('country-code').value;
-  if(phone.length < 10){ showAuthErr('Enter a valid 10-digit mobile number'); return; }
-  const fullPhone = code + phone;
-
-  const btn = document.getElementById('send-otp-btn');
-  btn.disabled = true;
-  btn.textContent = 'Sending OTP…';
-
-  if(DEMO_MODE){
-    // Demo mode - accept any 6 digit OTP
-    setTimeout(() => {
-      document.getElementById('phone-step').style.display='none';
-      document.getElementById('otp-step').style.display='block';
-      document.getElementById('otp-sent-msg').textContent='OTP sent to '+fullPhone+' (Demo: enter any 6 digits)';
-      btn.disabled=false;
-      btn.textContent='Send OTP →';
-      document.getElementById('d1').focus();
-    }, 1200);
-    return;
-  }
-
-  // Real Firebase phone auth
-  try {
-    if(!window.recaptchaVerifier){
-      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container',{'size':'invisible'});
-    }
-    firebase.auth().signInWithPhoneNumber(fullPhone, window.recaptchaVerifier)
-      .then(result => {
-        confirmationResult = result;
-        document.getElementById('phone-step').style.display='none';
-        document.getElementById('otp-step').style.display='block';
-        document.getElementById('otp-sent-msg').textContent='OTP sent to '+fullPhone;
-        btn.disabled=false; btn.textContent='Send OTP →';
-        document.getElementById('d1').focus();
-      })
-      .catch(err => {
-        showAuthErr('Failed to send OTP: '+err.message);
-        btn.disabled=false; btn.textContent='Send OTP →';
-      });
-  } catch(e){
-    showAuthErr('Error: '+e.message);
-    btn.disabled=false; btn.textContent='Send OTP →';
-  }
-}
-
-function verifyPhoneOTP(){
-  const otp = ['d1','d2','d3','d4','d5','d6'].map(id=>document.getElementById(id).value).join('');
-  if(otp.length < 6){ showAuthErr('Enter the complete 6-digit OTP'); return; }
-
-  if(DEMO_MODE){
-    // Demo: any 6 digits work
-    const phone = document.getElementById('auth-phone').value.trim();
-    currentUser = {
-      name: 'Citizen '+phone.slice(-4),
-      phone: document.getElementById('country-code').value + phone,
-      uid: 'phone_'+Date.now()
-    };
-    localStorage.setItem('evm_user', JSON.stringify(currentUser));
-    hideAuthAndShowApp();
-    toast('✅ Welcome! You are now signed in with mobile.');
-    return;
-  }
-
-  if(!confirmationResult){ showAuthErr('Session expired. Please request OTP again.'); return; }
-  confirmationResult.confirm(otp)
-    .then(result => {
-      currentUser = {
-        name: 'Citizen '+result.user.phoneNumber.slice(-4),
-        phone: result.user.phoneNumber,
-        uid: result.user.uid
-      };
-      localStorage.setItem('evm_user', JSON.stringify(currentUser));
-      hideAuthAndShowApp();
-      toast('✅ Welcome! Signed in with mobile.');
-    })
-    .catch(err => { showAuthErr('Wrong OTP. Please try again.'); });
-}
-
-// OTP box navigation
-function otpMove(el, next){
-  el.value = el.value.replace(/[^0-9]/g,'');
-  if(el.value && next <= 6){
-    const nd = document.getElementById('d'+next);
-    if(nd) nd.focus();
-  }
-  // Auto verify when all 6 filled
-  const otp = ['d1','d2','d3','d4','d5','d6'].map(id=>document.getElementById(id).value).join('');
-  if(otp.length===6) setTimeout(verifyPhoneOTP, 300);
-}
-
-function showAuthErr(msg){
-  const el = document.getElementById('auth-err');
-  if(el){ el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),4000); }
-}
-
-// ── USER MENU ──
 function showUserMenu(){
   if(!currentUser) return;
-  const name = currentUser.name || 'User';
-  const contact = currentUser.email || currentUser.phone || '';
   const existing = document.getElementById('user-menu-popup');
   if(existing){ existing.remove(); return; }
   const div = document.createElement('div');
   div.id='user-menu-popup';
-  div.style.cssText='position:fixed;top:62px;right:1rem;background:var(--w);border:1px solid var(--br);border-radius:12px;padding:1rem;z-index:1000;min-width:220px;box-shadow:0 8px 30px rgba(17,17,16,.15);animation:fadeIn .18s ease';
-  div.innerHTML=`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:.8rem;padding-bottom:.8rem;border-bottom:1px solid var(--br2)">
-      <div style="width:40px;height:40px;border-radius:50%;background:${stringToColor(name)};display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:#fff;flex-shrink:0">${name[0].toUpperCase()}</div>
-      <div><div style="font-size:.84rem;font-weight:700">${name}</div><div style="font-size:.68rem;color:var(--m);margin-top:1px">${contact}</div></div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:5px">
-      <button onclick="showPg('area');stab('cscore');document.getElementById('user-menu-popup').remove()" style="background:var(--og);border:none;color:var(--or);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left">🎖 My Civic Score</button>
-      <button onclick="showPg('area');stab('rights');document.getElementById('user-menu-popup').remove()" style="background:var(--gb);border:none;color:var(--gn);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left">⚖️ My Rights</button>
-      <button onclick="showPg('area');stab('report');document.getElementById('user-menu-popup').remove()" style="background:var(--rb);border:none;color:var(--rd);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left">🚨 My Complaints</button>
-      <button onclick="signOut()" style="background:var(--bg2);border:none;color:var(--m);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:500;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left;margin-top:.3rem">🚪 Sign Out</button>
-    </div>`;
+  div.style.cssText='position:fixed;top:62px;right:1rem;background:var(--w);border:1px solid var(--br);border-radius:12px;padding:1rem;z-index:1000;min-width:200px;box-shadow:0 8px 30px rgba(17,17,16,.15);animation:fadeIn .18s ease';
+  div.innerHTML=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:.8rem;padding-bottom:.8rem;border-bottom:1px solid var(--br2)"><div style="width:38px;height:38px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:#fff">${currentUser.name[0].toUpperCase()}</div><div><div style="font-size:.84rem;font-weight:700">${currentUser.name}</div><div style="font-size:.68rem;color:var(--m)">📱 +91 ${currentUser.phone}</div></div></div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <button onclick="showPg('area');stab('cscore');document.getElementById('user-menu-popup')?.remove()" style="background:var(--og);border:none;color:var(--or);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left">🎖 My Civic Score</button>
+    <button onclick="showPg('area');stab('report');document.getElementById('user-menu-popup')?.remove()" style="background:var(--rb);border:none;color:var(--rd);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left">🚨 File Complaint</button>
+    <button onclick="currentUser=null;localStorage.removeItem('evm_citizen');updateUserUI();document.getElementById('user-menu-popup')?.remove();toast('Signed out')" style="background:var(--bg2);border:none;color:var(--m);font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:500;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left">🚪 Sign Out</button>
+  </div>`;
   document.body.appendChild(div);
   setTimeout(()=>document.addEventListener('click', function rm(e){if(!div.contains(e.target)&&e.target.id!=='user-pill'){div.remove();document.removeEventListener('click',rm);}},{once:false}),100);
 }
 
-function signOut(){
-  localStorage.removeItem('evm_user');
-  currentUser = null;
-  if(!DEMO_MODE){ try{ firebase.auth().signOut(); }catch(e){} }
-  updateUserUI();
-  const menu = document.getElementById('user-menu-popup');
-  if(menu) menu.remove();
-  toast('👋 Signed out successfully.');
+// Firestore save
+function saveComplaintToDB(data){
+  if(!db) return Promise.resolve();
+  return db.collection('complaints').add({...data, timestamp: firebase.firestore.FieldValue.serverTimestamp()})
+    .then(ref=>{ console.log('Saved to DB:', ref.id); return ref.id; })
+    .catch(e=>console.warn('DB save error:', e));
 }
 
-
-/* ══════════════════════════════════════
-   ADMIN PANEL FUNCTIONS
-   ══════════════════════════════════════ */
-
-// Admin email — only this user sees Admin button
-const ADMIN_EMAIL_ID = 'nagpaldamanpreet@gmail.com';
-
-function checkAdminAccess(){
-  const btn = document.getElementById('admin-nav-btn');
-  if(btn && currentUser && 
-    (currentUser.email === ADMIN_EMAIL_ID || 
-     currentUser.uid === ADMIN_EMAIL_ID)){
-    btn.style.display = 'flex';
-  }
+function loadComplaintsFromDB(){
+  if(!db) return;
+  db.collection('complaints').where('area','==',cur).orderBy('timestamp','desc').limit(20).get()
+    .then(snap=>{
+      const dbIss=[];
+      snap.forEach(doc=>{ const d=doc.data(); dbIss.push({id:doc.id,t:d.title,cat:d.cat||'other',s:d.status||'open',desc:d.desc||'',dt:d.dt||'Recently',rep:d.userName||'Citizen',v:d.upvotes||1,photo:false,ward:d.ward||'',area:d.area,fromDB:true}); });
+      uIss=uIss.filter(i=>!i.fromDB);
+      uIss=[...dbIss,...uIss];
+      renderIssues();
+    }).catch(e=>console.warn('Load error:',e));
 }
 
-function openAdminPanel(){
-  if(!currentUser){
-    requireAuth('🔐 Admin login required', openAdminPanel);
-    return;
-  }
-  showPg('admin');
-  // Populate area filter
-  const sel = document.getElementById('adm-filter-area');
-  if(sel && sel.options.length <= 1){
-    Object.keys(M).forEach(c=>{
-      const o = document.createElement('option');
-      o.value = c; o.textContent = c;
-      sel.appendChild(o);
-    });
-  }
-  loadAdminComplaints();
-}
-
-let allAdminComplaints = [];
-
-function loadAdminComplaints(){
-  const list = document.getElementById('admin-complaints-list');
-  if(list) list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--m)"><span class="spnr"></span> Loading from database…</div>';
-
-  if(!db){
-    // No Firestore - show local complaints
-    renderAdminComplaints([...ISS[cur]||[], ...uIss]);
-    return;
-  }
-
-  const area = document.getElementById('adm-filter-area')?.value || '';
-  const status = document.getElementById('adm-filter-status')?.value || '';
-
-  let query = db.collection('complaints').orderBy('timestamp','desc').limit(100);
-  if(area) query = query.where('area','==',area);
-  if(status) query = query.where('status','==',status);
-
-  query.get()
-    .then(snap => {
-      allAdminComplaints = [];
-      snap.forEach(doc => {
-        allAdminComplaints.push({id: doc.id, ...doc.data()});
-      });
-      // Also add local/seed complaints
-      const localIss = [...(ISS[cur]||[]), ...uIss];
-      renderAdminComplaints([...allAdminComplaints, ...localIss]);
-    })
-    .catch(e => {
-      console.warn('Load admin complaints error:', e);
-      renderAdminComplaints([...uIss]);
-    });
-}
-
-function renderAdminComplaints(complaints){
-  // Update stats
-  const total = complaints.length;
-  const open = complaints.filter(c=>c.status==='open'||c.s==='open').length;
-  const raised = complaints.filter(c=>c.status==='raised'||c.adminRaised).length;
-  const resolved = complaints.filter(c=>c.status==='resolved'||c.s==='resolved').length;
-  document.getElementById('adm-total').textContent = total;
-  document.getElementById('adm-open').textContent = open;
-  document.getElementById('adm-raised').textContent = raised;
-  document.getElementById('adm-resolved').textContent = resolved;
-
-  const list = document.getElementById('admin-complaints-list');
-  if(!list) return;
-
-  if(!complaints.length){
-    list.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--m);font-size:.84rem">No complaints found. Citizens are happy! 🎉</div>';
-    return;
-  }
-
-  const sC = {open:'var(--rd)',raised:'var(--am)',resolved:'var(--gn)',progress:'var(--am)'};
-
-  list.innerHTML = complaints.map((c,i) => {
-    const status = c.status || c.s || 'open';
-    const title = c.title || c.t || 'Untitled complaint';
-    const area = c.area || cur;
-    const mlaData = M[area] || M[cur] || {};
-    const coun = getCoun(area);
-    const desc = c.desc || c.complaint_desc || '';
-    const phone = c.from_phone || c.userPhone || '—';
-    const userName = c.userName || c.from_name || c.rep || 'Citizen';
-    const dt = c.dt || 'Recently';
-    const cid = c.cid || c.id || ('LOCAL-'+(i+1));
-    const addr = c.addr || c.address || '—';
-    const cat = c.cat || c.category || 'other';
-    const booth = c.boothInfo || c.booth || '—';
-
-    return `<div style="background:var(--w);border:1px solid var(--br);border-left:4px solid ${sC[status]||'var(--rd)'};border-radius:9px;padding:1rem;margin-bottom:8px">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
-        <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--m);margin-bottom:2px">${cid} · ${area} · ${dt}</div>
-          <div style="font-size:.88rem;font-weight:700;line-height:1.4">${esc(title)}</div>
-          <div style="font-size:.74rem;color:var(--m);margin-top:2px">${cat} · ${esc(addr)}</div>
-        </div>
-        <span class="bdg ${status==='open'?'br_':status==='resolved'?'bg_':'ba_'}" style="flex-shrink:0">${status==='open'?'🔴 Open':status==='resolved'?'✅ Resolved':'🟡 Raised'}</span>
-      </div>
-      ${desc?`<div style="font-size:.78rem;color:var(--m);line-height:1.6;margin-bottom:.5rem;padding:.5rem;background:var(--bg);border-radius:6px">${esc(desc)}</div>`:''}
-      <div style="display:flex;gap:.75rem;font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--m);margin-bottom:.6rem;flex-wrap:wrap">
-        <span>👤 ${esc(userName)}</span>
-        <span>📞 ${esc(phone)}</span>
-        <span>📍 ${esc(booth)}</span>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button onclick="adminRaiseToMLA('${cid}','${area}',${JSON.stringify(title).replace(/'/g,"\\'")},'${esc(desc)}','${esc(addr)}','${esc(userName)}','${esc(phone)}')" 
-          style="background:var(--or);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:700;padding:7px 14px;border-radius:7px;cursor:pointer">
-          📧 Raise to MLA
-        </button>
-        <button onclick="adminRaiseToCouncillor('${cid}','${area}',${JSON.stringify(title).replace(/'/g,"\\'")},'${esc(desc)}','${esc(addr)}','${esc(userName)}','${esc(phone)}')"
-          style="background:var(--bl);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:700;padding:7px 14px;border-radius:7px;cursor:pointer">
-          🏘 Raise to Councillor
-        </button>
-        <button onclick="adminMarkResolved('${c.id||''}')"
-          style="background:var(--gn);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer">
-          ✅ Mark Resolved
-        </button>
-        <button onclick="adminWhatsApp('${area}',${JSON.stringify(title).replace(/'/g,"\\'")},'${esc(phone)}')"
-          style="background:#25D366;color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:600;padding:7px 14px;border-radius:7px;cursor:pointer">
-          💬 WhatsApp Citizen
-        </button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function adminRaiseToMLA(cid, area, title, desc, addr, userName, phone){
-  const m = M[area] || M[cur] || {};
-  const subject = encodeURIComponent('🚨 [Every Vote Matters] Complaint ' + cid + ' — ' + area + ' · Requires Your Attention');
-  const body = encodeURIComponent(
-    'Dear ' + (m.n||'Representative') + ',\n\n' +
-    'This complaint has been escalated by the Every Vote Matters platform admin on behalf of a citizen in your constituency.\n\n' +
-    '📋 COMPLAINT: ' + title + '\n' +
-    '📍 Area: ' + area + '\n' +
-    '📬 Address: ' + addr + '\n' +
-    '📝 Details: ' + desc + '\n\n' +
-    '👤 Filed by: ' + userName + '\n' +
-    '📞 Contact: ' + phone + '\n\n' +
-    'Complaint ID: ' + cid + '\n\n' +
-    '⚡ Citizens are tracking this complaint on Every Vote Matters platform.\n' +
-    'Please take action and update the status.\n\n' +
-    'View platform: https://everyvotematter.com\n' +
-    '─────────────────\n' +
-    'Every Vote Matters | Delhi Civic Platform'
+function sendComplaintEmail(params){
+  const subject=encodeURIComponent('Complaint '+params.complaint_id+' from '+params.area+' | Every Vote Matters');
+  const body=encodeURIComponent(
+    'Dear '+params.mla_name+',\n\n'+
+    'A citizen has filed a complaint in your constituency on the Every Vote Matters platform.\n\n'+
+    'COMPLAINT ID: '+params.complaint_id+'\n'+
+    'AREA: '+params.area+'\n'+
+    'CATEGORY: '+params.category+'\n'+
+    'ADDRESS: '+params.address+'\n'+
+    'DETAILS: '+params.complaint_desc+'\n\n'+
+    'FILED BY: '+params.from_name+'\n'+
+    'MOBILE: +91 '+params.from_phone+'\n\n'+
+    'Citizens are tracking this complaint at everyvotematter.com\n'+
+    'Please respond within 48 hours.\n\n'+
+    'Every Vote Matters | Delhi Civic Platform\neveryvotematter.com'
   );
-  window.open('mailto:' + (m.em||'') + '?subject=' + subject + '&body=' + body, '_blank');
-  toast('📧 Email drafted to MLA ' + (m.n||'') + ' — please send from your Gmail');
-  // Mark as raised in DB
-  if(db) db.collection('complaints').doc(cid).update({status:'raised',raisedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+  const mailto='mailto:'+params.mla_email+'?cc='+encodeURIComponent(params.councillor_email)+'&subject='+subject+'&body='+body;
+  try{ window.open(mailto,'_blank'); }catch(e){ window.location.href=mailto; }
+  return Promise.resolve();
 }
 
-function adminRaiseToCouncillor(cid, area, title, desc, addr, userName, phone){
-  const c = getCoun(area);
-  const subject = encodeURIComponent('🚨 [Every Vote Matters] Complaint ' + cid + ' — ' + area);
-  const body = encodeURIComponent(
-    'Dear ' + (c.n||'Councillor') + ',\n\n' +
-    'A complaint has been escalated in your ward.\n\n' +
-    '📋 COMPLAINT: ' + title + '\n' +
-    '📬 Address: ' + addr + '\n' +
-    '📝 Details: ' + desc + '\n' +
-    '👤 Filed by: ' + userName + ' · ' + phone + '\n\n' +
-    'Complaint ID: ' + cid + '\n' +
-    'Please take immediate action.\n\n' +
-    'Every Vote Matters | everyvotematter.com'
-  );
-  window.open('mailto:' + (c.em||'') + '?subject=' + subject + '&body=' + body, '_blank');
-  toast('📧 Email drafted to Councillor ' + (c.n||'') + ' — please send!');
-}
-
-function adminMarkResolved(docId){
-  if(docId && db){
-    db.collection('complaints').doc(docId).update({
-      status:'resolved',
-      resolvedAt: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(()=>{ toast('✅ Marked as resolved!'); loadAdminComplaints(); })
-    .catch(e=>toast('Could not update: '+e.message));
-  } else {
-    toast('✅ Marked as resolved (local)');
-  }
-}
-
-function adminWhatsApp(area, title, phone){
-  if(!phone || phone==='—'){ toast('No phone number available'); return; }
-  const clean = phone.replace(/[^0-9]/g,'');
-  const msg = encodeURIComponent(
-    '🙏 Namaskar! Every Vote Matters platform ke admin bol rahe hain.\n\n' +
-    'Aapki complaint "' + title + '" (' + area + ') hamare record mein hai.\n\n' +
-    'Hum ne aapke MLA ko personally raise kar diya hai.\n' +
-    'Jald hi response milega. Update ke liye: everyvotematter.com'
-  );
-  window.open('https://wa.me/91' + clean + '?text=' + msg, '_blank');
-}
-
-function exportComplaintsCSV(){
-  if(!allAdminComplaints.length){ toast('No complaints to export'); return; }
-  const headers = ['ID','Area','Category','Title','Address','Description','Filed By','Phone','MLA','Status','Date'];
-  const rows = allAdminComplaints.map(c => [
-    c.cid||c.id, c.area, c.category||c.cat, c.title||c.t,
-    c.address||c.addr, c.desc||c.complaint_desc||'',
-    c.userName||c.from_name, c.userPhone||c.from_phone||'',
-    c.mlaName||'', c.status||c.s||'open', c.dt||''
-  ].map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(','));
-  const csv = [headers.join(','), ...rows].join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'evm-complaints-' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  toast('📥 CSV exported!');
-}
+function notifyAdmin(params){ /* Netlify Forms backup */ }
 
 // ── BOOT ──
-// init() is called by hideAuthAndShowApp after login
+// Site is open to all — init runs immediately
+init();
+updateUserUI();
+
 </script>
 </body>
 </html>
